@@ -18,7 +18,6 @@ export default function Home() {
             <NavBar />
             
             <main className="px-12 py-6">
-                {/* Hero Section */}
                 <section className="relative h-[450px] w-full overflow-hidden rounded-[32px] bg-orange-700">
                     <img src="/images/hero-bg.jpg" className="h-full w-full object-cover opacity-80" />
                     <div className="absolute inset-0 flex flex-col justify-center px-12 bg-gradient-to-r from-black/60 to-transparent">
@@ -29,7 +28,6 @@ export default function Home() {
                     </div>
                 </section>
 
-                {/* Active Rescues */}
                 <section className="py-12">
                     <div className="flex justify-between items-center mb-8">
                         <h2 className="text-3xl font-bold">Active Rescues</h2>
@@ -44,3 +42,5 @@ export default function Home() {
         </HomeLayout>
     );
 }
+
+Home.layout = (page: any) => page;
