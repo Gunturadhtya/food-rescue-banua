@@ -10,7 +10,7 @@ export function NavBar() {
             <div className="text-xl font-extrabold italic text-[#C34A15]">Food Rescue Banua</div>
             
             <div className="flex gap-8 font-medium text-sm">
-                <Link href="/home" className="text-[#C34A15] font-bold">Home</Link>
+                <Link href="/" className="text-[#C34A15] font-bold">Home</Link>
                 <Link href="#" className="hover:text-[#C34A15]">Orders</Link>
                 <Link href="#" className="hover:text-[#C34A15]">Profile</Link>
             </div>
@@ -29,7 +29,7 @@ export function NavBar() {
                     <>
                         <Bell size={20} className="cursor-pointer" />
                         <ShoppingBag size={20} className="cursor-pointer" />
-                        <Link href="/dashboard">
+                        <Link href="/home">
                             <User size={20} className="cursor-pointer" />
                         </Link>
                     </>
