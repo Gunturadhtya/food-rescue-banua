@@ -3,6 +3,7 @@ import { useRef } from 'react';
 import SecurityController from '@/actions/App/Http/Controllers/Settings/SecurityController';
 import Heading from '@/components/heading';
 import InputError from '@/components/input-error';
+import SettingsLayout from '@/layouts/settings/layout';
 import type { Props as ManagePasskeysProps } from '@/components/manage-passkeys';
 import ManagePasskeys from '@/components/manage-passkeys';
 import type { Props as ManageTwoFactorProps } from '@/components/manage-two-factor';
@@ -137,11 +138,4 @@ export default function Security(props: Props) {
     );
 }
 
-Security.layout = {
-    breadcrumbs: [
-        {
-            title: 'Security settings',
-            href: edit(),
-        },
-    ],
-};
+Security.layout = (page: any) => <SettingsLayout>{page}</SettingsLayout>;

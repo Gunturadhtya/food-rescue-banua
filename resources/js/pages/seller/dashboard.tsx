@@ -1,7 +1,7 @@
 import React from 'react';
 import { Head, useForm } from '@inertiajs/react';
 import { PlusCircle, History } from 'lucide-react';
-import AppLayout from '@/layouts/app-layout';
+import ProfileLayout from '@/layouts/profile-layouts';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
@@ -169,4 +169,4 @@ export default function SellerDashboard({ shop, rescues }: Props) {
     );
 }
 
-SellerDashboard.layout = (page: React.ReactNode) => <AppLayout>{page}</AppLayout>;
+SellerDashboard.layout = (page: React.ReactNode) => <ProfileLayout>{page}</ProfileLayout>;

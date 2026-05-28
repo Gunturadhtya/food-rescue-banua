@@ -2,13 +2,13 @@ import { Link } from '@inertiajs/react';
 import type { PropsWithChildren } from 'react';
 import Heading from '@/components/heading';
 import { Button } from '@/components/ui/button';
-import { Separator } from '@/components/ui/separator';
 import { useCurrentUrl } from '@/hooks/use-current-url';
 import { cn, toUrl } from '@/lib/utils';
 import { edit as editAppearance } from '@/routes/appearance';
 import { edit } from '@/routes/profile';
 import { edit as editSecurity } from '@/routes/security';
 import type { NavItem } from '@/types';
+import ProfileLayout from '@/layouts/profile-layouts';
 
 const sidebarNavItems: NavItem[] = [
     {
@@ -32,47 +32,50 @@ export default function SettingsLayout({ children }: PropsWithChildren) {
     const { isCurrentOrParentUrl } = useCurrentUrl();
 
     return (
-        <div className="px-4 py-6">
-            <Heading
-                title="Settings"
-                description="Manage your profile and account settings"
-            />
+        <ProfileLayout>
+            <div className="flex w-full max-w-4xl flex-col gap-6 px-4 py-6">
+                
+                <Heading
+                    title="Settings"
+                    description="Manage your profile and account settings"
+                />
 
-            <div className="flex flex-col lg:flex-row lg:space-x-12">
-                <aside className="w-full max-w-xl lg:w-48">
-                    <nav
-                        className="flex flex-col space-y-1 space-x-0"
-                        aria-label="Settings"
-                    >
-                        {sidebarNavItems.map((item, index) => (
-                            <Button
-                                key={`${toUrl(item.href)}-${index}`}
-                                size="sm"
-                                variant="ghost"
-                                asChild
-                                className={cn('w-full justify-start', {
-                                    'bg-muted': isCurrentOrParentUrl(item.href),
-                                })}
-                            >
-                                <Link href={item.href}>
-                                    {item.icon && (
-                                        <item.icon className="h-4 w-4" />
-                                    )}
-                                    {item.title}
-                                </Link>
-                            </Button>
-                        ))}
-                    </nav>
-                </aside>
+                {/* Navbar Horizontal (Menggantikan Sidebar Bawaan) */}
+                <nav
+                    className="flex flex-row space-x-4 border-b border-gray-200 overflow-x-auto"
+                    aria-label="Settings"
+                >
+                    {sidebarNavItems.map((item, index) => (
+                        <Button
+                            key={`${toUrl(item.href)}-${index}`}
+                            variant="ghost"
+                            asChild
+                            className={cn(
+                                'justify-center whitespace-nowrap rounded-none border-b-2 px-1 pb-3 pt-2 transition-colors hover:bg-transparent',
+                                {
+                                    'border-[#C34A15] text-[#C34A15] hover:text-[#C34A15] hover:border-[#C34A15] font-bold': isCurrentOrParentUrl(item.href),
+                                    'border-transparent text-neutral-500 hover:border-neutral-300 hover:text-neutral-700 font-medium': !isCurrentOrParentUrl(item.href),
+                                }
+                            )}
+                        >
+                            <Link href={item.href}>
+                                {item.icon && (
+                                    <item.icon className="mr-2 h-4 w-4" />
+                                )}
+                                {item.title}
+                            </Link>
+                        </Button>
+                    ))}
+                </nav>
 
-                <Separator className="my-6 lg:hidden" />
-
-                <div className="flex-1 md:max-w-2xl">
+                {/* Area Konten Form */}
+                <div className="flex-1 md:max-w-2xl py-4">
                     <section className="max-w-xl space-y-12">
                         {children}
                     </section>
                 </div>
+                
             </div>
-        </div>
+        </ProfileLayout>
     );
 }
