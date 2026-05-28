@@ -1,5 +1,5 @@
 import React from 'react';
-import { Head } from '@inertiajs/react';
+import { Head, usePage } from '@inertiajs/react';
 import ProfileLayout from '@/layouts/profile-layouts';
 import StatCard from '@/components/profile/stat-card';
 import ActiveTicket from '@/components/profile/active-ticket';
@@ -27,16 +27,22 @@ interface DashboardProps {
 }
 
 export default function Dashboard({ stats, activeTicket, tierProgress }: DashboardProps) {
+    // Retrieve the authenticated user from Inertia's shared props
+    const { auth } = usePage().props as any;
+
     return (
         <ProfileLayout>
             <Head title="Profile Dashboard" />
 
-            <section className="flex flex-col gap-2">
-                <h1 className="text-4xl font-bold font-jakarta text-text-primary">Your Impact</h1>
-                <p className="text-text-secondary text-lg">Thank you for helping reduce food waste.</p>
+            {/* Header Section */}
+            <section className="flex flex-col md:flex-row justify-between items-start md:items-end gap-4">
+                <div className="flex flex-col gap-2">
+                    <h1 className="text-4xl font-bold font-jakarta text-text-primary">Welcome, {auth.user.name}</h1>
+                    <p className="text-text-secondary text-lg">Upaya kamu telah menyelamatkan {stats.mealsSavedThisMonth} porsi makanan bulan ini.</p>
+                </div>
             </section>
 
-            <section className="flex flex-wrap gap-6">
+            <section className="flex flex-wrap gap-6 mt-4">
                 <StatCard
                     title="Total Savings"
                     value={`Rp ${stats.totalSavings.toLocaleString('id-ID')}`}
