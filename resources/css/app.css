@@ -8,6 +8,24 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme {
+    /* Brand Colors */
+    --color-brand-primary: rgba(169, 49, 0, 1);
+    --color-brand-surface: rgba(251, 243, 228, 1);
+    --color-brand-surface-alt: rgba(255, 248, 238, 1);
+
+    /* Text Colors */
+    --color-text-primary: rgba(30, 27, 19, 1);
+    --color-text-secondary: rgba(92, 64, 55, 1);
+    --color-text-muted: rgba(145, 111, 101, 1);
+
+    /* Borders & Accents */
+    --color-border-warning: rgba(252, 212, 0, 0.2);
+    --color-bg-warning: rgba(252, 212, 0, 1);
+
+    /* Typography */
+    --font-instrument: 'Instrument Sans', sans-serif;
+    --font-jakarta: 'Plus Jakarta Sans', sans-serif;
+
     --font-sans:
         'Instrument Sans', ui-sans-serif, system-ui, sans-serif,
         'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol',
