@@ -4,17 +4,22 @@ import { LogOut } from 'lucide-react';
 import { logout } from '@/routes';
 
 export default function ProfileLayout({ children }: { children: React.ReactNode }) {
-    const { url } = usePage();
+    const { url, props } = usePage();
+    // Access the user from the inertia page props
+    const user = props.auth?.user;
+
+    // Define the conditional dashboard link
+    const dashboardLink = user?.role === 'seller' ? '/seller/dashboard' : '/dashboard';
 
     const navItems = [
-        { name: 'Dashboard', href: '/profile' },
+        { name: 'Dashboard', href: dashboardLink },
         { name: 'My Orders', href: '/profile/orders' },
         { name: 'Settings', href: '/settings/profile' },
     ];
 
     return (
         <div className="min-h-screen bg-white font-instrument text-text-primary flex flex-col">
-            {/* Header / Navbar */}
+            {/* Header / Navbar stays the same... */}
             <header className="sticky top-0 z-50 bg-white border-b border-gray-100 px-8 py-4 flex justify-between items-center">
                 <div className="text-brand-primary font-bold text-xl">Food Rescue Banua</div>
                 <nav className="flex gap-6">
@@ -25,7 +30,6 @@ export default function ProfileLayout({ children }: { children: React.ReactNode 
             </header>
 
             <div className="flex flex-1 max-w-7xl w-full mx-auto p-8 gap-8">
-                {/* Sidebar Navigation */}
                 <aside className="w-64 shrink-0 flex flex-col justify-between border-r border-gray-100 pr-6 pb-8">
                     <div className="flex flex-col gap-2">
                         {navItems.map((item) => {
