@@ -1,42 +1,29 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Inertia\Response;
+use App\Actions\Profile\CalculateRescueStatsAction;
+use App\Actions\Profile\GetActiveTicketAction;
+use App\Actions\Profile\DetermineUserTierAction;
 
 class ProfileDashboardController extends Controller
 {
+    public function __construct(
+        private readonly CalculateRescueStatsAction $calculateStats,
+        private readonly GetActiveTicketAction $getActiveTicket,
+        private readonly DetermineUserTierAction $determineTier
+    ) {}
+
     public function __invoke(Request $request): Response
     {
-        return Inertia::render('profile', [
-            'user' => [
-                'name' => $request->user()?->name,
-            ],
-            'stats' => [
-                'savings' => 320000,
-                'rescuedKg' => 10.5,
-                'orders' => 125,
-                'mealsSavedThisMonth' => 42,
-            ],
-            'activeTicket' => [
-                'code' => 'CRB-9921',
-                'title' => 'Crystal Bakery Mystery Box',
-                'address' => 'Jl. Bumi Mas Raya No.3, Pemurus Baru',
-                'countdown' => [
-                    'hours' => 0,
-                    'minutes' => 42,
-                    'seconds' => 15,
-                ],
-                'availablePickup' => true,
-                'rescuesNearby' => 4,
-            ],
-            'tier' => [
-                'name' => 'Earth Keeper',
-                'remainingRescues' => 15,
-                'progress' => 0.7,
-            ],
+        $user = $request->user();
+
+        return Inertia::render('profile/dashboard', [
+            'stats' => $this->calculateStats->execute($user),
+            'activeTicket' => $this->getActiveTicket->execute($user),
+            'tierProgress' => $this->determineTier->execute($user),
         ]);
     }
 }
