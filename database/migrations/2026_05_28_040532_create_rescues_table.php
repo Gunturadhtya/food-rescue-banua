@@ -11,7 +11,6 @@ return new class extends Migration
         Schema::create('rescues', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
-            // Using decimal for currency and precise weight measurements
             $table->decimal('savings_amount', 10, 2);
             $table->decimal('weight_kg', 8, 2);
             $table->timestamps();
