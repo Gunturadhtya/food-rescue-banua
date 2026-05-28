@@ -1,10 +1,9 @@
-import { Head } from '@inertiajs/react';
+import { Head, Link } from '@inertiajs/react';
 import HomeLayout from '@/layouts/home-layout';
 import { NavBar } from '@/components/frontend/nav-bar';
 import { SiteFooter } from '@/components/frontend/site-footer';
 import { RestaurantCard } from '@/components/frontend/restaurant-card';
 
-// Define the shape of the data coming from Laravel
 interface ActiveRescue {
     id: number;
     shop_name: string;
@@ -43,14 +42,19 @@ export default function Home({ activeRescues }: Props) {
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                         {activeRescues.length > 0 ? (
                             activeRescues.map((item) => (
-                                <RestaurantCard
-                                    key={item.id}
-                                    name={item.shop_name}
-                                    distance={item.address}
-                                    discount={`Save Rp ${item.savings_amount.toLocaleString('id-ID')}`}
-                                    price={`${item.weight_kg} kg`}
-                                    image={item.image}
-                                />
+                                <Link 
+                                    key={item.id} 
+                                    href={`/rescue/${item.id}`}
+                                    className="block transition-transform duration-300 hover:-translate-y-2"
+                                >
+                                    <RestaurantCard
+                                        name={item.shop_name}
+                                        distance={item.address}
+                                        discount={`Save Rp ${item.savings_amount.toLocaleString('id-ID')}`}
+                                        price={`${item.weight_kg} kg`}
+                                        image={item.image}
+                                    />
+                                </Link>
                             ))
                         ) : (
                             <div className="col-span-full py-12 text-center text-neutral-500 bg-white rounded-3xl border border-dashed border-gray-200">
