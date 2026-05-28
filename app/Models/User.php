@@ -15,11 +15,18 @@ use Laravel\Fortify\TwoFactorAuthenticatable;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use App\Models\Ticket;
 use App\Models\Rescue;
+use App\Enums\Role;
 
 #[Fillable(['name', 'email', 'password'])]
 #[Hidden(['password', 'two_factor_secret', 'two_factor_recovery_codes', 'remember_token'])]
 class User extends Authenticatable implements PasskeyUser
 {
+    protected $casts = [
+        'email_verified_at' => 'datetime',
+        'password' => 'hashed',
+        'role' => Role::class, // Cast to Enum
+    ];
+
     /** @use HasFactory<UserFactory> */
     use HasFactory, Notifiable, PasskeyAuthenticatable, TwoFactorAuthenticatable;
 
@@ -51,5 +58,18 @@ class User extends Authenticatable implements PasskeyUser
     public function tickets(): HasMany
     {
         return $this->hasMany(Ticket::class);
+    }
+
+    public function hasRole(Role $role): bool
+    {
+        return $this->role === $role;
+    }
+
+    /**
+     * @return HasMany<Shop, $this>
+     */
+    public function shops(): HasMany
+    {
+        return $this->hasMany(Shop::class);
     }
 }
