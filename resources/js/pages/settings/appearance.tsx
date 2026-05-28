@@ -1,7 +1,8 @@
 import { Head } from '@inertiajs/react';
+import SettingsLayout from '@/layouts/settings/layout';
 import AppearanceTabs from '@/components/appearance-tabs';
 import Heading from '@/components/heading';
-import { edit as editAppearance } from '@/routes/appearance';
+import Security from './security';
 
 export default function Appearance() {
     return (
@@ -22,11 +23,4 @@ export default function Appearance() {
     );
 }
 
-Appearance.layout = {
-    breadcrumbs: [
-        {
-            title: 'Appearance settings',
-            href: editAppearance(),
-        },
-    ],
-};
+Appearance.layout = (page: any) => <SettingsLayout>{page}</SettingsLayout>;
