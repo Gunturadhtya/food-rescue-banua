@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileDashboardController;
 use App\Http\Controllers\SellerDashboardController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\RescueController;
+use App\Http\Controllers\UserOrderController; 
 use Illuminate\Support\Facades\Route;
 use App\Enums\Role;
 use Inertia\Inertia;
@@ -28,9 +29,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::middleware(['role:' . Role::USER->value])->group(function () {
         Route::get('/dashboard', ProfileDashboardController::class)->name('dashboard');
-        Route::get('/orders', function () {
-            return Inertia::render('user/orders');
-        })->name('orders');
+        Route::get('/orders', [UserOrderController::class, 'index'])->name('user.orders');
     });
 
     Route::middleware(['role:' . Role::ADMIN->value])->group(function () {

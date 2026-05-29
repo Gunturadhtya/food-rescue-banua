@@ -17,4 +17,9 @@ class Ticket extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function rescue(): BelongsTo
+    {
+        return $this->belongsTo(Rescue::class);
+    }
 }

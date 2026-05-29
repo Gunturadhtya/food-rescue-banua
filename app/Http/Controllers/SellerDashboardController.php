@@ -55,11 +55,13 @@ class SellerDashboardController extends Controller
         ]);
 
         Rescue::create([
-            'user_id' => null, // Explicitly unassigned
+            'user_id' => null,
             'shop_id' => $shop->id,
-            'status' => 'active',
+            'status' => \App\Enums\RescueStatus::ACTIVE,
             'savings_amount' => $validated['savings_amount'],
             'weight_kg' => $validated['weight_kg'],
+            // Add a default expiration time for the listing (e.g., end of the current day)
+            'expires_at' => now()->endOfDay(), 
         ]);
 
         Inertia::flash('toast', [

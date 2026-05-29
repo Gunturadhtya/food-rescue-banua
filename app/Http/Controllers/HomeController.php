@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\RescueStatus;
 use App\Models\Rescue;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -13,7 +14,7 @@ class HomeController extends Controller
     {
         // Fetch all active, unassigned rescues alongside their shop data
         $activeRescues = Rescue::with('shop:id,name,address')
-            ->where('status', 'active')
+            ->where('status', RescueStatus::ACTIVE)
             ->latest()
             ->get()
             ->map(function ($rescue) {
@@ -23,7 +24,6 @@ class HomeController extends Controller
                     'address' => $rescue->shop->address,
                     'savings_amount' => $rescue->savings_amount,
                     'weight_kg' => $rescue->weight_kg,
-                    // Use a placeholder if image doesn't exist on shop yet
                     'image' => '/images/croissant-bg.png', 
                 ];
             });
