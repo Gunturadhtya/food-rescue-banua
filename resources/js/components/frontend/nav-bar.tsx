@@ -16,7 +16,7 @@ export function NavBar() {
             <div className="flex gap-8 font-medium text-sm">
                 <Link 
                     href="/home" 
-                    className={isActive('/home') || isActive('/rescue/') ? 'text-[#C34A15] font-bold' : 'hover:text-[#C34A15]'}
+                    className={isActive('/home') ? 'text-[#C34A15] font-bold' : 'hover:text-[#C34A15]'}
                 >
                     Home
                 </Link>
