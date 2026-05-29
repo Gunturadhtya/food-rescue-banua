@@ -3,6 +3,7 @@ import HomeLayout from '@/layouts/home-layout';
 import { NavBar } from '@/components/frontend/nav-bar';
 import { SiteFooter } from '@/components/frontend/site-footer';
 import { RestaurantCard } from '@/components/frontend/restaurant-card';
+import { show as showRescue } from '@/actions/App/Http/Controllers/RescueController';
 
 interface ActiveRescue {
     id: number;
@@ -42,9 +43,9 @@ export default function Home({ activeRescues }: Props) {
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                         {activeRescues.length > 0 ? (
                             activeRescues.map((item) => (
-                                <Link 
-                                    key={item.id} 
-                                    href={`/rescue/${item.id}`}
+                                <Link
+                                    key={item.id}
+                                    href={showRescue.url(item.id)}
                                     className="block transition-transform duration-300 hover:-translate-y-2"
                                 >
                                     <RestaurantCard

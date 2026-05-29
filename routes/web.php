@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileDashboardController;
 use App\Http\Controllers\SellerDashboardController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\RescueController;
 use Illuminate\Support\Facades\Route;
 use App\Enums\Role;
 use Inertia\Inertia;
@@ -13,11 +14,13 @@ Route::middleware(['auth', 'verified'])->group(function () {
     
     Route::get('/home', [HomeController::class, 'index'])->name('home');
 
-    Route::get('/rescue/{id}', function ($id) {
-        return Inertia::render('frontend/rescue-detail', [
-            'id' => $id
-        ]);
-    })->name('rescue.detail');
+    // Route::get('/rescue/{id}', function ($id) {
+    //     return Inertia::render('frontend/rescue-detail', [
+    //         'id' => $id
+    //     ]);
+    // })->name('rescue.detail');
+
+    Route::get('/rescues/{rescue}', [RescueController::class, 'show'])->name('rescues.show');
 
     Route::get('/checkout/{id}', function ($id) {
         return Inertia::render('frontend/checkout', ['id' => $id]);
