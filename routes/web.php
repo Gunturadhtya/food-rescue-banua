@@ -24,8 +24,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
     })->name('checkout');
 
     Route::middleware(['role:' . Role::USER->value])->group(function () {
-        // PERBAIKAN: Rute diubah dari /profile menjadi /dashboard
         Route::get('/dashboard', ProfileDashboardController::class)->name('dashboard');
+        Route::get('/orders', function () {
+            return Inertia::render('user/orders');
+        })->name('orders');
     });
 
     Route::middleware(['role:' . Role::ADMIN->value])->group(function () {
