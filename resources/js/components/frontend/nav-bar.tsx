@@ -1,4 +1,4 @@
-import { Link, usePage } from '@inertiajs/react'; // Tambahkan usePage di sini
+import { Link, usePage } from '@inertiajs/react';
 import { Search, Bell, ShoppingBag, User } from 'lucide-react';
 import { login, register } from '@/routes';
 
@@ -6,9 +6,12 @@ export function NavBar() {
     const { auth } = usePage().props as any;
     const { url } = usePage(); 
     const isActive = (path: string) => url.startsWith(path);
+    const isSeller = auth?.user?.role === 'seller';
+    const ordersLink = isSeller ? '/seller/orders' : '/orders';
+    const dashboardLink = isSeller ? '/seller/dashboard' : '/dashboard';
 
     return (
-        <nav className="flex items-center justify-between px-12 py-6">
+        <nav className="flex items-center justify-between px-12 py-6 w-full">
             <Link href="/home" className="text-xl font-extrabold italic text-[#C34A15]">
                 Food Rescue Banua
             </Link>
@@ -21,16 +24,10 @@ export function NavBar() {
                     Home
                 </Link>
                 <Link 
-                    href="/orders" 
-                    className={isActive('/orders') ? 'text-[#C34A15] font-bold' : 'hover:text-[#C34A15]'}
+                    href={ordersLink} 
+                    className={isActive(ordersLink) ? 'text-[#C34A15] font-bold' : 'hover:text-[#C34A15]'}
                 >
                     Orders
-                </Link>
-                <Link 
-                    href="/profile" 
-                    className={isActive('/profile') ? 'text-[#C34A15] font-bold' : 'hover:text-[#C34A15]'}
-                >
-                    Profile
                 </Link>
             </div>
 
@@ -44,12 +41,12 @@ export function NavBar() {
             </div>
 
             <div className="flex gap-4 items-center">
-                {auth.user ? (
+                {auth?.user ? (
                     <>
                         <Bell size={20} className="cursor-pointer hover:text-[#C34A15]" />
                         <ShoppingBag size={20} className="cursor-pointer hover:text-[#C34A15]" />
-                        <Link href="/profile">
-                            <User size={20} className={`cursor-pointer ${isActive('/profile') ? 'text-[#C34A15]' : ''}`} />
+                        <Link href={dashboardLink}>
+                            <User size={20} className={`cursor-pointer ${isActive(dashboardLink) ? 'text-[#C34A15]' : ''}`} />
                         </Link>
                     </>
                 ) : (
