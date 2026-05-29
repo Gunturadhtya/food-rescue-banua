@@ -8,10 +8,11 @@ export default function ProfileLayout({ children }: { children: React.ReactNode 
     const { url, props } = usePage();
     const user = props.auth?.user;
     const dashboardLink = user?.role === 'seller' ? '/seller/dashboard' : '/dashboard';
+    const orderLink = user?.role === 'seller' ? '/seller/orders' : '/orders';
 
     const navItems = [
         { name: 'Dashboard', href: dashboardLink },
-        { name: 'My Orders', href: '/orders' },
+        { name: 'My Orders', href: orderLink },
         { name: 'Settings', href: '/settings' },
     ];
 
