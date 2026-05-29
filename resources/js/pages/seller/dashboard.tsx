@@ -1,7 +1,7 @@
 import React from 'react';
 import { Head, useForm } from '@inertiajs/react';
 import { PlusCircle, History } from 'lucide-react';
-import ProfileLayout from '@/layouts/profile-layouts';
+import SellerLayout from '@/layouts/seller-layout'; 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
@@ -43,12 +43,13 @@ export default function SellerDashboard({ shop, rescues }: Props) {
     };
 
     return (
-        <div className="p-6 space-y-6 max-w-7xl mx-auto">
+        <div className="space-y-6">
             <Head title="Seller Dashboard" />
 
+            {/* Jika variabel shop kosong/error sementara, kita kasih fallback pakai tanda tanya (?) agar layar tidak merah */}
             <div className="flex flex-col gap-1">
-                <h1 className="text-3xl font-bold font-jakarta text-gray-900">{shop.name}</h1>
-                <p className="text-sm text-neutral-500">{shop.address}</p>
+                <h1 className="text-3xl font-bold font-jakarta text-gray-900">{shop?.name || 'Nama Toko'}</h1>
+                <p className="text-sm text-neutral-500">{shop?.address || 'Alamat belum diatur'}</p>
             </div>
 
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 items-start">
@@ -128,7 +129,7 @@ export default function SellerDashboard({ shop, rescues }: Props) {
                                     </tr>
                                 </thead>
                                 <tbody className="divide-y divide-neutral-100 text-gray-900">
-                                    {rescues.data.length === 0 ? (
+                                    {!rescues?.data || rescues.data.length === 0 ? (
                                         <tr>
                                             <td colSpan={5} className="px-6 py-8 text-center text-neutral-400">
                                                 No rescue records cataloged yet.
@@ -169,4 +170,5 @@ export default function SellerDashboard({ shop, rescues }: Props) {
     );
 }
 
-SellerDashboard.layout = (page: React.ReactNode) => <ProfileLayout>{page}</ProfileLayout>;
+// Hanya menggunakan SellerLayout, tidak ada layout bawaan Laravel lain
+SellerDashboard.layout = (page: React.ReactNode) => <SellerLayout>{page}</SellerLayout>;

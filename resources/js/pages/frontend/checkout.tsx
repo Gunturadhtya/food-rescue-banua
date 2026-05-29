@@ -16,14 +16,12 @@ export default function Checkout({ id }: { id: string }) {
             <main className="mx-auto max-w-7xl px-8 py-10">
                 <div className="mb-10">
                     <h1 className="font-jakarta text-4xl font-bold text-gray-900">Selesaikan Rescue</h1>
-                    <p className="mt-2 text-sm font-medium text-neutral-500">Tinjau ulang pesanan Mu dan amankan makanan Mu</p>
+                    <p className="mt-2 text-sm font-medium text-neutral-500">Tinjau ulang pesanan kamu dan amankan makanannya</p>
                 </div>
 
                 <div className="grid grid-cols-1 gap-10 lg:grid-cols-12 items-start">
                     
-                    {/* BAGIAN KIRI: Ringkasan & Map */}
                     <div className="flex flex-col gap-6 lg:col-span-7">
-                        {/* Inline Ringkasan Pesanan */}
                         <div className="rounded-[32px] bg-[#F6F4F0] p-8">
                             <div className="mb-6 flex items-center gap-2 text-gray-800">
                                 <ShoppingBag className="h-5 w-5 text-[#C34A15]" />
