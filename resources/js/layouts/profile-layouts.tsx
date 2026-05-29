@@ -8,17 +8,17 @@ export default function ProfileLayout({ children }: { children: React.ReactNode 
     const { url, props } = usePage();
     const user = props.auth?.user;
     const dashboardLink = user?.role === 'seller' ? '/seller/dashboard' : '/dashboard';
-    
+
     const navItems = [
         { name: 'Dashboard', href: dashboardLink },
         { name: 'My Orders', href: '/orders' },
-        { name: 'Settings', href: '/profile' },
+        { name: 'Settings', href: '/settings' },
     ];
 
     return (
         <div className="min-h-screen bg-[#FDFBF7] font-instrument text-gray-900 flex flex-col">
             <NavBar />
-            
+
             <div className="flex flex-1 w-full px-12 py-8 gap-8">
                 <aside className="w-64 shrink-0 flex flex-col justify-between border-r border-neutral-200 pr-6 pb-8">
                     <div className="flex flex-col gap-2">
