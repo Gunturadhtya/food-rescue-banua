@@ -25,7 +25,7 @@ We adhere to a Software Architect mindset. This codebase prioritizes long-lastin
 
 1. **Clone the repository**
 ```bash
-git clone <repository-url>
+git clone https://github.com/Gunturadhtya/food-rescue-banua 
 cd food-rescue-banua
 
 ```
