@@ -19,8 +19,8 @@ class ProfileDashboardController extends Controller
     public function __invoke(Request $request): Response
     {
         $user = $request->user();
-
-        return Inertia::render('profile/dashboard', [
+        
+        return Inertia::render('user/dashboard', [
             'stats' => $this->calculateStats->execute($user),
             'activeTicket' => $this->getActiveTicket->execute($user),
             'tierProgress' => $this->determineTier->execute($user),
