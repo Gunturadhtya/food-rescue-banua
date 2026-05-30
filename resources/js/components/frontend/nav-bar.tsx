@@ -57,15 +57,29 @@ export function NavBar() {
             <div className="flex gap-8 font-medium text-sm">
                 <Link 
                     href="/home" 
-                    className={isActive('/home') ? 'text-[#C34A15] font-bold' : 'hover:text-[#C34A15]'}
+                    className={`group relative pb-1 transition-colors duration-200 ${
+                        isActive('/home') ? 'text-[#C34A15] font-bold' : 'text-neutral-600 hover:text-[#C34A15]'
+                    }`}
                 >
                     Home
+                    <span 
+                        className={`absolute bottom-0 left-0 h-[2.5px] bg-[#C34A15] rounded-full transition-all duration-300 ${
+                            isActive('/home') ? 'w-full' : 'w-0 group-hover:w-full'
+                        }`} 
+                    />
                 </Link>
                 <Link 
                     href={ordersLink} 
-                    className={isActive(ordersLink) ? 'text-[#C34A15] font-bold' : 'hover:text-[#C34A15]'}
+                    className={`group relative pb-1 transition-colors duration-200 ${
+                        isActive(ordersLink) ? 'text-[#C34A15] font-bold' : 'text-neutral-600 hover:text-[#C34A15]'
+                    }`}
                 >
                     Orders
+                    <span 
+                        className={`absolute bottom-0 left-0 h-[2.5px] bg-[#C34A15] rounded-full transition-all duration-300 ${
+                            isActive(ordersLink) ? 'w-full' : 'w-0 group-hover:w-full'
+                        }`} 
+                    />
                 </Link>
             </div>
 
