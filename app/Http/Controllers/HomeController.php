@@ -13,7 +13,7 @@ class HomeController extends Controller
     public function index(Request $request): Response
     {
         // Fetch all active, unassigned rescues alongside their shop data
-        $activeRescues = Rescue::with('shop:id,name,address')
+        $activeRescues = Rescue::with('shop:id,name,address,image_path,slug')
             ->where('status', RescueStatus::ACTIVE)
             ->latest()
             ->get()
@@ -24,7 +24,7 @@ class HomeController extends Controller
                     'address' => $rescue->shop->address,
                     'savings_amount' => $rescue->savings_amount,
                     'weight_kg' => $rescue->weight_kg,
-                    'image' => '/images/croissant-bg.png', 
+                    'image' => $rescue->shop->image_path ?? '/images/croissant-bg.png',
                 ];
             });
 

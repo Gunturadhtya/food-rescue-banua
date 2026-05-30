@@ -2,11 +2,11 @@
 
 namespace Database\Seeders;
 
-use App\Models\User;
-use App\Models\Shop;
-use App\Models\Rescue;
-use App\Models\Ticket;
 use App\Enums\Role;
+use App\Models\Rescue;
+use App\Models\Shop;
+use App\Models\Ticket;
+use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Str;
 
@@ -82,13 +82,14 @@ class DatabaseSeeder extends Seeder
                 'slug' => $data['slug'],
                 'description' => $data['description'],
                 'address' => $data['address'],
+                'image_path' => '/images/'.$data['slug'].'.png',
                 'is_active' => true,
             ]);
 
             // 3. Buat Rescues Aktif (Marketplace / Belum diklaim)
             for ($i = 0; $i < rand(2, 5); $i++) {
                 Rescue::create([
-                    'user_id' => null, 
+                    'user_id' => null,
                     'shop_id' => $shop->id,
                     'status' => 'active',
                     'savings_amount' => rand(15, 50) * 1000,
@@ -102,8 +103,8 @@ class DatabaseSeeder extends Seeder
                     'user_id' => $user->id,
                     'shop_id' => $shop->id,
                     'status' => 'claimed',
-                    'savings_amount' => rand(15, 45) * 1000, 
-                    'weight_kg' => rand(5, 25) / 10, 
+                    'savings_amount' => rand(15, 45) * 1000,
+                    'weight_kg' => rand(5, 25) / 10,
                     'created_at' => now()->subDays(rand(1, 30))->subHours(rand(1, 24)),
                 ]);
             }
@@ -112,7 +113,7 @@ class DatabaseSeeder extends Seeder
         // Tiket dummy untuk User
         Ticket::create([
             'user_id' => $user->id,
-            'code' => 'FRB-' . strtoupper(Str::random(6)),
+            'code' => 'FRB-'.strtoupper(Str::random(6)),
             'title' => 'Surprise Bag - Harlina Bakery',
             'address' => 'Jl. Hasan Basri, Kayutangi, Banjarmasin Utara',
             'expires_at' => now()->addHours(2)->addMinutes(42),
