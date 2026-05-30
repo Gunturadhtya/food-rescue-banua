@@ -69,7 +69,7 @@ export function NavBar() {
                 </Link>
             </div>
 
-            <div className="relative w-64">
+            <div className="relative w-80">
                 <form onSubmit={handleSearchSubmit} className="flex items-center gap-4 bg-[#F2EDE5] px-4 py-2 rounded-full w-full">
                     <Search size={18} className="text-gray-400" />
                     <input
@@ -84,7 +84,7 @@ export function NavBar() {
                 </form>
 
                 {isFocused && (
-                    <div className="absolute top-12 left-0 w-80 bg-white border border-neutral-100 shadow-[0_10px_30px_rgba(0,0,0,0.08)] rounded-2xl p-4 z-50 flex flex-col gap-4">
+                    <div className="absolute top-12 left-0 w-full bg-white border border-neutral-100 shadow-[0_10px_30px_rgba(0,0,0,0.08)] rounded-2xl p-4 z-50 flex flex-col gap-4">
                         <div>
                             <h4 className="text-[10px] font-bold uppercase tracking-wider text-neutral-400 mb-2">Rekomendasi Merchant</h4>
                             <div className="flex flex-col gap-1">
