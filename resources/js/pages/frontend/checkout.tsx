@@ -57,7 +57,7 @@ export default function Checkout({ id }: { id: string }) {
                             <h2 className="text-xl font-bold text-gray-900">Pickup Point</h2>
                             <p className="mb-6 mt-2 text-sm font-medium text-neutral-600">Jl. Bumi Mas Raya No.3, Pemurus Baru</p>
                             <div className="h-48 w-full overflow-hidden rounded-[24px] bg-neutral-300">
-                                <img src="https://images.unsplash.com/photo-1524661135-423995f22d0b?q=80" className="h-full w-full object-cover" alt="Map" />
+                                <img src="/images/map-preview.png" className="h-full w-full object-cover" alt="Map" />
                             </div>
                         </div>
                     </div>

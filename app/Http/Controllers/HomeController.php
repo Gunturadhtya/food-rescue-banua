@@ -12,10 +12,20 @@ class HomeController extends Controller
 {
     public function index(Request $request): Response
     {
-        // Fetch all active, unassigned rescues alongside their shop data
-        $activeRescues = Rescue::with('shop:id,name,address')
-            ->where('status', RescueStatus::ACTIVE)
-            ->latest()
+        $search = $request->query('search');
+
+        $query = Rescue::with('shop:id,name,address,image_path,slug')
+            ->where('status', RescueStatus::ACTIVE);
+
+        if (! empty($search)) {
+            $query->whereHas('shop', function ($q) use ($search) {
+                $q->where('name', 'like', '%'.$search.'%')
+                    ->orWhere('address', 'like', '%'.$search.'%')
+                    ->orWhere('description', 'like', '%'.$search.'%');
+            });
+        }
+
+        $activeRescues = $query->latest()
             ->get()
             ->map(function ($rescue) {
                 return [
@@ -24,7 +34,7 @@ class HomeController extends Controller
                     'address' => $rescue->shop->address,
                     'savings_amount' => $rescue->savings_amount,
                     'weight_kg' => $rescue->weight_kg,
-                    'image' => '/images/croissant-bg.png', 
+                    'image' => $rescue->shop->image_path ?? '/images/croissant-bg.png',
                 ];
             });
 

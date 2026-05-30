@@ -80,7 +80,7 @@ export default function RescueDetail({ rescue }: Props) {
 
                             {/* PETA (Di sebelah About) */}
                             <div className="w-full h-[320px] rounded-3xl overflow-hidden border border-neutral-100">
-                                <img src="https://images.unsplash.com/photo-1524661135-423995f22d0b?q=80" className="h-full w-full object-cover" alt="Map" />
+                                <img src="/images/map-preview.png" className="h-full w-full object-cover" alt="Map" />
                             </div>
                         </div>
                     </div>
