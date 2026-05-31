@@ -11,6 +11,7 @@ use App\Http\Controllers\AdminDashboardController;
 use App\Http\Controllers\AdminUserController;
 use App\Http\Controllers\AdminShopController;
 use App\Http\Controllers\AdminRescueController;
+use App\Http\Controllers\AdminTicketController;
 use Illuminate\Support\Facades\Route;
 use App\Enums\Role;
 use Inertia\Inertia;
@@ -36,6 +37,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::resource('admin/users', AdminUserController::class)->names('admin.users');
         Route::resource('admin/shops', AdminShopController::class)->names('admin.shops');
         Route::resource('admin/rescues', AdminRescueController::class)->names('admin.rescues');
+        Route::resource('admin/tickets', AdminTicketController::class)->names('admin.tickets');
     });
 
     Route::middleware(['role:' . Role::SELLER->value])->group(function () {
