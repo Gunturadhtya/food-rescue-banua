@@ -26,17 +26,20 @@ class HomeController extends Controller
         }
 
         $activeRescues = $query->latest()
-            ->get()
-            ->map(function ($rescue) {
-                return [
-                    'id' => $rescue->id,
-                    'shop_name' => $rescue->shop->name,
-                    'address' => $rescue->shop->address,
-                    'savings_amount' => $rescue->savings_amount,
-                    'weight_kg' => $rescue->weight_kg,
-                    'image' => $rescue->shop->image_path ?? '/images/croissant-bg.png',
-                ];
-            });
+    ->get()
+    ->unique('shop_id')  
+    ->values()
+    ->map(function ($rescue) {
+        return [
+            'id' => $rescue->id,
+            'shop_name' => $rescue->shop->name,
+            'address' => $rescue->shop->address,
+            'savings_amount' => $rescue->savings_amount,
+            'weight_kg' => $rescue->weight_kg,
+            'image' => $rescue->shop->image_path ?? '/images/croissant-bg.png',
+            'description' => $rescue->shop->description ?? '',
+        ];
+    });
 
         return Inertia::render('home', [
             'activeRescues' => $activeRescues,
