@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Head, Link, useForm } from '@inertiajs/react';
 import ProfileLayout from '@/layouts/profile-layouts';
-import { Eye, EyeOff } from 'lucide-react'; 
+import { Eye, EyeOff } from 'lucide-react';
 
 export default function AdminUserCreate() {
     const [showPassword, setShowPassword] = useState(false);
@@ -19,7 +19,7 @@ export default function AdminUserCreate() {
     };
 
     return (
-        <div className="space-y-6 max-w-2xl">
+        <div className="space-y-6">
             <Head title="Add New User" />
 
             <div className="flex flex-col gap-1 mb-8">
@@ -31,7 +31,7 @@ export default function AdminUserCreate() {
             </div>
 
             <div className="bg-white rounded-[24px] border border-neutral-100 shadow-sm p-6 md:p-8">
-                <form onSubmit={submit} className="space-y-6" autoComplete="off">
+                <form onSubmit={submit} className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6" autoComplete="off">
                     
                     <div className="space-y-2">
                         <label className="text-sm font-semibold text-gray-900">Full Name</label>
@@ -41,8 +41,7 @@ export default function AdminUserCreate() {
                             onChange={e => setData('name', e.target.value)}
                             autoComplete="off"
                             className="w-full px-4 py-3 bg-neutral-50 border border-neutral-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-[#C34A15]/20 focus:border-[#C34A15] transition-all text-sm"
-                            placeholder="John Doe"
-                        />
+                            placeholder="John Doe"/>
                         {errors.name && <p className="text-red-500 text-xs font-medium">{errors.name}</p>}
                     </div>
 
@@ -54,8 +53,7 @@ export default function AdminUserCreate() {
                             onChange={e => setData('email', e.target.value)}
                             autoComplete="off"
                             className="w-full px-4 py-3 bg-neutral-50 border border-neutral-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-[#C34A15]/20 focus:border-[#C34A15] transition-all text-sm"
-                            placeholder="johndoe@example.com"
-                        />
+                            placeholder="johndoe@example.com"/>
                         {errors.email && <p className="text-red-500 text-xs font-medium">{errors.email}</p>}
                     </div>
 
@@ -66,15 +64,13 @@ export default function AdminUserCreate() {
                                 type={showPassword ? 'text' : 'password'}
                                 value={data.password}
                                 onChange={e => setData('password', e.target.value)}
-                                autoComplete="new-password" 
+                                autoComplete="new-password"
                                 className="w-full px-4 py-3 pr-12 bg-neutral-50 border border-neutral-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-[#C34A15]/20 focus:border-[#C34A15] transition-all text-sm"
-                                placeholder="Minimal 8 karakter"
-                            />
+                                placeholder="Minimal 8 karakter"/>
                             <button
                                 type="button"
                                 onClick={() => setShowPassword(!showPassword)}
-                                className="absolute right-4 top-1/2 -translate-y-1/2 text-neutral-400 hover:text-neutral-600 focus:outline-none transition-colors"
-                            >
+                                className="absolute right-4 top-1/2 -translate-y-1/2 text-neutral-400 hover:text-neutral-600 focus:outline-none transition-colors">
                                 {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
                             </button>
                         </div>
@@ -86,8 +82,7 @@ export default function AdminUserCreate() {
                         <select
                             value={data.role}
                             onChange={e => setData('role', e.target.value)}
-                            className="w-full px-4 py-3 bg-neutral-50 border border-neutral-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-[#C34A15]/20 focus:border-[#C34A15] transition-all text-sm cursor-pointer"
-                        >
+                            className="w-full px-4 py-3 bg-neutral-50 border border-neutral-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-[#C34A15]/20 focus:border-[#C34A15] transition-all text-sm cursor-pointer">
                             <option value="user">User / Buyer</option>
                             <option value="seller">Seller / Shop Owner</option>
                             <option value="admin">Admin</option>
@@ -95,12 +90,11 @@ export default function AdminUserCreate() {
                         {errors.role && <p className="text-red-500 text-xs font-medium">{errors.role}</p>}
                     </div>
 
-                    <div className="pt-4 flex items-center justify-end">
+                    <div className="md:col-span-2 pt-4 flex items-center justify-end border-t border-neutral-100 mt-2">
                         <button
                             type="submit"
                             disabled={processing}
-                            className="bg-[#C34A15] text-white px-8 py-3 rounded-xl text-sm font-bold hover:bg-[#A33D10] transition-colors disabled:opacity-50 disabled:cursor-not-allowed w-full md:w-auto"
-                        >
+                            className="bg-[#C34A15] text-white px-8 py-3 rounded-xl text-sm font-bold hover:bg-[#A33D10] transition-colors disabled:opacity-50 disabled:cursor-not-allowed w-full md:w-auto mt-4">
                             {processing ? 'Saving...' : 'Save User'}
                         </button>
                     </div>
