@@ -6,6 +6,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\RescueController;
 use App\Http\Controllers\UserOrderController; 
 use App\Http\Controllers\CheckoutController;
+use App\Http\Controllers\SellerOrderController;
 use Illuminate\Support\Facades\Route;
 use App\Enums\Role;
 use Inertia\Inertia;
@@ -50,9 +51,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::middleware(['role:' . Role::SELLER->value])->group(function () {
         Route::get('/seller/dashboard', [SellerDashboardController::class, 'index'])->name('seller.dashboard');
         Route::post('/seller/dashboard/rescue', [SellerDashboardController::class, 'store'])->name('seller.rescue.store');
-        Route::get('/seller/orders', function () {
-            return Inertia::render('seller/orders');
-        })->name('seller.orders');
+        Route::get('/seller/orders', [SellerOrderController::class, 'index'])->name('seller.orders');
+        Route::post('/seller/orders/redeem', [SellerOrderController::class, 'redeem'])->name('seller.orders.redeem');
     });
 
 });
