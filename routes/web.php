@@ -9,6 +9,7 @@ use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\SellerOrderController;
 use App\Http\Controllers\AdminDashboardController;
 use App\Http\Controllers\AdminUserController;
+use App\Http\Controllers\AdminShopController;
 use Illuminate\Support\Facades\Route;
 use App\Enums\Role;
 use Inertia\Inertia;
@@ -32,6 +33,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::middleware(['role:' . Role::ADMIN->value])->group(function () {
         Route::get('/admin/dashboard', [AdminDashboardController::class, 'index'])->name('admin.dashboard');
         Route::resource('admin/users', AdminUserController::class)->names('admin.users');
+        Route::resource('admin/shops', AdminShopController::class)->names('admin.shops');
     });
 
     Route::middleware(['role:' . Role::SELLER->value])->group(function () {
