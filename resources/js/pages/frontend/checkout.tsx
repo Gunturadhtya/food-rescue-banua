@@ -1,116 +1,195 @@
-import React, { useState } from 'react';
-import { Head } from '@inertiajs/react';
+import React, { FormEvent } from 'react';
+import { Head, useForm } from '@inertiajs/react';
 import HomeLayout from '@/layouts/home-layout';
 import { NavBar } from '@/components/frontend/nav-bar';
 import { SiteFooter } from '@/components/frontend/site-footer';
 import { QrCode, Landmark, ArrowRight, ShoppingBag, AlertCircle, MapPin } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { Spinner } from '@/components/ui/spinner';
 
-export default function Checkout({ id }: { id: string }) {
-    const [paymentMethod, setPaymentMethod] = useState('qris');
+interface CheckoutProps {
+    rescue: {
+        id: number;
+        shop_name: string;
+        address: string;
+        savings_amount: number;
+        weight_kg: number;
+        image: string;
+    };
+}
+
+export default function Checkout({ rescue }: CheckoutProps) {
+    const { data, setData, post, processing, errors, clearErrors } = useForm({
+        payment_method: 'qris',
+    });
+
+    const handleCheckout = (e: FormEvent) => {
+        e.preventDefault();
+        clearErrors();
+
+        post(`/checkout/${rescue.id}`, {
+            preserveScroll: true,
+            onError: () => {
+                console.error("Checkout failed", errors);
+            }
+        });
+    };
+
+    const finalPrice = 25000;
+    const serviceFee = 3000;
+    const total = finalPrice + serviceFee;
 
     return (
-        <div className="min-h-screen bg-[#FDFBF7]">
+        <div className="min-h-screen bg-[#FDFBF7] flex flex-col">
             <Head title="Selesaikan Rescue - Food Rescue Banua" />
+
             <NavBar />
 
-            <main className="mx-auto max-w-7xl px-8 py-10">
-                <div className="mb-10">
-                    <h1 className="font-jakarta text-4xl font-bold text-gray-900">Selesaikan Rescue</h1>
-                    <p className="mt-2 text-sm font-medium text-neutral-500">Tinjau ulang pesanan kamu dan amankan makanannya</p>
-                </div>
+            <main className="mx-auto max-w-7xl px-4 sm:px-8 py-10 flex-grow w-full grid grid-cols-1 lg:grid-cols-12 gap-8">
 
-                <div className="grid grid-cols-1 gap-10 lg:grid-cols-12 items-start">
-                    
-                    <div className="flex flex-col gap-6 lg:col-span-7">
-                        <div className="rounded-[32px] bg-[#F6F4F0] p-8">
-                            <div className="mb-6 flex items-center gap-2 text-gray-800">
-                                <ShoppingBag className="h-5 w-5 text-[#C34A15]" />
-                                <h2 className="text-xl font-bold">Ringkasan Pesanan</h2>
-                            </div>
-                            <div className="flex items-start gap-6">
-                                <div className="h-24 w-24 rounded-2xl bg-[#1D2B36] flex items-center justify-center p-2">
-                                    <img src="/images/mystery-box.png" alt="Mystery Box" className="object-contain h-full" />
-                                </div>
-                                <div className="flex-1">
-                                    <h3 className="text-lg font-bold text-gray-900">Crystal Bakery Mystery Box</h3>
-                                    <p className="text-sm text-neutral-500">Jl. Bumi Mas Raya No.3, Pemurus Baru • 1.2km away</p>
-                                    <div className="mt-3 flex gap-2">
-                                        <span className="bg-neutral-200/60 px-2 py-1 text-[10px] font-bold uppercase text-neutral-600 rounded-md">Jumlah: 1</span>
-                                        <span className="bg-yellow-400 px-2 py-1 text-[10px] font-bold uppercase text-yellow-900 rounded-md">Flash Sale</span>
-                                    </div>
-                                </div>
-                                <div className="text-xl font-bold text-[#C34A15]">Rp 25.000</div>
-                            </div>
-                            <div className="mt-8 rounded-2xl border border-[#C34A15] bg-white p-5">
-                                <div className="flex gap-4">
-                                    <AlertCircle className="h-6 w-6 text-[#C34A15]" />
-                                    <div>
-                                        <h4 className="text-[11px] font-bold uppercase text-[#C34A15]">Strictly Self-Pickup Window</h4>
-                                        <p className="text-xl font-extrabold text-gray-900">20:00 - 21:30</p>
-                                    </div>
-                                </div>
+                {/* Left Column - Order Details */}
+                <div className="lg:col-span-7 flex flex-col gap-6">
+                    <div className="flex items-center gap-2 text-[#C34A15] mb-2">
+                        <ShoppingBag className="h-5 w-5" />
+                        <h1 className="text-xl font-bold text-gray-900">Selesaikan Rescue Anda</h1>
+                    </div>
+
+                    {Object.keys(errors).length > 0 && (
+                        <div className="bg-red-50 border border-red-200 text-red-600 p-4 rounded-xl flex items-start gap-3">
+                            <AlertCircle className="h-5 w-5 shrink-0 mt-0.5" />
+                            <div className="text-sm font-medium">
+                                {Object.values(errors).map((error, index) => (
+                                    <p key={index}>{error}</p>
+                                ))}
                             </div>
                         </div>
+                    )}
 
-                        {/* Inline Pickup Point */}
-                        <div className="rounded-[32px] bg-[#F6F4F0] p-8">
-                            <h2 className="text-xl font-bold text-gray-900">Pickup Point</h2>
-                            <p className="mb-6 mt-2 text-sm font-medium text-neutral-600">Jl. Bumi Mas Raya No.3, Pemurus Baru</p>
-                            <div className="h-48 w-full overflow-hidden rounded-[24px] bg-neutral-300">
-                                <img src="/images/map-preview.png" className="h-full w-full object-cover" alt="Map" />
+                    <div className="bg-white p-6 rounded-2xl shadow-sm border border-neutral-100 flex flex-col sm:flex-row gap-6">
+                        <div className="h-32 w-32 shrink-0 overflow-hidden rounded-xl bg-neutral-100">
+                            <img
+                                src={rescue.image}
+                                alt={rescue.shop_name}
+                                className="h-full w-full object-cover"
+                                onError={(e) => {
+                                    (e.target as HTMLImageElement).src = '/images/mystery-box.png';
+                                }}
+                            />
+                        </div>
+
+                        <div className="flex-1 flex flex-col justify-center">
+                            <h3 className="text-xl font-bold text-gray-900 mb-2">Surprise Bag - {rescue.shop_name}</h3>
+
+                            <div className="flex items-start gap-2 text-sm text-neutral-500 mb-4">
+                                <MapPin className="h-4 w-4 shrink-0 mt-0.5" />
+                                <p>{rescue.address}</p>
+                            </div>
+
+                            <div className="flex gap-2">
+                                <span className="bg-green-100 px-3 py-1.5 text-xs font-bold uppercase text-green-700 rounded-md">
+                                    Hemat: Rp {rescue.savings_amount.toLocaleString('id-ID')}
+                                </span>
+                                <span className="bg-yellow-100 px-3 py-1.5 text-xs font-bold uppercase text-yellow-800 rounded-md">
+                                    {rescue.weight_kg} kg
+                                </span>
                             </div>
                         </div>
                     </div>
 
-                    {/* BAGIAN KANAN: Detail Pembayaran (TIDAK STICKY) */}
-                    <div className="lg:col-span-5">
-                        <div className="rounded-[32px] bg-white p-8 shadow-[0_8px_30px_rgb(0,0,0,0.06)]">
-                            <h2 className="mb-6 font-jakarta text-2xl font-bold text-gray-900">Detail Pembayaran</h2>
-                            
-                            <div className="mb-8 flex flex-col gap-3">
-                                <label className={`flex cursor-pointer items-center justify-between rounded-2xl border-2 p-4 transition-all ${paymentMethod === 'qris' ? 'border-[#C34A15] bg-[#FFF8F5]' : 'border-transparent bg-[#F6F4F0]'}`}>
-                                    <div className="flex items-center gap-3 font-bold"><QrCode size={20}/> QRIS</div>
-                                    <input type="radio" className="hidden" onChange={() => setPaymentMethod('qris')} checked={paymentMethod === 'qris'} />
-                                    <div className={`flex h-5 w-5 items-center justify-center rounded-full border-2 ${paymentMethod === 'qris' ? 'border-[#C34A15]' : 'border-neutral-300'}`}>
-                                        {paymentMethod === 'qris' && <div className="h-2.5 w-2.5 rounded-full bg-[#C34A15]"></div>}
-                                    </div>
-                                </label>
-
-                                <label className={`flex cursor-pointer items-center justify-between rounded-2xl border-2 p-4 transition-all ${paymentMethod === 'bank' ? 'border-[#C34A15] bg-[#FFF8F5]' : 'border-transparent bg-[#F6F4F0]'}`}>
-                                    <div className="flex items-center gap-3 font-bold"><Landmark size={20}/> Transfer Bank</div>
-                                    <input type="radio" className="hidden" onChange={() => setPaymentMethod('bank')} checked={paymentMethod === 'bank'} />
-                                    <div className={`flex h-5 w-5 items-center justify-center rounded-full border-2 ${paymentMethod === 'bank' ? 'border-[#C34A15]' : 'border-neutral-300'}`}>
-                                        {paymentMethod === 'bank' && <div className="h-2.5 w-2.5 rounded-full bg-[#C34A15]"></div>}
-                                    </div>
-                                </label>
-                            </div>
-
-                            <div className="mb-6 flex flex-col gap-4 text-sm font-medium text-neutral-500">
-                                <div className="flex justify-between"><span>Harga Mystery Box</span><span className="font-bold text-gray-900">Rp 25.000</span></div>
-                                <div className="flex justify-between"><span>Biaya Layanan</span><span className="font-bold text-gray-900">Rp 3.000</span></div>
-                            </div>
-
-                            <div className="mb-8 border-t border-dashed border-neutral-300 pt-6">
-                                <div className="mb-1 text-[10px] font-bold uppercase tracking-widest text-neutral-500">Total Pembayaran</div>
-                                <div className="flex items-center justify-between">
-                                    <div className="text-3xl font-extrabold tracking-tight text-gray-900">Rp 28.000</div>
-                                    <span className="rounded bg-yellow-300 px-2 py-1 text-[10px] font-bold uppercase text-yellow-900">Secure</span>
+                    <div className="bg-white p-6 rounded-2xl shadow-sm border border-neutral-100">
+                        <h4 className="font-bold text-gray-900 mb-4">Metode Pembayaran</h4>
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <button
+                                type="button"
+                                onClick={() => setData('payment_method', 'qris')}
+                                className={`flex items-center gap-4 p-4 rounded-xl border-2 transition-all text-left ${data.payment_method === 'qris'
+                                    ? 'border-[#C34A15] bg-[#C34A15]/5'
+                                    : 'border-neutral-200 hover:border-neutral-300 bg-white'
+                                    }`}
+                            >
+                                <div className={`p-2 rounded-lg ${data.payment_method === 'qris' ? 'bg-[#C34A15] text-white' : 'bg-neutral-100 text-neutral-500'}`}>
+                                    <QrCode className="h-6 w-6" />
                                 </div>
+                                <div>
+                                    <p className="font-bold text-gray-900">QRIS</p>
+                                    <p className="text-xs text-neutral-500">Gopay, OVO, Dana, LinkAja</p>
+                                </div>
+                            </button>
+
+                            <button
+                                type="button"
+                                onClick={() => setData('payment_method', 'transfer')}
+                                className={`flex items-center gap-4 p-4 rounded-xl border-2 transition-all text-left ${data.payment_method === 'transfer'
+                                    ? 'border-[#C34A15] bg-[#C34A15]/5'
+                                    : 'border-neutral-200 hover:border-neutral-300 bg-white'
+                                    }`}
+                            >
+                                <div className={`p-2 rounded-lg ${data.payment_method === 'transfer' ? 'bg-[#C34A15] text-white' : 'bg-neutral-100 text-neutral-500'}`}>
+                                    <Landmark className="h-6 w-6" />
+                                </div>
+                                <div>
+                                    <p className="font-bold text-gray-900">Transfer Bank</p>
+                                    <p className="text-xs text-neutral-500">BCA, Mandiri, BNI, BRI</p>
+                                </div>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                {/* Right Column - Order Summary */}
+                <div className="lg:col-span-5">
+                    <div className="bg-white p-6 rounded-2xl shadow-sm border border-neutral-100 sticky top-8">
+                        <h4 className="font-bold text-gray-900 mb-6 text-lg">Ringkasan Pesanan</h4>
+
+                        <div className="flex flex-col gap-4 mb-6">
+                            <div className="flex justify-between items-center text-sm text-neutral-600">
+                                <span>Harga Surprise Bag</span>
+                                <span className="font-medium text-gray-900">Rp {finalPrice.toLocaleString('id-ID')}</span>
+                            </div>
+                            <div className="flex justify-between items-center text-sm text-neutral-600">
+                                <span>Biaya Layanan</span>
+                                <span className="font-medium text-gray-900">Rp {serviceFee.toLocaleString('id-ID')}</span>
                             </div>
 
-                            <div className="flex flex-col gap-4 text-center">
-                                <button className="flex w-full items-center justify-center gap-2 rounded-full bg-[#C34A15] py-4 text-base font-bold text-white transition-colors hover:bg-[#A33D10]">
-                                    Bayar Sekarang <ArrowRight className="h-5 w-5" />
-                                </button>
-                                <p className="px-4 text-[10px] font-medium leading-relaxed text-neutral-400">
-                                    Dengan mengklik Bayar Sekarang, Anda menyetujui <a href="#" className="text-[#C34A15] underline">Kebijakan Pengambilan Sendiri</a>
+                            <div className="h-px w-full bg-neutral-200 my-2" />
+
+                            <div className="flex justify-between items-center">
+                                <span className="font-bold text-gray-900">Total Pembayaran</span>
+                                <span className="font-bold text-xl text-[#C34A15]">Rp {total.toLocaleString('id-ID')}</span>
+                            </div>
+                        </div>
+
+                        <form onSubmit={handleCheckout} className="flex flex-col gap-4 text-center">
+                            <Button
+                                type="submit"
+                                disabled={processing}
+                                className="flex h-14 w-full items-center justify-center gap-2 rounded-xl bg-[#C34A15] py-4 text-base font-bold text-white transition-all hover:bg-[#A33D10] disabled:opacity-70 disabled:cursor-not-allowed shadow-md hover:shadow-lg"
+                            >
+                                {processing ? (
+                                    <>
+                                        <Spinner className="mr-2" />
+                                        Memproses...
+                                    </>
+                                ) : (
+                                    <>
+                                        Bayar Sekarang
+                                        <ArrowRight className="h-5 w-5 ml-1" />
+                                    </>
+                                )}
+                            </Button>
+
+                            <div className="bg-blue-50/50 p-4 rounded-xl border border-blue-100 text-left flex gap-3 mt-2">
+                                <AlertCircle className="h-5 w-5 text-blue-500 shrink-0" />
+                                <p className="text-xs font-medium leading-relaxed text-blue-800">
+                                    Dengan mengklik Bayar Sekarang, Anda menyetujui <a href="#" className="text-blue-600 underline font-bold">Kebijakan Pengambilan Sendiri</a>. Pesanan yang sudah dibayar tidak dapat dibatalkan.
                                 </p>
                             </div>
-                        </div>
+                        </form>
                     </div>
                 </div>
+
             </main>
-            
+
             <SiteFooter />
         </div>
     );

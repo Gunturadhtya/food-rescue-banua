@@ -5,6 +5,7 @@ use App\Http\Controllers\SellerDashboardController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\RescueController;
 use App\Http\Controllers\UserOrderController; 
+use App\Http\Controllers\CheckoutController;
 use Illuminate\Support\Facades\Route;
 use App\Enums\Role;
 use Inertia\Inertia;
@@ -23,14 +24,24 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::get('/rescues/{rescue}', [RescueController::class, 'show'])->name('rescues.show');
 
-    Route::get('/checkout/{id}', function ($id) {
-        return Inertia::render('frontend/checkout', ['id' => $id]);
-    })->name('checkout');
+    // Route::get('/checkout/{id}', function ($id) {
+    //     return Inertia::render('frontend/checkout', ['id' => $id]);
+    // })->name('checkout');
+
+    Route::middleware(['role:' . Role::USER->value])->group(function () {
+        Route::get('/checkout/{rescue}', [CheckoutController::class, 'show'])->name('checkout.show');
+        Route::post('/checkout/{rescue}', [CheckoutController::class, 'store'])->name('checkout.store');
+        
+        Route::get('/dashboard', ProfileDashboardController::class)->name('dashboard');
+        Route::get('/orders', [UserOrderController::class, 'index'])->name('user.orders');
+    });
 
     Route::middleware(['role:' . Role::USER->value])->group(function () {
         Route::get('/dashboard', ProfileDashboardController::class)->name('dashboard');
         Route::get('/orders', [UserOrderController::class, 'index'])->name('user.orders');
     });
+
+    
 
     Route::middleware(['role:' . Role::ADMIN->value])->group(function () {
         // Admin routes

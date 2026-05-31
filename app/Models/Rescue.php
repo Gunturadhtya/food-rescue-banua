@@ -11,13 +11,22 @@ class Rescue extends Model
 {
     protected $guarded = [];
 
+    protected $fillable = [
+        'user_id',
+        'shop_id',
+        'status',
+        'savings_amount',
+        'weight_kg',
+        'expires_at',
+    ];
+
     protected function casts(): array
     {
         return [
-            'savings_amount' => 'float',
-            'weight_kg' => 'float',
             'status' => RescueStatus::class,
             'expires_at' => 'datetime',
+            'savings_amount' => 'decimal:2',
+            'weight_kg' => 'decimal:2',
         ];
     }
 
