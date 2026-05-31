@@ -35,7 +35,7 @@ export default function Checkout({ rescue }: CheckoutProps) {
         });
     };
 
-    const finalPrice = 25000;
+    const finalPrice = rescue.savings_amount;
     const serviceFee = 3000;
     const total = finalPrice + serviceFee;
 

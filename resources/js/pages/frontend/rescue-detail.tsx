@@ -4,6 +4,7 @@ import HomeLayout from '@/layouts/home-layout';
 import { NavBar } from '@/components/frontend/nav-bar';
 import { SiteFooter } from '@/components/frontend/site-footer';
 import { MapPin, ShoppingCart, Leaf, ChevronDown } from 'lucide-react';
+
 interface Shop {
     id: number;
     name: string;
@@ -25,10 +26,10 @@ interface Props {
 }
 
 export default function RescueDetail({ rescue }: Props) {
-    // Note: See Blind Spot below regarding this calculation
-    const originalPrice = rescue.savings_amount + 10000;
+    const sellingPrice = Number(rescue.savings_amount);
 
     const shopImage = rescue.shop.image_path || "https://images.unsplash.com/photo-1509440159596-0249088772ff?q=80&w=2072&auto=format&fit=crop";
+
     return (
         <div className="min-h-screen bg-[#FDFBF7]">
             <Head title={`${rescue.shop.name} - Food Rescue Banua`} />
@@ -65,7 +66,7 @@ export default function RescueDetail({ rescue }: Props) {
                                         <MapPin className="text-neutral-400 w-5 h-5" />
                                         <div>
                                             <p className="text-[9px] font-bold uppercase text-neutral-400">Pickup Point</p>
-                                            <p className="text-xs font-bold text-gray-900">Jl. Bumi Mas Raya No.3, Pemurus Baru</p>
+                                            <p className="text-xs font-bold text-gray-900">{rescue.shop.address}</p>
                                         </div>
                                     </div>
                                     <div className="bg-[#FDEFE9] p-4 rounded-2xl flex items-center gap-3 border border-[#F5D5C6]">
@@ -88,17 +89,26 @@ export default function RescueDetail({ rescue }: Props) {
                     {/* KOLOM KANAN: Sticky Purchase Card */}
                     <div className="lg:col-span-5">
                         <div className="sticky top-10 bg-white p-8 rounded-[32px] border border-neutral-100 shadow-[0_4px_20px_rgba(0,0,0,0.05)]">
-                            {/* ... (isi kartu kanan tetap sama) ... */}
-                            <h2 className="text-2xl font-bold text-gray-900">Crystal Bakery</h2>
+                            <h2 className="text-2xl font-bold text-gray-900">{rescue.shop.name}</h2>
                             <p className="text-xs text-neutral-500 mb-6">Mystery Box Selection</p>
+
                             <div className="bg-[#1D2B36] rounded-[24px] p-8 mb-6 flex justify-center">
                                 <img src="/images/mystery-box.png" className="w-40 object-contain" alt="Mystery Box" />
                             </div>
+
                             <div className="flex justify-between items-end mb-6">
-                                <div><p className="text-xs line-through text-neutral-400">Rp 35.000</p><p className="text-3xl font-extrabold text-gray-900">Rp 25.000</p></div>
-                                <p className="text-sm font-bold text-[#8C9B50]">600g Rescued</p>
+                                <div>
+                                    <p className="text-3xl font-extrabold text-gray-900">Rp {sellingPrice.toLocaleString('id-ID')}</p>
+                                </div>
+                                <p className="text-sm font-bold text-[#8C9B50]">{rescue.weight_kg} kg Rescued</p>
                             </div>
-                            <Link href={`/checkout/${rescue.id}`} className="w-full block text-center bg-[#C34A15] text-white py-4 rounded-full font-bold hover:bg-[#A33D10]">Pre-Order Mystery Box</Link>
+
+                            <Link
+                                href={`/checkout/${rescue.id}`}
+                                className="w-full block text-center bg-[#C34A15] text-white py-4 rounded-full font-bold hover:bg-[#A33D10] transition-colors"
+                            >
+                                Pre-Order Mystery Box
+                            </Link>
                         </div>
                     </div>
                 </div>
