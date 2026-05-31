@@ -28,7 +28,8 @@ class SellerDashboardController extends Controller
                 'id' => $rescue->id,
                 'status' => $rescue->status,
                 'buyer_name' => $rescue->user ? $rescue->user->name : 'Unassigned',
-                'savings_amount' => $rescue->savings_amount,
+                'pcs' => $rescue->pcs,
+                'price' => $rescue->price,
                 'weight_kg' => $rescue->weight_kg,
                 'created_at' => $rescue->created_at->toIso8601String(),
             ]);
