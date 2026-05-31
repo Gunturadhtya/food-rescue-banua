@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Head, useForm } from '@inertiajs/react';
-import SellerLayout from '@/layouts/seller-layout';
+import ProfileLayout from '@/layouts/profile-layouts';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
@@ -151,4 +151,4 @@ export default function SellerOrders({ activeTickets }: Props) {
     );
 }
 
-SellerOrders.layout = (page: React.ReactNode) => <SellerLayout>{page}</SellerLayout>;
+SellerOrders.layout = (page: React.ReactNode) => <ProfileLayout>{page}</ProfileLayout>;

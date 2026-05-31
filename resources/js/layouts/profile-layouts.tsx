@@ -7,14 +7,35 @@ import { NavBar } from '@/components/frontend/nav-bar';
 export default function ProfileLayout({ children }: { children: React.ReactNode }) {
     const { url, props } = usePage();
     const user = props.auth?.user;
-    const dashboardLink = user?.role === 'seller' ? '/seller/dashboard' : '/dashboard';
-    const orderLink = user?.role === 'seller' ? '/seller/orders' : '/orders';
+    const getNavItems = () => {
+        if (user?.role === 'admin') {
+            return [
+                { name: 'Dashboard', href: '/admin/dashboard' },
+                { name: 'Manage Users', href: '/admin/users' },
+                { name: 'Manage Shops', href: '/admin/shops' },
+                { name: 'Rescue Records', href: '/admin/rescues' },
+                { name: 'Pickup Tickets', href: '/admin/tickets' },
+                { name: 'Settings', href: '/settings' },
+            ];
+        }
 
-    const navItems = [
-        { name: 'Dashboard', href: dashboardLink },
-        { name: 'My Orders', href: orderLink },
-        { name: 'Settings', href: '/settings' },
-    ];
+        if (user?.role === 'seller') {
+            return [
+                { name: 'Dashboard', href: '/seller/dashboard' },
+                { name: 'My Orders', href: '/seller/orders' },
+                { name: 'Settings', href: '/settings' },
+            ];
+        }
+
+        // Default User
+        return [
+            { name: 'Dashboard', href: '/dashboard' },
+            { name: 'My Orders', href: '/orders' },
+            { name: 'Settings', href: '/settings' },
+        ];
+    };
+
+    const navItems = getNavItems();
 
     return (
         <div className="min-h-screen bg-[#FDFBF7] font-instrument text-gray-900 flex flex-col">

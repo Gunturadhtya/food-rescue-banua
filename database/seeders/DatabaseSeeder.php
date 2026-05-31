@@ -23,6 +23,13 @@ class DatabaseSeeder extends Seeder
             'role' => Role::USER->value,
         ]);
 
+        $admin = USER::factory()->create([
+            'name'=> 'admin',
+            'email'=> 'admin@example.com',
+            'password'=> bcrypt('password'),
+            'role'=> Role::ADMIN->value,
+        ]);
+
         $shopData = [
             [
                 'owner_name' => 'Harlina Owner',
