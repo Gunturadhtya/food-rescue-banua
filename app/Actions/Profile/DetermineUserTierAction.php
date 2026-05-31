@@ -12,19 +12,18 @@ readonly class DetermineUserTierAction
      */
     public function execute(User $user): array
     {
-        $totalRescues = $user->rescues()->count();
+        $totalOrders = $user->tickets()->count();
         
-        // Cache this if tiers rarely change
         $tiers = Tier::orderBy('required_rescues', 'asc')->get();
         
-        $currentTier = $tiers->where('required_rescues', '<=', $totalRescues)->last();
-        $nextTier = $tiers->where('required_rescues', '>', $totalRescues)->first();
+        $currentTier = $tiers->where('required_rescues', '<=', $totalOrders)->last();
+        $nextTier = $tiers->where('required_rescues', '>', $totalOrders)->first();
 
         return [
             'currentTier' => $currentTier ? $currentTier->name : 'Member',
             'nextTier' => $nextTier ? $nextTier->name : null,
-            'rescuesNeeded' => $nextTier ? max(0, $nextTier->required_rescues - $totalRescues) : 0,
-            'totalRescues' => $totalRescues,
+            'rescuesNeeded' => $nextTier ? max(0, $nextTier->required_rescues - $totalOrders) : 0,
+            'totalRescues' => $totalOrders, 
         ];
     }
 }
