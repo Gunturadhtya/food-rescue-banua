@@ -17,4 +17,11 @@ class AdminUserController extends Controller
             'users' => $users
         ]);
     }
+
+    public function destroy(User $user)
+    {
+        $user->delete();
+
+        return redirect()->back();
+    }
 }

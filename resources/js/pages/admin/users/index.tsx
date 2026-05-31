@@ -1,5 +1,5 @@
 import React from 'react';
-import { Head, Link } from '@inertiajs/react';
+import { Head, Link, router } from '@inertiajs/react';
 import ProfileLayout from '@/layouts/profile-layouts';
 
 interface User {
@@ -17,6 +17,12 @@ interface Props {
 }
 
 export default function AdminUserIndex({ users }: Props) {
+    const handleDelete = (id: number, name: string) => {
+        if (window.confirm(`Apakah kamu yakin ingin menghapus user "${name}" secara permanen?`)) {
+            router.delete(`/admin/users/${id}`);
+        }
+    };
+
     return (
         <div className="space-y-6">
             <Head title="Manage Users" />
@@ -66,7 +72,9 @@ export default function AdminUserIndex({ users }: Props) {
                                         <button className="text-blue-600 hover:text-blue-800 font-semibold transition-colors">
                                             Edit
                                         </button>
-                                        <button className="text-red-600 hover:text-red-800 font-semibold transition-colors">
+                                        <button 
+                                            onClick={() => handleDelete(user.id, user.name)}
+                                            className="text-red-600 hover:text-red-800 font-semibold transition-colors">
                                             Delete
                                         </button>
                                     </td>
