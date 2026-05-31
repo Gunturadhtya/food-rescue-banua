@@ -50,17 +50,18 @@ class SellerDashboardController extends Controller
         $shop = Shop::where('user_id', $seller->id)->firstOrFail();
 
         $validated = $request->validate([
-            'savings_amount' => ['required', 'numeric', 'min:0'],
+            'price' => ['required', 'numeric', 'min:0'],
             'weight_kg' => ['required', 'numeric', 'min:0.01'],
+            'pcs' => ['required', 'integer', 'min:1'], // Validate the pieces
         ]);
 
         Rescue::create([
-            'user_id' => null,
+            'user_id' => null, // Left null intentionally until sold out
             'shop_id' => $shop->id,
             'status' => \App\Enums\RescueStatus::ACTIVE,
-            'savings_amount' => $validated['savings_amount'],
+            'pcs' => $validated['pcs'], // Store the quantity
+            'price' => $validated['price'],
             'weight_kg' => $validated['weight_kg'],
-            // Add a default expiration time for the listing (e.g., end of the current day)
             'expires_at' => now()->endOfDay(), 
         ]);
 

@@ -66,6 +66,8 @@ class DatabaseSeeder extends Seeder
             ],
         ];
 
+        $lastActiveRescue = null;
+
         foreach ($shopData as $data) {
             // 1. Buat Akun Seller
             $seller = User::factory()->create([
@@ -88,38 +90,62 @@ class DatabaseSeeder extends Seeder
 
             // 3. Buat Rescues Aktif (Marketplace / Belum diklaim)
             for ($i = 0; $i < rand(2, 5); $i++) {
-                Rescue::create([
+                $lastActiveRescue = Rescue::create([
                     'user_id' => null,
                     'shop_id' => $shop->id,
                     'status' => 'active',
+                    'pcs' => rand(1, 15),
                     'expires_at' => now()->addHours(2)->addMinutes(42),
-                    'savings_amount' => rand(15, 50) * 1000,
+                    'price' => rand(15, 50) * 1000,
                     'weight_kg' => rand(5, 20) / 10,
                 ]);
             }
 
             // 4. Buat Histori Rescues (Telah diklaim oleh User)
             for ($i = 0; $i < rand(3, 7); $i++) {
-                Rescue::create([
+                $createdAt = now()->subDays(rand(1, 30))->subHours(rand(1, 24));
+                $quantity = rand(1, 5);
+
+                $rescue = Rescue::create([
                     'user_id' => $user->id,
                     'shop_id' => $shop->id,
                     'status' => 'claimed',
-                    'savings_amount' => rand(15, 45) * 1000,
+                    'pcs' => 0, 
+                    'price' => rand(15, 45) * 1000,
                     'weight_kg' => rand(5, 25) / 10,
-                    'expires_at' => now()->addHours(2)->addMinutes(42),
-                    'created_at' => now()->subDays(rand(1, 30))->subHours(rand(1, 24)),
+                    'expires_at' => (clone $createdAt)->addHours(2),
+                    'created_at' => $createdAt,
+                    'updated_at' => $createdAt,
+                ]);
+
+                // Buat histori tiket yang sesuai dengan rescue-nya agar terhitung di dashboard
+                Ticket::create([
+                    'user_id' => $user->id,
+                    'rescue_id' => $rescue->id,
+                    'quantity' => $quantity,
+                    'code' => 'FRB-'.strtoupper(Str::random(6)),
+                    'title' => 'Surprise Bag - ' . $shop->name,
+                    'address' => $shop->address,
+                    'status' => 'redeemed', 
+                    'expires_at' => (clone $createdAt)->addHours(2),
+                    'created_at' => $createdAt,
+                    'updated_at' => $createdAt,
                 ]);
             }
         }
 
-        // Tiket dummy untuk User
-        Ticket::create([
-            'user_id' => $user->id,
-            'code' => 'FRB-'.strtoupper(Str::random(6)),
-            'title' => 'Surprise Bag - Harlina Bakery',
-            'address' => 'Jl. Hasan Basri, Kayutangi, Banjarmasin Utara',
-            'expires_at' => now()->addHours(2)->addMinutes(42),
-            'status' => 'active',
-        ]);
+        // Tiket dummy "aktif" untuk User agar muncul di Active Ticket Dashboard
+        if ($lastActiveRescue) {
+            Ticket::create([
+                'user_id' => $user->id,
+                'rescue_id' => $lastActiveRescue->id,
+                'quantity' => rand(1, 3), 
+                'code' => 'FRB-'.strtoupper(Str::random(6)),
+                'title' => 'Surprise Bag - ' . $lastActiveRescue->shop->name,
+                'address' => $lastActiveRescue->shop->address,
+                'expires_at' => now()->addHours(2)->addMinutes(42),
+                'status' => 'active',
+            ]);
+        }
     }
 }

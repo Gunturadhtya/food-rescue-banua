@@ -14,12 +14,13 @@ readonly class CalculateRescueStatsAction
         $rescues = $user->rescues();
 
         return [
-            'totalSavings' => (float) $rescues->sum('savings_amount'),
+            'totalSavings' => (float) $rescues->sum('price'),
             'totalKg' => (float) $rescues->sum('weight_kg'),
             'totalOrders' => $rescues->count(),
-            'mealsSavedThisMonth' => $rescues->whereMonth('created_at', now()->month)
+            'mealsSavedThisMonth' => (int) $user->tickets()
+                                             ->whereMonth('created_at', now()->month)
                                              ->whereYear('created_at', now()->year)
-                                             ->count(),
+                                             ->sum('quantity'),
         ];
     }
 }

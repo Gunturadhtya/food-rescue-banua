@@ -35,7 +35,7 @@ class HomeController extends Controller
             'id' => $rescue->id,
             'shop_name' => $rescue->shop->name,
             'address' => $rescue->shop->address,
-            'savings_amount' => $rescue->savings_amount,
+            'price' => $rescue->price,
             'weight_kg' => $rescue->weight_kg,
             'image' => $rescue->shop->image_path ?? '/images/croissant-bg.png',
             'description' => $rescue->shop->description ?? '',

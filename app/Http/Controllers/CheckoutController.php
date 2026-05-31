@@ -12,9 +12,10 @@ use Inertia\Response;
 
 class CheckoutController extends Controller
 {
+
     public function show(Rescue $rescue): Response
     {
-        if ($rescue->status !== RescueStatus::ACTIVE) {
+        if ($rescue->status !== RescueStatus::ACTIVE || $rescue->pcs < 1) {
             abort(404, 'Rescue not available.');
         }
 
@@ -25,8 +26,9 @@ class CheckoutController extends Controller
                 'id' => $rescue->id,
                 'shop_name' => $rescue->shop->name,
                 'address' => $rescue->shop->address,
-                'savings_amount' => (float) $rescue->savings_amount,
+                'price' => (float) $rescue->price,
                 'weight_kg' => (float) $rescue->weight_kg,
+                'pcs' => $rescue->pcs, // Expose available pieces to the frontend
                 'image' => $rescue->shop->image_path ?? '/images/mystery-box.png',
             ]
         ]);
@@ -34,7 +36,11 @@ class CheckoutController extends Controller
 
     public function store(Request $request, Rescue $rescue, ClaimRescueAction $action): RedirectResponse
     {
-        $action->execute($rescue, $request->user()->id);
+        $validated = $request->validate([
+            'quantity' => ['required', 'integer', 'min:1', 'max:' . $rescue->pcs],
+        ]);
+
+        $action->execute($rescue, $request->user()->id, $validated['quantity']);
         
         return to_route('user.orders');
     }

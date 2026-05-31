@@ -1,7 +1,7 @@
 import React from 'react';
 import { Head, useForm } from '@inertiajs/react';
 import { PlusCircle, History } from 'lucide-react';
-import SellerLayout from '@/layouts/seller-layout'; 
+import SellerLayout from '@/layouts/seller-layout';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
@@ -13,8 +13,9 @@ interface RescueRecord {
     id: number;
     status: string;
     buyer_name: string;
-    savings_amount: number;
+    price: number;
     weight_kg: number;
+    pcs: number;
     created_at: string;
 }
 
@@ -31,8 +32,9 @@ interface Props {
 
 export default function SellerDashboard({ shop, rescues }: Props) {
     const { data, setData, post, processing, errors, reset } = useForm({
-        savings_amount: '',
+        price: '',
         weight_kg: '',
+        pcs: 1,
     });
 
     const handleSubmit = (e: React.FormEvent) => {
@@ -46,7 +48,6 @@ export default function SellerDashboard({ shop, rescues }: Props) {
         <div className="space-y-6">
             <Head title="Seller Dashboard" />
 
-            {/* Jika variabel shop kosong/error sementara, kita kasih fallback pakai tanda tanya (?) agar layar tidak merah */}
             <div className="flex flex-col gap-1">
                 <h1 className="text-3xl font-bold font-jakarta text-gray-900">{shop?.name || 'Nama Toko'}</h1>
                 <p className="text-sm text-neutral-500">{shop?.address || 'Alamat belum diatur'}</p>
@@ -66,19 +67,19 @@ export default function SellerDashboard({ shop, rescues }: Props) {
                     <CardContent>
                         <form onSubmit={handleSubmit} className="space-y-4">
                             <div className="space-y-1.5">
-                                <Label htmlFor="savings_amount">Discount/Savings Value (Rp)</Label>
+                                <Label htmlFor="price">Price per Mystery Box (Rp)</Label>
                                 <div className="relative">
                                     <span className="absolute left-3 top-2.5 text-xs text-neutral-400 font-bold">Rp</span>
                                     <Input
-                                        id="savings_amount"
+                                        id="price"
                                         type="number"
-                                        value={data.savings_amount}
-                                        onChange={(e) => setData('savings_amount', e.target.value)}
+                                        value={data.price}
+                                        onChange={(e) => setData('price', e.target.value)}
                                         placeholder="e.g. 25000"
                                         className="pl-8"
                                     />
                                 </div>
-                                <InputError message={errors.savings_amount} />
+                                <InputError message={errors.price} />
                             </div>
 
                             <div className="space-y-1.5">
@@ -92,6 +93,20 @@ export default function SellerDashboard({ shop, rescues }: Props) {
                                     placeholder="e.g. 1.5"
                                 />
                                 <InputError message={errors.weight_kg} />
+                            </div>
+
+                            <div className="space-y-1.5">
+                                <Label htmlFor="pcs">Quantity (Pieces)</Label>
+                                <Input
+                                    id="pcs"
+                                    type="number"
+                                    min="1"
+                                    step="1"
+                                    value={data.pcs}
+                                    onChange={(e) => setData('pcs', parseInt(e.target.value) || 1)}
+                                    placeholder="e.g. 5"
+                                />
+                                <InputError message={errors.pcs} />
                             </div>
 
                             <Button
@@ -124,14 +139,15 @@ export default function SellerDashboard({ shop, rescues }: Props) {
                                         <th className="px-6 py-3 font-semibold">Status</th>
                                         <th className="px-6 py-3 font-semibold">Date Logged</th>
                                         <th className="px-6 py-3 font-semibold">Claimed By</th>
+                                        <th className="px-6 py-3 font-semibold text-center">Qty</th>
                                         <th className="px-6 py-3 font-semibold text-right">Weight</th>
-                                        <th className="px-6 py-3 font-semibold text-right">Savings Value</th>
+                                        <th className="px-6 py-3 font-semibold text-right">Price</th>
                                     </tr>
                                 </thead>
                                 <tbody className="divide-y divide-neutral-100 text-gray-900">
                                     {!rescues?.data || rescues.data.length === 0 ? (
                                         <tr>
-                                            <td colSpan={5} className="px-6 py-8 text-center text-neutral-400">
+                                            <td colSpan={6} className="px-6 py-8 text-center text-neutral-400">
                                                 No rescue records cataloged yet.
                                             </td>
                                         </tr>
@@ -150,12 +166,15 @@ export default function SellerDashboard({ shop, rescues }: Props) {
                                                         year: 'numeric',
                                                     })}
                                                 </td>
-                                                <td className="px-6 py-4 font-medium">{record.buyer_name}</td>
+                                                <td className="px-6 py-4 font-medium">{record.buyer_name || '-'}</td>
+                                                <td className="px-6 py-4 text-center font-mono text-neutral-600">
+                                                    {record.pcs}
+                                                </td>
                                                 <td className="px-6 py-4 text-right font-mono text-neutral-600">
                                                     {record.weight_kg} kg
                                                 </td>
                                                 <td className="px-6 py-4 text-right font-bold text-[#C34A15]">
-                                                    Rp {record.savings_amount.toLocaleString('id-ID')}
+                                                    Rp {record.price.toLocaleString('id-ID')}
                                                 </td>
                                             </tr>
                                         ))
@@ -170,5 +189,4 @@ export default function SellerDashboard({ shop, rescues }: Props) {
     );
 }
 
-// Hanya menggunakan SellerLayout, tidak ada layout bawaan Laravel lain
 SellerDashboard.layout = (page: React.ReactNode) => <SellerLayout>{page}</SellerLayout>;

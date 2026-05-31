@@ -1,4 +1,4 @@
-import React, { FormEvent } from 'react';
+import React, { FormEvent, useState, useEffect } from 'react';
 import { Head, useForm } from '@inertiajs/react';
 import HomeLayout from '@/layouts/home-layout';
 import { NavBar } from '@/components/frontend/nav-bar';
@@ -12,15 +12,22 @@ interface CheckoutProps {
         id: number;
         shop_name: string;
         address: string;
-        savings_amount: number;
+        price: number;
         weight_kg: number;
         image: string;
+        pcs: number;
     };
 }
 
 export default function Checkout({ rescue }: CheckoutProps) {
+    // Extract quantity from URL parameters, defaulting to 1
+    const params = new URLSearchParams(typeof window !== 'undefined' ? window.location.search : '');
+    const initialQuantity = parseInt(params.get('quantity') || '1', 10);
+
     const { data, setData, post, processing, errors, clearErrors } = useForm({
         payment_method: 'qris',
+        // Bind quantity to the form state to pass it dynamically on POST
+        quantity: initialQuantity > 0 && initialQuantity <= rescue.pcs ? initialQuantity : 1,
     });
 
     const handleCheckout = (e: FormEvent) => {
@@ -35,9 +42,11 @@ export default function Checkout({ rescue }: CheckoutProps) {
         });
     };
 
-    const finalPrice = rescue.savings_amount;
+    // Derived calculated values based on quantity
+    const mysteryBoxPrice = Number(rescue.price) * data.quantity;
     const serviceFee = 3000;
-    const total = finalPrice + serviceFee;
+    const total = mysteryBoxPrice + serviceFee;
+    const totalWeight = Number(rescue.weight_kg) * data.quantity;
 
     return (
         <div className="min-h-screen bg-white flex flex-col font-['Inter',sans-serif] text-[#1E1B13]">
@@ -83,7 +92,7 @@ export default function Checkout({ rescue }: CheckoutProps) {
                             <div className="flex flex-col sm:flex-row gap-6">
                                 <div className="w-full sm:w-1/4 aspect-square rounded-lg overflow-hidden bg-white shrink-0">
                                     <img
-                                        src="/images/mystery-box.png"
+                                        src={rescue.image || "/images/mystery-box.png"}
                                         alt={rescue.shop_name}
                                         className="h-full w-full object-cover"
                                         onError={(e) => {
@@ -99,16 +108,19 @@ export default function Checkout({ rescue }: CheckoutProps) {
                                     </div>
 
                                     <div className="text-xl font-bold text-[#A93100] mb-3">
-                                        Rp {finalPrice.toLocaleString('id-ID')}
+                                        Rp {mysteryBoxPrice.toLocaleString('id-ID')}
                                     </div>
 
                                     <div className="flex gap-4">
                                         <span className="bg-[#E9E2D3] px-4 py-1 text-xs font-medium tracking-wide uppercase text-[#5C4037] rounded-full">
-                                            Jumlah: 1
+                                            Jumlah: {data.quantity}
                                         </span>
                                         <span className="bg-[#FCD400] px-4 py-1 text-xs font-medium tracking-wide uppercase text-[#6E5C00] rounded-full">
                                             Flash Sale
                                         </span>
+                                    </div>
+                                    <div className="mt-2 text-xs text-[#5C4037] font-medium">
+                                        Total Weight: {totalWeight.toFixed(2)} kg
                                     </div>
                                 </div>
                             </div>
@@ -186,8 +198,8 @@ export default function Checkout({ rescue }: CheckoutProps) {
                             {/* Cost Breakdown */}
                             <div className="flex flex-col gap-4 mb-6">
                                 <div className="flex justify-between items-center text-[#5C4037] font-bold">
-                                    <span>Harga Mystery Box</span>
-                                    <span>Rp {finalPrice.toLocaleString('id-ID')}</span>
+                                    <span>Harga Mystery Box ({data.quantity}x)</span>
+                                    <span>Rp {mysteryBoxPrice.toLocaleString('id-ID')}</span>
                                 </div>
                                 <div className="flex justify-between items-center text-[#5C4037] font-bold">
                                     <span>Biaya Layanan</span>

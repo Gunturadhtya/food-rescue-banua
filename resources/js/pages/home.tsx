@@ -11,7 +11,7 @@ interface ActiveRescue {
     id: number;
     shop_name: string;
     address: string;
-    savings_amount: number;
+    price: number;
     weight_kg: number;
     image: string;
     description: string;
@@ -118,7 +118,7 @@ export default function Home({ activeRescues }: Props) {
                                             <p className="text-white mt-3 font-medium">
                                                 Hemat{' '}
                                                 <span className="font-bold text-yellow-300">
-                                                    Rp {item.savings_amount.toLocaleString('id-ID')}
+                                                    Rp {item.price.toLocaleString('id-ID')}
                                                 </span>{' '}
                                                 · {item.weight_kg} kg tersedia
                                             </p>
@@ -203,7 +203,7 @@ export default function Home({ activeRescues }: Props) {
                                     <RestaurantCard
                                         name={item.shop_name}
                                         distance={item.address}
-                                        discount={`Save Rp ${item.savings_amount.toLocaleString('id-ID')}`}
+                                        discount={`Save Rp ${item.price.toLocaleString('id-ID')}`}
                                         price={`${item.weight_kg} kg`}
                                         image={item.image}
                                     />

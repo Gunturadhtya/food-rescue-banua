@@ -4,13 +4,13 @@ import ProfileLayout from '@/layouts/profile-layouts';
 import { ShoppingBag, Clock, CheckCircle, MapPin, XCircle } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
 
-// Update the TypeScript union to strictly match the database Enum
 interface Order {
     id: number;
     shop_name: string;
     shop_address: string;
     weight_kg: number;
-    savings_amount: number;
+    price: number;
+    quantity: number;
     status: 'claimed' | 'redeemed' | 'expired';
     created_at: string;
     pickup_code: string;
@@ -24,7 +24,6 @@ interface Props {
 
 export default function BuyerOrders({ orders = { data: [] } }: Props) {
 
-    // Extracted configuration to handle UI variations cleanly
     const getStatusConfig = (status: Order['status']) => {
         switch (status) {
             case 'claimed':
@@ -73,6 +72,8 @@ export default function BuyerOrders({ orders = { data: [] } }: Props) {
                 ) : (
                     orders.data.map((order) => {
                         const config = getStatusConfig(order.status);
+                        const totalWeight = order.weight_kg * order.quantity;
+                        const totalPrice = order.price * order.quantity;
 
                         return (
                             <Card key={order.id} className="border-neutral-100 shadow-sm hover:border-neutral-200 transition-all">
@@ -95,12 +96,12 @@ export default function BuyerOrders({ orders = { data: [] } }: Props) {
                                             </p>
                                         </div>
                                         <div className="flex gap-4 text-sm pt-1">
-                                            <p className="text-neutral-600">Berat: <span className="font-semibold text-gray-900">{order.weight_kg} kg</span></p>
-                                            <p className="text-neutral-600">Hemat: <span className="font-bold text-[#C34A15]">Rp {order.savings_amount.toLocaleString('id-ID')}</span></p>
+                                            <p className="text-neutral-600">Jumlah: <span className="font-semibold text-gray-900">{order.quantity}x</span></p>
+                                            <p className="text-neutral-600">Berat Total: <span className="font-semibold text-gray-900">{totalWeight.toFixed(2)} kg</span></p>
+                                            <p className="text-neutral-600">Total Harga: <span className="font-bold text-[#C34A15]">Rp {totalPrice.toLocaleString('id-ID')}</span></p>
                                         </div>
                                     </div>
 
-                                    {/* Only display the pickup code if the food hasn't been collected or expired yet */}
                                     {order.status === 'claimed' && (
                                         <div className="bg-[#FFF8F5] border border-dashed border-[#C34A15] px-4 py-3 rounded-xl flex flex-col items-center justify-center shrink-0 w-full md:w-auto">
                                             <span className="text-[10px] uppercase tracking-wider text-neutral-500 font-bold">Kode Pick-up</span>

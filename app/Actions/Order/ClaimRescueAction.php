@@ -10,23 +10,34 @@ use Illuminate\Support\Str;
 
 class ClaimRescueAction
 {
-    public function execute(Rescue $rescue, int $userId): Ticket
+    public function execute(Rescue $rescue, int $userId, int $quantity = 1): Ticket
     {
-        return DB::transaction(function () use ($rescue, $userId) {
+        return DB::transaction(function () use ($rescue, $userId, $quantity) {
+            // Lock the row to prevent race conditions when multiple users buy simultaneously
             $lockedRescue = Rescue::where('id', $rescue->id)->lockForUpdate()->firstOrFail();
 
-            if ($lockedRescue->status !== RescueStatus::ACTIVE) {
-                abort(409, 'This rescue is no longer available.');
+            if ($lockedRescue->status !== RescueStatus::ACTIVE || $lockedRescue->pcs < $quantity) {
+                abort(409, 'This rescue is no longer available in the requested quantity.');
             }
 
-            $lockedRescue->update([
-                'user_id' => $userId,
-                'status' => RescueStatus::CLAIMED,
-            ]);
+            // Deduct inventory
+            $lockedRescue->pcs -= $quantity;
+            
+            $updateData = ['pcs' => $lockedRescue->pcs];
 
+            // If sold out, transition the status
+            if ($lockedRescue->pcs === 0) {
+                $updateData['status'] = RescueStatus::CLAIMED;
+                $updateData['user_id'] = $userId; // Optionally keep legacy tracking for the final buyer
+            }
+
+            $lockedRescue->update($updateData);
+
+            // Generate the Ticket documenting the quantity purchased
             return Ticket::create([
                 'user_id' => $userId,
                 'rescue_id' => $lockedRescue->id,
+                'quantity' => $quantity,
                 'code' => 'FRB-' . strtoupper(Str::random(6)),
                 'title' => 'Surprise Bag - ' . $lockedRescue->shop->name,
                 'address' => $lockedRescue->shop->address,

@@ -15,7 +15,8 @@ class Rescue extends Model
         'user_id',
         'shop_id',
         'status',
-        'savings_amount',
+        'pcs',
+        'price', 
         'weight_kg',
         'expires_at',
     ];
@@ -25,8 +26,9 @@ class Rescue extends Model
         return [
             'status' => RescueStatus::class,
             'expires_at' => 'datetime',
-            'savings_amount' => 'decimal:2',
+            'price' => 'decimal:2', 
             'weight_kg' => 'decimal:2',
+            'pcs' => 'integer',
         ];
     }
 
