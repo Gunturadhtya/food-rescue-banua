@@ -15,7 +15,8 @@ class HomeController extends Controller
         $search = $request->query('search');
 
         $query = Rescue::with('shop:id,name,address,image_path,slug')
-            ->where('status', RescueStatus::ACTIVE);
+            ->where('status', RescueStatus::ACTIVE)
+            ->where('expires_at', '>', now());
 
         if (! empty($search)) {
             $query->whereHas('shop', function ($q) use ($search) {

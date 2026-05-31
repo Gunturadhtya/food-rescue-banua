@@ -5,7 +5,7 @@ import { SiteFooter } from '@/components/frontend/site-footer';
 import { RestaurantCard } from '@/components/frontend/restaurant-card';
 import { show as showRescue } from '@/actions/App/Http/Controllers/RescueController';
 import { useState, useRef } from 'react';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { ChevronLeft, ChevronRight, RefreshCw } from 'lucide-react';
 
 interface ActiveRescue {
     id: number;
@@ -77,7 +77,7 @@ export default function Home({ activeRescues }: Props) {
             <main className="px-12 py-6">
                 {/* Hero Carousel */}
                 <div
-                    className="relative h-[450px] w-full overflow-hidden rounded-[32px] cursor-default select-none"
+                    className="relative h-[450px] w-full overflow-hidden rounded-[32px] cursor-default select-none bg-neutral-900"
                     onMouseDown={onMouseDown}
                     onMouseMove={onMouseMove}
                     onMouseUp={onMouseUp}
@@ -167,12 +167,25 @@ export default function Home({ activeRescues }: Props) {
                             )}
                         </>
                     ) : (
-                        <div className="relative h-full bg-orange-700">
-                            <img src="/images/hero-bg.jpg" className="h-full w-full object-cover opacity-80 pointer-events-none" draggable={false} />
-                            <div className="absolute inset-0 flex flex-col justify-center px-12 bg-gradient-to-r from-black/60 to-transparent">
-                                <span className="bg-yellow-400 w-fit px-3 py-1 rounded-md text-xs font-bold uppercase tracking-widest mb-4">Penawaran Terbatas</span>
-                                <h1 className="text-6xl font-bold text-white leading-tight">The Golden Hour<br />Of Dining.</h1>
-                                <button className="mt-8 w-fit rounded-full bg-yellow-300 px-8 py-4 font-bold text-black hover:bg-yellow-400">PESAN SEKARANG</button>
+                        <div className="relative h-full bg-neutral-800">
+                            <img src="/images/hero-bg.jpg" className="h-full w-full object-cover opacity-30 pointer-events-none grayscale" draggable={false} />
+                            <div className="absolute inset-0 flex flex-col justify-center items-center text-center px-12 bg-gradient-to-t from-black/80 via-black/40 to-transparent">
+                                <span className="bg-neutral-600/80 backdrop-blur-sm text-white w-fit px-3 py-1 rounded-md text-xs font-bold uppercase tracking-widest mb-4">
+                                    Stok Kosong
+                                </span>
+                                <h1 className="text-5xl md:text-6xl font-bold text-white leading-tight">
+                                    Semua Makanan<br />Telah Diselamatkan.
+                                </h1>
+                                <p className="text-neutral-300 mt-4 max-w-lg text-sm md:text-base">
+                                    Saat ini tidak ada surprise bag yang tersedia. Mitra kami sedang mempersiapkan porsi baru. Silakan cek kembali beberapa saat lagi.
+                                </p>
+                                <button
+                                    onClick={() => window.location.reload()}
+                                    className="mt-8 flex items-center gap-2 rounded-full bg-white px-8 py-4 font-bold text-black hover:bg-neutral-200 transition-colors pointer-events-auto"
+                                >
+                                    <RefreshCw size={18} />
+                                    REFRESH HALAMAN
+                                </button>
                             </div>
                         </div>
                     )}
@@ -184,7 +197,7 @@ export default function Home({ activeRescues }: Props) {
                         <h2 className="text-3xl font-bold">Active Rescues</h2>
                     </div>
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                        {activeRescues.length > 0 ? (
+                        {total > 0 ? (
                             activeRescues.map((item) => (
                                 <Link key={item.id} href={showRescue.url(item.id)} className="block transition-transform duration-300 hover:-translate-y-2">
                                     <RestaurantCard
@@ -197,8 +210,9 @@ export default function Home({ activeRescues }: Props) {
                                 </Link>
                             ))
                         ) : (
-                            <div className="col-span-full py-12 text-center text-neutral-500 bg-white rounded-3xl border border-dashed border-gray-200">
-                                No active rescues available right now. Check back later!
+                            <div className="col-span-full py-16 flex flex-col items-center justify-center text-center bg-white rounded-3xl border border-dashed border-neutral-300">
+                                <p className="text-neutral-500 font-medium text-lg">Belum ada rescue aktif saat ini.</p>
+                                <p className="text-neutral-400 text-sm mt-1">Kami akan menampilkan daftar restoran segera setelah stok tersedia!</p>
                             </div>
                         )}
                     </div>
