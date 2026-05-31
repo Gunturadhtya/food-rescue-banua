@@ -17,4 +17,11 @@ class AdminRescueController extends Controller
             'rescues' => $rescues
         ]);
     }
+
+    public function destroy(Rescue $rescue)
+    {
+        $rescue->delete();
+
+        return redirect()->back();
+    }
 }
