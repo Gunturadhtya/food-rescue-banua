@@ -17,4 +17,11 @@ class AdminShopController extends Controller
             'shops' => $shops
         ]);
     }
+
+    public function destroy(Shop $shop)
+    {
+        $shop->delete();
+
+        return redirect()->back();
+    }
 }
