@@ -37,9 +37,11 @@ interface Props {
 
 export default function AdminTicketIndex({ tickets }: Props) {
     
-    const handleDeleteTicket = (id: number) => {
-        if (window.confirm(`Apakah kamu yakin ingin menghapus tiket #TK-${id} ini?`)) {
-            router.delete(`/admin/tickets/${id}`);
+    const handleDeleteTicket = (ticket: Ticket) => {
+        const identifier = ticket.code || `TK-${ticket.id}`;
+        
+        if (window.confirm(`Apakah kamu yakin ingin menghapus tiket #${identifier} ini?`)) {
+            router.delete(`/admin/tickets/${ticket.id}`);
         }
     };
 
@@ -113,7 +115,7 @@ export default function AdminTicketIndex({ tickets }: Props) {
                                         </td>
                                         <td className="px-6 py-4 text-right space-x-4">
                                             <button 
-                                                onClick={() => handleDeleteTicket(ticket.id)}
+                                                onClick={() => handleDeleteTicket(ticket)}
                                                 className="text-red-600 hover:text-red-800 font-semibold transition-colors">
                                                 Delete
                                             </button>
