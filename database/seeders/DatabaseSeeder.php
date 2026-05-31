@@ -92,6 +92,7 @@ class DatabaseSeeder extends Seeder
                     'user_id' => null,
                     'shop_id' => $shop->id,
                     'status' => 'active',
+                    'expires_at' => now()->addHours(2)->addMinutes(42),
                     'savings_amount' => rand(15, 50) * 1000,
                     'weight_kg' => rand(5, 20) / 10,
                 ]);
@@ -105,6 +106,7 @@ class DatabaseSeeder extends Seeder
                     'status' => 'claimed',
                     'savings_amount' => rand(15, 45) * 1000,
                     'weight_kg' => rand(5, 25) / 10,
+                    'expires_at' => now()->addHours(2)->addMinutes(42),
                     'created_at' => now()->subDays(rand(1, 30))->subHours(rand(1, 24)),
                 ]);
             }
