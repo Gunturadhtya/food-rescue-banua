@@ -13,7 +13,6 @@ class AuthResponse implements LoginResponseContract, RegisterResponseContract
         $url = match ($request->user()->role) {
             Role::ADMIN => route('admin.dashboard', absolute: false),
             Role::SELLER => route('seller.dashboard', absolute: false),
-            Role::USER => route('dashboard', absolute: false),
             default => config('fortify.home'),
         };
 

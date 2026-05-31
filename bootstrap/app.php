@@ -31,7 +31,6 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->redirectUsersTo(fn (\Illuminate\Http\Request $request) => match ($request->user()?->role) {
         \App\Enums\Role::ADMIN => route('admin.dashboard', absolute: false),
         \App\Enums\Role::SELLER => route('seller.dashboard', absolute: false),
-        \App\Enums\Role::USER => route('dashboard', absolute: false),
         default => config('fortify.home', '/home'),
     });
     })
