@@ -11,10 +11,15 @@ use Inertia\Response;
 
 class SellerOrderController extends Controller
 {
-    public function index(Request $request): Response
+    public function index(Request $request): Response|RedirectResponse
     {
         $seller = $request->user();
-        $shop = Shop::where('user_id', $seller->id)->firstOrFail();
+        $shop = Shop::where('user_id', $seller->id)->first();
+
+        if (!$shop) {
+            echo 'Shop tidak ada';
+            return redirect()->route('seller.shop.create');
+        }   
 
         // Fetch only active tickets that haven't physically expired
         $activeTickets = Ticket::where('status', 'active')

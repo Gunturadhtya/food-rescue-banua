@@ -12,6 +12,7 @@ use App\Http\Controllers\AdminUserController;
 use App\Http\Controllers\AdminShopController;
 use App\Http\Controllers\AdminRescueController;
 use App\Http\Controllers\AdminTicketController;
+use App\Http\Controllers\SellerShopController;
 use Illuminate\Support\Facades\Route;
 use App\Enums\Role;
 use Inertia\Inertia;
@@ -45,6 +46,12 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::post('/seller/dashboard/rescue', [SellerDashboardController::class, 'store'])->name('seller.rescue.store');
         Route::get('/seller/orders', [SellerOrderController::class, 'index'])->name('seller.orders');
         Route::post('/seller/orders/redeem', [SellerOrderController::class, 'redeem'])->name('seller.orders.redeem');
+        
+        Route::get('/seller/shop/create', [SellerShopController::class, 'create'])->name('seller.shop.create');
+        Route::post('/seller/shop', [SellerShopController::class, 'store'])->name('seller.shop.store');
+    
+        Route::get('/seller/shop/edit', [SellerShopController::class, 'edit'])->name('seller.shop.edit');
+        Route::put('/seller/shop', [SellerShopController::class, 'update'])->name('seller.shop.update');
     });
 
 });

@@ -1,6 +1,8 @@
 import React from 'react';
-import { Head, useForm } from '@inertiajs/react';
-import { PlusCircle, History } from 'lucide-react';
+// 1. Add `Link` to the Inertia imports
+import { Head, useForm, Link } from '@inertiajs/react';
+// 2. Add `Settings` to the lucide-react imports
+import { PlusCircle, History, Settings } from 'lucide-react';
 import ProfileLayout from '@/layouts/profile-layouts';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
@@ -24,6 +26,8 @@ interface Props {
         id: number;
         name: string;
         address: string;
+        // 3. Add description to the shop interface
+        description?: string | null;
     };
     rescues: {
         data: RescueRecord[];
@@ -48,9 +52,22 @@ export default function SellerDashboard({ shop, rescues }: Props) {
         <div className="space-y-6">
             <Head title="Seller Dashboard" />
 
-            <div className="flex flex-col gap-1">
-                <h1 className="text-3xl font-bold font-jakarta text-gray-900">{shop?.name || 'Nama Toko'}</h1>
-                <p className="text-sm text-neutral-500">{shop?.address || 'Alamat belum diatur'}</p>
+            <div className="flex flex-col md:flex-row md:items-start justify-between gap-4 bg-white p-6 rounded-3xl border border-neutral-200">
+                <div className="flex flex-col gap-1">
+                    <h1 className="text-3xl font-bold font-jakarta text-gray-900">{shop?.name || 'Nama Toko'}</h1>
+                    <p className="text-sm text-neutral-500 font-medium">{shop?.address || 'Alamat belum diatur'}</p>
+                    {shop?.description && (
+                        <p className="mt-2 text-sm text-neutral-600 max-w-xl">{shop.description}</p>
+                    )}
+                </div>
+
+                <Link
+                    href="/seller/shop/edit"
+                    className="flex items-center gap-2 px-4 py-2 bg-neutral-100 hover:bg-neutral-200 text-neutral-700 text-sm font-semibold rounded-xl transition-colors shrink-0"
+                >
+                    <Settings size={16} />
+                    Edit Profile
+                </Link>
             </div>
 
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 items-start">

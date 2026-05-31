@@ -12,12 +12,16 @@ use Inertia\Response;
 
 class SellerDashboardController extends Controller
 {
-    public function index(Request $request): Response
+    public function index(Request $request): Response|RedirectResponse
     {
         /** @var User $seller */
         $seller = $request->user();
         
-        $shop = Shop::where('user_id', $seller->id)->firstOrFail();
+        $shop = Shop::where('user_id', $seller->id)->first();
+
+        if (!$shop) {
+            return redirect()->route('seller.shop.create');
+        }
 
         // Fetch rescues including unassigned ones
         $rescues = Rescue::where('shop_id', $shop->id)
