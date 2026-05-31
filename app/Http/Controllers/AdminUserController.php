@@ -44,6 +44,37 @@ class AdminUserController extends Controller
         return redirect()->route('admin.users.index');
     }
 
+    public function edit(User $user): Response
+    {
+        return Inertia::render('admin/users/edit', [
+            'user' => $user
+        ]);
+    }
+
+    public function update(Request $request, User $user)
+    {
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users,email,' . $user->id,
+            'password' => 'nullable|string|min:8', // Boleh kosong
+            'role' => 'required|string|in:admin,seller,user',
+        ]);
+
+        $updateData = [
+            'name' => $validated['name'],
+            'email' => $validated['email'],
+            'role' => $validated['role'],
+        ];
+
+        if (!empty($validated['password'])) {
+            $updateData['password'] = Hash::make($validated['password']);
+        }
+
+        $user->update($updateData);
+
+        return redirect()->route('admin.users.index');
+    }
+
     public function destroy(User $user)
     {
         $user->delete();

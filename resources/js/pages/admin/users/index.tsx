@@ -69,9 +69,11 @@ export default function AdminUserIndex({ users }: Props) {
                                         })}
                                     </td>
                                     <td className="px-6 py-4 text-right space-x-4">
-                                        <button className="text-blue-600 hover:text-blue-800 font-semibold transition-colors">
+                                        <Link 
+                                            href={`/admin/users/${user.id}/edit`}
+                                            className="text-blue-600 hover:text-blue-800 font-semibold transition-colors">
                                             Edit
-                                        </button>
+                                        </Link>
                                         <button 
                                             onClick={() => handleDelete(user.id, user.name)}
                                             className="text-red-600 hover:text-red-800 font-semibold transition-colors">
