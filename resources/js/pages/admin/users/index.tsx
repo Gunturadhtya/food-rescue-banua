@@ -32,9 +32,9 @@ export default function AdminUserIndex({ users }: Props) {
                     <h1 className="text-3xl font-bold font-jakarta text-gray-900">Manage Users</h1>
                     <p className="text-sm text-neutral-500">Kelola semua akun pembeli, penjual, dan admin.</p>
                 </div>
-                <button className="bg-[#C34A15] text-white px-5 py-2.5 rounded-xl text-sm font-bold hover:bg-[#A33D10] transition-colors shrink-0">
+                <Link href="/admin/users/create" className="bg-[#C34A15] text-white px-5 py-2.5 rounded-xl text-sm font-bold hover:bg-[#A33D10] transition-colors shrink-0">
                     + Add New User
-                </button>
+                </Link>
             </div>
 
             <div className="bg-white rounded-[24px] border border-neutral-100 shadow-sm overflow-hidden">
