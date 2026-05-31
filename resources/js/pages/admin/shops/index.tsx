@@ -81,13 +81,14 @@ export default function AdminShopIndex({ shops }: Props) {
                                         })}
                                     </td>
                                     <td className="px-6 py-4 text-right space-x-4">
-                                        <button className="text-blue-600 hover:text-blue-800 font-semibold transition-colors">
+                                        <Link 
+                                            href={`/admin/shops/${shop.id}/edit`}
+                                            className="text-blue-600 hover:text-blue-800 font-semibold transition-colors">
                                             Detail
-                                        </button>
+                                        </Link>
                                         <button 
                                             onClick={() => handleDeleteShop(shop.id, shop.name)}
-                                            className="text-red-600 hover:text-red-800 font-semibold transition-colors"
-                                        >
+                                            className="text-red-600 hover:text-red-800 font-semibold transition-colors">
                                             Delete
                                         </button>
                                     </td>
