@@ -28,7 +28,7 @@ export default function SettingsLayout({ children }: PropsWithChildren) {
     return (
         <ProfileLayout>
             <div className="flex w-full max-w-4xl flex-col gap-6 px-4 py-6">
-                
+
                 <Heading
                     title="Settings"
                     description="Manage your profile and account settings"
@@ -68,7 +68,7 @@ export default function SettingsLayout({ children }: PropsWithChildren) {
                         {children}
                     </section>
                 </div>
-                
+
             </div>
         </ProfileLayout>
     );
