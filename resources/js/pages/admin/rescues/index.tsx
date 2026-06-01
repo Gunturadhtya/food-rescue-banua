@@ -40,7 +40,8 @@ export default function AdminRescueIndex({ rescues }: Props) {
     };
 
     const formatRupiah = (value: any) => {
-        return `Rp ${value}`; 
+        const num = Number(value);
+        return !isNaN(num) ? `Rp${num.toLocaleString('id-ID')},00` : `Rp${value}`; 
     };
 
     const getStatusText = (status: any) => {

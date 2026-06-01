@@ -135,7 +135,7 @@ export default function RescueDetail({ rescue }: Props) {
 
                             <div className="flex justify-between items-end mb-6">
                                 <div>
-                                    <p className="text-3xl font-extrabold text-gray-900">Rp {totalPrice.toLocaleString('id-ID')}</p>
+                                    <p className="text-3xl font-extrabold text-gray-900">Rp{Number(totalPrice).toLocaleString('id-ID')},00</p>
                                 </div>
                                 <p className="text-sm font-bold text-[#8C9B50]">{totalWeight.toFixed(2)} kg Rescued</p>
                             </div>

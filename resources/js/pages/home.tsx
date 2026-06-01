@@ -118,7 +118,7 @@ export default function Home({ activeRescues }: Props) {
                                             <p className="text-white mt-3 font-medium">
                                                 Save{' '}
                                                 <span className="font-bold text-yellow-300">
-                                                    Rp {item.price.toLocaleString('id-ID')}
+                                                    Rp{Number(item.price).toLocaleString('id-ID')},00
                                                 </span>{' '}
                                                 · {item.weight_kg} kg available
                                             </p>
@@ -203,7 +203,7 @@ export default function Home({ activeRescues }: Props) {
                                     <RestaurantCard
                                         name={item.shop_name}
                                         distance={item.address}
-                                        discount={`Save Rp ${item.price.toLocaleString('id-ID')}`}
+                                        discount={`Save Rp${Number(item.price).toLocaleString('id-ID')},00`}
                                         price={`${item.weight_kg} kg`}
                                         image={item.image}
                                     />

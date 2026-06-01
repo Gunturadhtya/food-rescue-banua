@@ -98,7 +98,7 @@ export default function BuyerOrders({ orders = { data: [] } }: Props) {
                                         <div className="flex gap-4 text-sm pt-1">
                                             <p className="text-neutral-600">Quantity: <span className="font-semibold text-gray-900">{order.quantity}x</span></p>
                                             <p className="text-neutral-600">Total Weight: <span className="font-semibold text-gray-900">{totalWeight.toFixed(2)} kg</span></p>
-                                            <p className="text-neutral-600">Total Price: <span className="font-bold text-[#C34A15]">Rp {totalPrice.toLocaleString('id-ID')}</span></p>
+                                            <p className="text-neutral-600">Total Price: <span className="font-bold text-[#C34A15]">Rp{Number(totalPrice).toLocaleString('id-ID')},00</span></p>
                                         </div>
                                     </div>
 

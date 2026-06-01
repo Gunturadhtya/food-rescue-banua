@@ -59,7 +59,7 @@ export default function Dashboard({ stats, activeTicket, tierProgress }: Dashboa
             <section className="flex flex-wrap gap-6 mt-6">
                 <StatCard
                     title="Total Savings"
-                    value={`Rp ${totalSavings.toLocaleString('id-ID')}`}
+                    value={`Rp${Number(totalSavings).toLocaleString('id-ID')},00`}
                 />
                 <StatCard
                     title="Food Rescued"

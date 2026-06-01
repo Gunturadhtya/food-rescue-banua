@@ -191,7 +191,7 @@ export default function SellerDashboard({ shop, rescues }: Props) {
                                                     {record.weight_kg} kg
                                                 </td>
                                                 <td className="px-6 py-4 text-right font-bold text-[#C34A15]">
-                                                    Rp {record.price.toLocaleString('id-ID')}
+                                                    Rp{Number(record.price).toLocaleString('id-ID')},00
                                                 </td>
                                             </tr>
                                         ))

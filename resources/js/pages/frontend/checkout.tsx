@@ -108,7 +108,7 @@ export default function Checkout({ rescue }: CheckoutProps) {
                                     </div>
 
                                     <div className="text-xl font-bold text-[#A93100] mb-3">
-                                        Rp {mysteryBoxPrice.toLocaleString('id-ID')}
+                                        Rp{Number(mysteryBoxPrice).toLocaleString('id-ID')},00
                                     </div>
 
                                     <div className="flex gap-4">
@@ -199,17 +199,17 @@ export default function Checkout({ rescue }: CheckoutProps) {
                             <div className="flex flex-col gap-4 mb-6">
                                 <div className="flex justify-between items-center text-[#5C4037] font-bold">
                                     <span>Mystery Box Price ({data.quantity}x)</span>
-                                    <span>Rp {mysteryBoxPrice.toLocaleString('id-ID')}</span>
+                                    <span>Rp{Number(mysteryBoxPrice).toLocaleString('id-ID')},00</span>
                                 </div>
                                 <div className="flex justify-between items-center text-[#5C4037] font-bold">
                                     <span>Service Fee</span>
-                                    <span>Rp {serviceFee.toLocaleString('id-ID')}</span>
+                                    <span>Rp{Number(serviceFee).toLocaleString('id-ID')},00</span>
                                 </div>
 
                                 <div className="border-t-2 border-[#E6BEB2]/30 mt-2 pt-4 flex justify-between items-end">
                                     <div className="flex flex-col gap-1">
                                         <span className="text-xs font-bold text-[#5C4037] tracking-[1.2px] uppercase">Total Payment</span>
-                                        <span className="text-3xl font-bold tracking-tight text-[#1E1B13]">Rp {total.toLocaleString('id-ID')}</span>
+                                        <span className="text-3xl font-bold tracking-tight text-[#1E1B13]">Rp{Number(total).toLocaleString('id-ID')},00</span>
                                     </div>
                                     <div className="bg-[#FFE16D] px-2 py-1 rounded text-[10px] font-medium text-[#221B00] flex items-center gap-1 mb-1">
                                         <ShieldCheck className="w-3 h-3" /> SECURE
