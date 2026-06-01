@@ -2,6 +2,13 @@ import React from 'react';
 import { Head, Link, useForm } from '@inertiajs/react';
 import ProfileLayout from '@/layouts/profile-layouts';
 import { Store, User, Mail, Calendar, Info } from 'lucide-react';
+import {
+    Select,
+    SelectContent,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
+} from "@/components/ui/select";
 
 interface ShopOwner {
     id: number;
@@ -113,27 +120,30 @@ export default function AdminShopEdit({ shop }: Props) {
                         <form onSubmit={submit} className="space-y-6">
                             <div className="space-y-2">
                                 <label className="text-sm font-semibold text-gray-900">Current Status</label>
-                                <select
-                                    value={data.status}
-                                    onChange={e => setData('status', e.target.value)}
-                                    className={`w-full px-4 py-3 border rounded-xl focus:bg-white focus:ring-2 focus:ring-[#C34A15]/20 focus:border-[#C34A15] transition-all text-sm font-bold cursor-pointer ${
-                                        data.status === 'approved' || data.status === 'active' ? 'bg-green-50 border-green-200 text-green-700' :
-                                        data.status === 'pending' ? 'bg-amber-50 border-amber-200 text-amber-700' :
-                                        'bg-red-50 border-red-200 text-red-700'
-                                    }`}
-                                >
-                                    <option value="pending">Pending</option>
-                                    <option value="approved">Approved</option>
-                                    <option value="rejected">Rejected</option>
-                                </select>
+                                
+                                <Select value={data.status} onValueChange={(value) => setData('status', value)}>
+                                    <SelectTrigger 
+                                        className={`w-full px-4 py-6 border rounded-xl font-bold transition-all ${
+                                            data.status === 'approved' || data.status === 'active' ? 'bg-green-50 border-green-200 text-green-700' :
+                                            data.status === 'pending' ? 'bg-amber-50 border-amber-200 text-amber-700' :
+                                            'bg-red-50 border-red-200 text-red-700'
+                                        }`}>
+                                        <SelectValue placeholder="Pilih status" />
+                                    </SelectTrigger>
+                                    <SelectContent className="bg-white border-neutral-200 rounded-xl shadow-lg">
+                                        <SelectItem value="pending" className="cursor-pointer font-medium hover:bg-neutral-50">Pending (Menunggu)</SelectItem>
+                                        <SelectItem value="approved" className="cursor-pointer font-medium hover:bg-neutral-50">Approved (Disetujui)</SelectItem>
+                                        <SelectItem value="rejected" className="cursor-pointer font-medium hover:bg-neutral-50">Rejected (Ditolak)</SelectItem>
+                                    </SelectContent>
+                                </Select>
+
                                 {errors.status && <p className="text-red-500 text-xs font-medium">{errors.status}</p>}
                             </div>
 
                             <button
                                 type="submit"
                                 disabled={processing}
-                                className="w-full bg-[#C34A15] text-white px-6 py-3 rounded-xl text-sm font-bold hover:bg-[#A33D10] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-                            >
+                                className="w-full bg-[#C34A15] text-white px-6 py-3 rounded-xl text-sm font-bold hover:bg-[#A33D10] transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
                                 {processing ? 'Updating...' : 'Save Changes'}
                             </button>
                         </form>
