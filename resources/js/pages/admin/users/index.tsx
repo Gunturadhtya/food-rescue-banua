@@ -18,7 +18,7 @@ interface Props {
 
 export default function AdminUserIndex({ users }: Props) {
     const handleDelete = (id: number, name: string) => {
-        if (window.confirm(`Apakah kamu yakin ingin menghapus user "${name}" secara permanen?`)) {
+        if (window.confirm(`Are you sure you want to permanently delete user "${name}"?`)) {
             router.delete(`/admin/users/${id}`);
         }
     };
@@ -30,7 +30,7 @@ export default function AdminUserIndex({ users }: Props) {
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
                 <div className="flex flex-col gap-1">
                     <h1 className="text-3xl font-bold font-jakarta text-gray-900">Manage Users</h1>
-                    <p className="text-sm text-neutral-500">Kelola semua akun pembeli, penjual, dan admin.</p>
+                    <p className="text-sm text-neutral-500">Manage all buyer, seller, and admin accounts.</p>
                 </div>
                 <Link href="/admin/users/create" className="bg-[#C34A15] text-white px-5 py-2.5 rounded-xl text-sm font-bold hover:bg-[#A33D10] transition-colors shrink-0">
                     + Add New User
@@ -85,7 +85,7 @@ export default function AdminUserIndex({ users }: Props) {
                             {users.data.length === 0 && (
                                 <tr>
                                     <td colSpan={5} className="px-6 py-8 text-center text-neutral-500">
-                                        Belum ada data user.
+                                        No user data available.
                                     </td>
                                 </tr>
                             )}

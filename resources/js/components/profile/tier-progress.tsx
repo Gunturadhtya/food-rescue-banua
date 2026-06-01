@@ -18,7 +18,7 @@ export default function TierProgress({ currentTier, nextTier, rescuesNeeded, tot
                     <h3 className="text-2xl font-bold text-text-primary font-jakarta">{currentTier}</h3>
                     {nextTier && (
                         <p className="text-text-secondary mt-2">
-                            Tinggal <span className="font-bold text-brand-primary">{rescuesNeeded}</span> penyelamatan lagi untuk membuka {nextTier}.
+                            Just <span className="font-bold text-brand-primary">{rescuesNeeded}</span> more rescues to unlock {nextTier}.
                         </p>
                     )}
                 </div>

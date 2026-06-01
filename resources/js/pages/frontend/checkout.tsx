@@ -50,7 +50,7 @@ export default function Checkout({ rescue }: CheckoutProps) {
 
     return (
         <div className="min-h-screen bg-white flex flex-col font-['Inter',sans-serif] text-[#1E1B13]">
-            <Head title="Selesaikan Rescue - Food Rescue Banua" />
+            <Head title="Complete Rescue - Food Rescue Banua" />
 
             <NavBar />
 
@@ -59,10 +59,10 @@ export default function Checkout({ rescue }: CheckoutProps) {
                 {/* Header Section */}
                 <div className="mb-10">
                     <h1 className="text-4xl md:text-5xl font-bold font-['Plus_Jakarta_Sans',sans-serif] tracking-tight mb-2">
-                        Selesaikan Rescue
+                        Complete Rescue
                     </h1>
                     <p className="text-[#5C4037] text-lg">
-                        Tinjau ulang pesanan Mu dan amankan makanan Mu
+                        Review your order and secure your food
                     </p>
                 </div>
 
@@ -86,7 +86,7 @@ export default function Checkout({ rescue }: CheckoutProps) {
                         <div className="bg-[#FBF3E4] p-6 sm:p-8 rounded-[24px] flex flex-col gap-6">
                             <div className="flex items-center gap-3">
                                 <ShoppingBag className="h-6 w-6 text-[#A93100]" />
-                                <h2 className="text-2xl font-bold font-['Plus_Jakarta_Sans',sans-serif]">Ringkasan Pesanan</h2>
+                                <h2 className="text-2xl font-bold font-['Plus_Jakarta_Sans',sans-serif]">Order Summary</h2>
                             </div>
 
                             <div className="flex flex-col sm:flex-row gap-6">
@@ -108,12 +108,12 @@ export default function Checkout({ rescue }: CheckoutProps) {
                                     </div>
 
                                     <div className="text-xl font-bold text-[#A93100] mb-3">
-                                        Rp {mysteryBoxPrice.toLocaleString('id-ID')}
+                                        Rp{Number(mysteryBoxPrice).toLocaleString('id-ID')},00
                                     </div>
 
                                     <div className="flex gap-4">
                                         <span className="bg-[#E9E2D3] px-4 py-1 text-xs font-medium tracking-wide uppercase text-[#5C4037] rounded-full">
-                                            Jumlah: {data.quantity}
+                                            Quantity: {data.quantity}
                                         </span>
                                         <span className="bg-[#FCD400] px-4 py-1 text-xs font-medium tracking-wide uppercase text-[#6E5C00] rounded-full">
                                             Flash Sale
@@ -132,7 +132,7 @@ export default function Checkout({ rescue }: CheckoutProps) {
                                     <h4 className="text-[#A93100] font-bold text-lg tracking-tight uppercase mb-1">Strictly Self-Pickup Window</h4>
                                     <p className="text-xl font-medium mb-1">20:00 - 21:30</p>
                                     <p className="text-[#5C4037] text-sm">
-                                        Makanan harus diambil dalam jangka waktu ini. Tidak ada pengembalian dana untuk pengambilan yang terlewat.
+                                        Food must be picked up within this window. No refunds for missed pickups.
                                     </p>
                                 </div>
                             </div>
@@ -160,7 +160,7 @@ export default function Checkout({ rescue }: CheckoutProps) {
                     {/* Right Column - Payment & Checkout */}
                     <div className="lg:col-span-5 sticky top-8">
                         <div className="bg-white p-8 rounded-[24px] border border-[#E6BEB2]/20 shadow-[0_24px_48px_-12px_rgba(0,0,0,0.05)]">
-                            <h2 className="text-2xl font-bold font-['Plus_Jakarta_Sans',sans-serif] mb-6">Detail Pembayaran</h2>
+                            <h2 className="text-2xl font-bold font-['Plus_Jakarta_Sans',sans-serif] mb-6">Payment Details</h2>
 
                             {/* Payment Methods */}
                             <div className="flex flex-col gap-4 mb-8">
@@ -189,7 +189,7 @@ export default function Checkout({ rescue }: CheckoutProps) {
                                 >
                                     <div className="flex items-center gap-4">
                                         <Landmark className={`h-6 w-6 ${data.payment_method === 'transfer' ? 'text-[#A93100]' : 'text-[#5C4037]'}`} />
-                                        <span className={`font-bold ${data.payment_method === 'transfer' ? 'text-[#1E1B13]' : 'text-[#5C4037]'}`}>Transfer Bank</span>
+                                        <span className={`font-bold ${data.payment_method === 'transfer' ? 'text-[#1E1B13]' : 'text-[#5C4037]'}`}>Bank Transfer</span>
                                     </div>
                                     <div className={`h-5 w-5 rounded-full border-4 flex items-center justify-center ${data.payment_method === 'transfer' ? 'border-[#A93100] bg-white' : 'border-[#E6BEB2] bg-white'}`}></div>
                                 </button>
@@ -198,18 +198,18 @@ export default function Checkout({ rescue }: CheckoutProps) {
                             {/* Cost Breakdown */}
                             <div className="flex flex-col gap-4 mb-6">
                                 <div className="flex justify-between items-center text-[#5C4037] font-bold">
-                                    <span>Harga Mystery Box ({data.quantity}x)</span>
-                                    <span>Rp {mysteryBoxPrice.toLocaleString('id-ID')}</span>
+                                    <span>Mystery Box Price ({data.quantity}x)</span>
+                                    <span>Rp{Number(mysteryBoxPrice).toLocaleString('id-ID')},00</span>
                                 </div>
                                 <div className="flex justify-between items-center text-[#5C4037] font-bold">
-                                    <span>Biaya Layanan</span>
-                                    <span>Rp {serviceFee.toLocaleString('id-ID')}</span>
+                                    <span>Service Fee</span>
+                                    <span>Rp{Number(serviceFee).toLocaleString('id-ID')},00</span>
                                 </div>
 
                                 <div className="border-t-2 border-[#E6BEB2]/30 mt-2 pt-4 flex justify-between items-end">
                                     <div className="flex flex-col gap-1">
-                                        <span className="text-xs font-bold text-[#5C4037] tracking-[1.2px] uppercase">Total Pembayaran</span>
-                                        <span className="text-3xl font-bold tracking-tight text-[#1E1B13]">Rp {total.toLocaleString('id-ID')}</span>
+                                        <span className="text-xs font-bold text-[#5C4037] tracking-[1.2px] uppercase">Total Payment</span>
+                                        <span className="text-3xl font-bold tracking-tight text-[#1E1B13]">Rp{Number(total).toLocaleString('id-ID')},00</span>
                                     </div>
                                     <div className="bg-[#FFE16D] px-2 py-1 rounded text-[10px] font-medium text-[#221B00] flex items-center gap-1 mb-1">
                                         <ShieldCheck className="w-3 h-3" /> SECURE
@@ -227,19 +227,19 @@ export default function Checkout({ rescue }: CheckoutProps) {
                                     {processing ? (
                                         <>
                                             <Spinner className="mr-2" />
-                                            Memproses...
+                                            Processing...
                                         </>
                                     ) : (
                                         <>
-                                            Bayar Sekarang
+                                            Pay Now
                                             <ArrowRight className="h-6 w-6" />
                                         </>
                                     )}
                                 </Button>
 
                                 <p className="text-xs text-center text-[#5C4037] mt-2 px-4 leading-relaxed">
-                                    Dengan mengklik Bayar Sekarang, Anda menyetujui <br />
-                                    <a href="#" className="text-[#D13F02] underline font-medium hover:text-[#A93100]">Kebijakan Pengambilan Sendiri</a>
+                                    By clicking Pay Now, you agree to the <br />
+                                    <a href="#" className="text-[#D13F02] underline font-medium hover:text-[#A93100]">Self-Pickup Policy</a>
                                 </p>
                             </form>
                         </div>

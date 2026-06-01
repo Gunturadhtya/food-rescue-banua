@@ -51,7 +51,7 @@ export default function Dashboard({ stats, activeTicket, tierProgress }: Dashboa
                         Welcome, {auth?.user?.name || 'User'}
                     </h1>
                     <p className="text-neutral-500 text-lg">
-                        Upaya kamu telah menyelamatkan {mealsSaved} porsi makanan bulan ini.
+                        Your efforts have saved {mealsSaved} portions of food this month.
                     </p>
                 </div>
             </section>
@@ -59,7 +59,7 @@ export default function Dashboard({ stats, activeTicket, tierProgress }: Dashboa
             <section className="flex flex-wrap gap-6 mt-6">
                 <StatCard
                     title="Total Savings"
-                    value={`Rp ${totalSavings.toLocaleString('id-ID')}`}
+                    value={`Rp${Number(totalSavings).toLocaleString('id-ID')},00`}
                 />
                 <StatCard
                     title="Food Rescued"

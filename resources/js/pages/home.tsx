@@ -109,18 +109,18 @@ export default function Home({ activeRescues }: Props) {
                                         />
                                         <div className="absolute inset-0 flex flex-col justify-center px-12 bg-gradient-to-r from-black/60 to-transparent">
                                             <span className="bg-yellow-400 w-fit px-3 py-1 rounded-md text-xs font-bold uppercase tracking-widest mb-4">
-                                                Penawaran Terbatas
+                                                Limited Offer
                                             </span>
                                             <h1 className="text-5xl font-bold text-white leading-tight">
                                                 {item.shop_name}
                                             </h1>
                                             <p className="text-white/80 mt-2 text-sm">{item.address}</p>
                                             <p className="text-white mt-3 font-medium">
-                                                Hemat{' '}
+                                                Save{' '}
                                                 <span className="font-bold text-yellow-300">
-                                                    Rp {item.price.toLocaleString('id-ID')}
+                                                    Rp{Number(item.price).toLocaleString('id-ID')},00
                                                 </span>{' '}
-                                                · {item.weight_kg} kg tersedia
+                                                · {item.weight_kg} kg available
                                             </p>
                                             <Link
                                                 href={showRescue.url(item.id)}
@@ -128,7 +128,7 @@ export default function Home({ activeRescues }: Props) {
                                                 draggable={false}
                                                 onClick={(e) => { if (Math.abs(dragOffset) > 5) e.preventDefault(); }}
                                             >
-                                                PESAN SEKARANG
+                                                ORDER NOW
                                             </Link>
                                         </div>
                                     </div>
@@ -171,20 +171,20 @@ export default function Home({ activeRescues }: Props) {
                             <img src="/images/hero-bg.jpg" className="h-full w-full object-cover opacity-30 pointer-events-none grayscale" draggable={false} />
                             <div className="absolute inset-0 flex flex-col justify-center items-center text-center px-12 bg-gradient-to-t from-black/80 via-black/40 to-transparent">
                                 <span className="bg-neutral-600/80 backdrop-blur-sm text-white w-fit px-3 py-1 rounded-md text-xs font-bold uppercase tracking-widest mb-4">
-                                    Stok Kosong
+                                    Out of Stock
                                 </span>
                                 <h1 className="text-5xl md:text-6xl font-bold text-white leading-tight">
-                                    Semua Makanan<br />Telah Diselamatkan.
+                                    All Food<br />Has Been Rescued.
                                 </h1>
                                 <p className="text-neutral-300 mt-4 max-w-lg text-sm md:text-base">
-                                    Saat ini tidak ada surprise bag yang tersedia. Mitra kami sedang mempersiapkan porsi baru. Silakan cek kembali beberapa saat lagi.
+                                    There are currently no surprise bags available. Our partners are preparing new portions. Please check back in a moment.
                                 </p>
                                 <button
                                     onClick={() => window.location.reload()}
                                     className="mt-8 flex items-center gap-2 rounded-full bg-white px-8 py-4 font-bold text-black hover:bg-neutral-200 transition-colors pointer-events-auto"
                                 >
                                     <RefreshCw size={18} />
-                                    REFRESH HALAMAN
+                                    REFRESH PAGE
                                 </button>
                             </div>
                         </div>
@@ -203,7 +203,7 @@ export default function Home({ activeRescues }: Props) {
                                     <RestaurantCard
                                         name={item.shop_name}
                                         distance={item.address}
-                                        discount={`Save Rp ${item.price.toLocaleString('id-ID')}`}
+                                        discount={`Save Rp${Number(item.price).toLocaleString('id-ID')},00`}
                                         price={`${item.weight_kg} kg`}
                                         image={item.image}
                                     />
@@ -211,8 +211,8 @@ export default function Home({ activeRescues }: Props) {
                             ))
                         ) : (
                             <div className="col-span-full py-16 flex flex-col items-center justify-center text-center bg-white rounded-3xl border border-dashed border-neutral-300">
-                                <p className="text-neutral-500 font-medium text-lg">Belum ada rescue aktif saat ini.</p>
-                                <p className="text-neutral-400 text-sm mt-1">Kami akan menampilkan daftar restoran segera setelah stok tersedia!</p>
+                                <p className="text-neutral-500 font-medium text-lg">No active rescues at the moment.</p>
+                                <p className="text-neutral-400 text-sm mt-1">We will display the list of restaurants as soon as stock becomes available!</p>
                             </div>
                         )}
                     </div>

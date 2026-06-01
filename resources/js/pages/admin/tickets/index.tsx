@@ -40,7 +40,7 @@ export default function AdminTicketIndex({ tickets }: Props) {
     const handleDeleteTicket = (ticket: Ticket) => {
         const identifier = ticket.code || `TK-${ticket.id}`;
         
-        if (window.confirm(`Apakah kamu yakin ingin menghapus tiket #${identifier} ini?`)) {
+        if (window.confirm(`Are you sure you want to delete ticket #${identifier}?`)) {
             router.delete(`/admin/tickets/${ticket.id}`);
         }
     };
@@ -58,7 +58,7 @@ export default function AdminTicketIndex({ tickets }: Props) {
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
                 <div className="flex flex-col gap-1">
                     <h1 className="text-3xl font-bold font-jakarta text-gray-900">Pickup Tickets</h1>
-                    <p className="text-sm text-neutral-500">Pantau semua tiket pengambilan pesanan yang dimiliki pembeli.</p>
+                    <p className="text-sm text-neutral-500">Monitor all order pickup tickets owned by buyers.</p>
                 </div>
             </div>
 
@@ -126,7 +126,7 @@ export default function AdminTicketIndex({ tickets }: Props) {
                             {tickets.data.length === 0 && (
                                 <tr>
                                     <td colSpan={6} className="px-6 py-8 text-center text-neutral-500">
-                                        Belum ada data tiket.
+                                        No ticket data available.
                                     </td>
                                 </tr>
                             )}

@@ -51,7 +51,7 @@ export default function AdminUserEdit({ user }: Props) {
                     &larr; Back to Users
                 </Link>
                 <h1 className="text-3xl font-bold font-jakarta text-gray-900">Edit User</h1>
-                <p className="text-sm text-neutral-500">Perbarui informasi pengguna. Kosongkan password jika tidak ingin menggantinya.</p>
+                <p className="text-sm text-neutral-500">Update user information. Leave password empty if you do not want to change it.</p>
             </div>
 
             <div className="bg-white rounded-[24px] border border-neutral-100 shadow-sm p-6 md:p-8">
@@ -86,7 +86,7 @@ export default function AdminUserEdit({ user }: Props) {
                                 onChange={e => setData('password', e.target.value)}
                                 autoComplete="new-password"
                                 className="w-full px-4 py-3 pr-12 bg-neutral-50 border border-neutral-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-[#C34A15]/20 focus:border-[#C34A15] transition-all text-sm"
-                                placeholder="Biarkan kosong jika tidak diganti"/>
+                                placeholder="Leave empty if unchanged"/>
                             <button
                                 type="button"
                                 onClick={() => setShowPassword(!showPassword)}

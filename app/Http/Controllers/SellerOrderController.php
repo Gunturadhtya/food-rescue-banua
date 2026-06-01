@@ -16,10 +16,11 @@ class SellerOrderController extends Controller
         $seller = $request->user();
         $shop = Shop::where('user_id', $seller->id)->first();
 
-        if (!$shop) {
-            echo 'Shop tidak ada';
+        if (! $shop) {
+            echo 'Shop does not exist';
+
             return redirect()->route('seller.shop.create');
-        }   
+        }
 
         // Fetch only active tickets that haven't physically expired
         $activeTickets = Ticket::where('status', 'active')
@@ -70,6 +71,7 @@ class SellerOrderController extends Controller
         // Just-In-Time Expiration Check
         if (now()->greaterThan($ticket->expires_at)) {
             $ticket->update(['status' => 'expired']);
+
             return back()->withErrors(['code' => 'This ticket has already expired.']);
         }
 
@@ -78,7 +80,7 @@ class SellerOrderController extends Controller
 
         Inertia::flash('toast', [
             'type' => 'success',
-            'message' => "Ticket {$ticket->code} successfully redeemed!"
+            'message' => "Ticket {$ticket->code} successfully redeemed!",
         ]);
 
         return back();

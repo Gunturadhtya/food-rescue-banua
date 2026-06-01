@@ -48,7 +48,7 @@ export default function AdminShopEdit({ shop }: Props) {
                     &larr; Back to Shops
                 </Link>
                 <h1 className="text-3xl font-bold font-jakarta text-gray-900">Shop Details</h1>
-                <p className="text-sm text-neutral-500">Tinjau informasi toko dan kelola status verifikasinya.</p>
+                <p className="text-sm text-neutral-500">Review shop information and manage its verification status.</p>
             </div>
 
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
@@ -68,7 +68,7 @@ export default function AdminShopEdit({ shop }: Props) {
                             <div>
                                 <p className="text-xs font-semibold text-neutral-500 uppercase tracking-wider mb-1">Description</p>
                                 <p className="text-sm text-gray-700 leading-relaxed">
-                                    {shop.description || <span className="italic text-neutral-400">Tidak ada deskripsi yang disertakan.</span>}
+                                    {shop.description || <span className="italic text-neutral-400">No description provided.</span>}
                                 </p>
                             </div>
                             <div>
@@ -106,7 +106,7 @@ export default function AdminShopEdit({ shop }: Props) {
                         ) : (
                             <div className="p-4 bg-red-50 text-red-600 rounded-xl text-sm font-medium flex items-center gap-2">
                                 <Info size={18} />
-                                Akun pemilik tidak ditemukan (mungkin sudah dihapus).
+                                Owner account not found (possibly deleted).
                             </div>
                         )}
                     </div>
@@ -115,7 +115,7 @@ export default function AdminShopEdit({ shop }: Props) {
                 <div className="lg:col-span-1">
                     <div className="bg-white rounded-[24px] border border-neutral-100 shadow-sm p-6 md:p-8 sticky top-6">
                         <h2 className="text-lg font-bold text-gray-900 mb-2">Shop Status</h2>
-                        <p className="text-sm text-neutral-500 mb-6">Ubah status verifikasi toko ini.</p>
+                        <p className="text-sm text-neutral-500 mb-6">Change this shop's verification status.</p>
 
                         <form onSubmit={submit} className="space-y-6">
                             <div className="space-y-2">

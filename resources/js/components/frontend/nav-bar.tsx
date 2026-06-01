@@ -79,9 +79,9 @@ export function NavBar() {
 
     const categories = [
         { label: 'Bakery', query: 'Bakery' },
-        { label: 'Kopi', query: 'Kopi' },
-        { label: 'Buah', query: 'Buah' },
-        { label: 'Warung', query: 'Warung' },
+        { label: 'Coffee', query: 'Kopi' },
+        { label: 'Fruit', query: 'Buah' },
+        { label: 'Eatery', query: 'Warung' },
     ];
 
     return (
@@ -135,7 +135,7 @@ export function NavBar() {
                 {isFocused && (
                     <div className="absolute top-12 left-0 w-full bg-white border border-neutral-100 shadow-[0_10px_30px_rgba(0,0,0,0.08)] rounded-2xl p-4 z-50 flex flex-col gap-4 font-sans">
                         <div>
-                            <h4 className="text-[10px] font-bold uppercase tracking-wider text-neutral-400 mb-2">Rekomendasi Merchant</h4>
+                            <h4 className="text-[10px] font-bold uppercase tracking-wider text-neutral-400 mb-2">Merchant Recommendations</h4>
                             <div className="flex flex-col gap-1">
                                 {recommendations.map((item) => (
                                     <div
@@ -156,7 +156,7 @@ export function NavBar() {
                         <hr className="border-neutral-100" />
 
                         <div>
-                            <h4 className="text-[10px] font-bold uppercase tracking-wider text-neutral-400 mb-2">Kategori Populer</h4>
+                            <h4 className="text-[10px] font-bold uppercase tracking-wider text-neutral-400 mb-2">Popular Categories</h4>
                             <div className="flex flex-wrap gap-2">
                                 {categories.map((cat) => (
                                     <button

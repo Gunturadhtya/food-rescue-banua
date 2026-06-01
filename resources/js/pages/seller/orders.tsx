@@ -133,7 +133,7 @@ export default function SellerOrders({ activeTickets }: Props) {
                                                     {ticket.quantity}x
                                                 </td>
                                                 <td className="px-6 py-4 text-right font-bold text-gray-900">
-                                                    Rp {ticket.total_price.toLocaleString('id-ID')}
+                                                    Rp{Number(ticket.total_price).toLocaleString('id-ID')},00
                                                 </td>
                                                 <td className="px-6 py-4 text-right">
                                                     <ExpiryCountdown expiresAt={ticket.expires_at} />
