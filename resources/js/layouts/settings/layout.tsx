@@ -27,7 +27,7 @@ export default function SettingsLayout({ children }: PropsWithChildren) {
 
     return (
         <ProfileLayout>
-            <div className="flex w-full max-w-4xl flex-col gap-6 px-4 py-6">
+            <div className="flex w-full flex-col gap-6 py-6">
 
                 <Heading
                     title="Settings"
@@ -63,8 +63,8 @@ export default function SettingsLayout({ children }: PropsWithChildren) {
                 </nav>
 
                 {/* Area Konten Form */}
-                <div className="flex-1 md:max-w-2xl py-4">
-                    <section className="max-w-xl space-y-12">
+                <div className="flex-1 w-full py-4">
+                    <section className="w-full space-y-12">
                         {children}
                     </section>
                 </div>
