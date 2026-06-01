@@ -83,7 +83,7 @@ export default function RescueDetail({ rescue }: Props) {
                                         <ShoppingCart className="text-[#C34A15] w-5 h-5" />
                                         <div>
                                             <p className="text-[9px] font-bold uppercase text-[#C34A15]">Logistics</p>
-                                            <p className="text-xs font-bold text-[#C34A15]">Ambil Sendiri</p>
+                                            <p className="text-xs font-bold text-[#C34A15]">Self Pickup</p>
                                         </div>
                                     </div>
                                 </div>

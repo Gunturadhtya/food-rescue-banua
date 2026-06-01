@@ -27,7 +27,7 @@ export default function AdminUserCreate() {
                     &larr; Back to Users
                 </Link>
                 <h1 className="text-3xl font-bold font-jakarta text-gray-900">Add New User</h1>
-                <p className="text-sm text-neutral-500">Isi form di bawah untuk mendaftarkan pengguna baru secara manual.</p>
+                <p className="text-sm text-neutral-500">Fill in the form below to manually register a new user.</p>
             </div>
 
             <div className="bg-white rounded-[24px] border border-neutral-100 shadow-sm p-6 md:p-8">
@@ -66,7 +66,7 @@ export default function AdminUserCreate() {
                                 onChange={e => setData('password', e.target.value)}
                                 autoComplete="new-password"
                                 className="w-full px-4 py-3 pr-12 bg-neutral-50 border border-neutral-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-[#C34A15]/20 focus:border-[#C34A15] transition-all text-sm"
-                                placeholder="Minimal 8 karakter"/>
+                                placeholder="Minimum 8 characters"/>
                             <button
                                 type="button"
                                 onClick={() => setShowPassword(!showPassword)}

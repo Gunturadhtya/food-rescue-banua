@@ -58,7 +58,7 @@ export default function BuyerOrders({ orders = { data: [] } }: Props) {
             <Head title="My Orders" />
             <div className="flex flex-col gap-1">
                 <h1 className="text-3xl font-bold font-jakarta text-gray-900">My Orders</h1>
-                <p className="text-sm text-neutral-500">Riwayat makanan yang kamu rescue beserta kode pengambilannya.</p>
+                <p className="text-sm text-neutral-500">History of the food you rescued along with their pickup codes.</p>
             </div>
 
             <div className="grid grid-cols-1 gap-4">
@@ -66,7 +66,7 @@ export default function BuyerOrders({ orders = { data: [] } }: Props) {
                     <Card className="border-neutral-100 shadow-sm">
                         <CardContent className="flex flex-col items-center justify-center py-12 text-neutral-400 gap-3">
                             <ShoppingBag size={40} className="text-neutral-300" />
-                            <p>Kamu belum pernah melakukan rescue makanan.</p>
+                            <p>You have not rescued any food yet.</p>
                         </CardContent>
                     </Card>
                 ) : (
@@ -96,15 +96,15 @@ export default function BuyerOrders({ orders = { data: [] } }: Props) {
                                             </p>
                                         </div>
                                         <div className="flex gap-4 text-sm pt-1">
-                                            <p className="text-neutral-600">Jumlah: <span className="font-semibold text-gray-900">{order.quantity}x</span></p>
-                                            <p className="text-neutral-600">Berat Total: <span className="font-semibold text-gray-900">{totalWeight.toFixed(2)} kg</span></p>
-                                            <p className="text-neutral-600">Total Harga: <span className="font-bold text-[#C34A15]">Rp {totalPrice.toLocaleString('id-ID')}</span></p>
+                                            <p className="text-neutral-600">Quantity: <span className="font-semibold text-gray-900">{order.quantity}x</span></p>
+                                            <p className="text-neutral-600">Total Weight: <span className="font-semibold text-gray-900">{totalWeight.toFixed(2)} kg</span></p>
+                                            <p className="text-neutral-600">Total Price: <span className="font-bold text-[#C34A15]">Rp {totalPrice.toLocaleString('id-ID')}</span></p>
                                         </div>
                                     </div>
 
                                     {order.status === 'claimed' && (
                                         <div className="bg-[#FFF8F5] border border-dashed border-[#C34A15] px-4 py-3 rounded-xl flex flex-col items-center justify-center shrink-0 w-full md:w-auto">
-                                            <span className="text-[10px] uppercase tracking-wider text-neutral-500 font-bold">Kode Pick-up</span>
+                                            <span className="text-[10px] uppercase tracking-wider text-neutral-500 font-bold">Pickup Code</span>
                                             <span className="text-xl font-mono font-extrabold text-[#C34A15] tracking-widest">{order.pickup_code}</span>
                                         </div>
                                     )}

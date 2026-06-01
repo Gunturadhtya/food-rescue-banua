@@ -34,7 +34,7 @@ interface Props {
 export default function AdminRescueIndex({ rescues }: Props) {
     
     const handleDeleteRescue = (id: number) => {
-        if (window.confirm(`Apakah kamu yakin ingin menghapus postingan rescue #RC-${id} ini?`)) {
+        if (window.confirm(`Are you sure you want to delete rescue post #RC-${id}?`)) {
             router.delete(`/admin/rescues/${id}`);
         }
     };
@@ -56,7 +56,7 @@ export default function AdminRescueIndex({ rescues }: Props) {
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
                 <div className="flex flex-col gap-1">
                     <h1 className="text-3xl font-bold font-jakarta text-gray-900">Rescue Records</h1>
-                    <p className="text-sm text-neutral-500">Pantau semua data makanan yang sedang dan telah di-rescue.</p>
+                    <p className="text-sm text-neutral-500">Monitor all active and past rescued food data.</p>
                 </div>
             </div>
 
@@ -124,7 +124,7 @@ export default function AdminRescueIndex({ rescues }: Props) {
                             {rescues.data.length === 0 && (
                                 <tr>
                                     <td colSpan={6} className="px-6 py-8 text-center text-neutral-500">
-                                        Belum ada data postingan rescue.
+                                        No rescue post data available.
                                     </td>
                                 </tr>
                             )}

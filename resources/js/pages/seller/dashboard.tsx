@@ -54,8 +54,8 @@ export default function SellerDashboard({ shop, rescues }: Props) {
 
             <div className="flex flex-col md:flex-row md:items-start justify-between gap-4 bg-white p-6 rounded-3xl border border-neutral-200">
                 <div className="flex flex-col gap-1">
-                    <h1 className="text-3xl font-bold font-jakarta text-gray-900">{shop?.name || 'Nama Toko'}</h1>
-                    <p className="text-sm text-neutral-500 font-medium">{shop?.address || 'Alamat belum diatur'}</p>
+                    <h1 className="text-3xl font-bold font-jakarta text-gray-900">{shop?.name || 'Shop Name'}</h1>
+                    <p className="text-sm text-neutral-500 font-medium">{shop?.address || 'Address not set'}</p>
                     {shop?.description && (
                         <p className="mt-2 text-sm text-neutral-600 max-w-xl">{shop.description}</p>
                     )}

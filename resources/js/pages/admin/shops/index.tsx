@@ -26,7 +26,7 @@ interface Props {
 export default function AdminShopIndex({ shops }: Props) {
     
     const handleDeleteShop = (id: number, name: string) => {
-        if (window.confirm(`Apakah kamu yakin ingin menghapus toko "${name}"?`)) {
+        if (window.confirm(`Are you sure you want to delete shop "${name}"?`)) {
             router.delete(`/admin/shops/${id}`);
         }
     };
@@ -38,7 +38,7 @@ export default function AdminShopIndex({ shops }: Props) {
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
                 <div className="flex flex-col gap-1">
                     <h1 className="text-3xl font-bold font-jakarta text-gray-900">Manage Shops</h1>
-                    <p className="text-sm text-neutral-500">Verifikasi, setujui, dan kelola semua mitra toko makanan.</p>
+                    <p className="text-sm text-neutral-500">Verify, approve, and manage all food merchant partners.</p>
                 </div>
             </div>
 
@@ -97,7 +97,7 @@ export default function AdminShopIndex({ shops }: Props) {
                             {shops.data.length === 0 && (
                                 <tr>
                                     <td colSpan={6} className="px-6 py-8 text-center text-neutral-500">
-                                        Belum ada data toko terdaftar.
+                                        No registered shops available.
                                     </td>
                                 </tr>
                             )}
