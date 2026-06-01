@@ -2,7 +2,20 @@ import React, { useState } from 'react';
 import { Head, Link, useForm } from '@inertiajs/react';
 import ProfileLayout from '@/layouts/profile-layouts';
 import { Eye, EyeOff } from 'lucide-react';
+import {
+    Select,
+    SelectContent,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
+} from "@/components/ui/select";
 
+interface User {
+    id: number;
+    name: string;
+    email: string;
+    role: string;
+}
 interface User {
     id: number;
     name: string;
@@ -86,14 +99,16 @@ export default function AdminUserEdit({ user }: Props) {
 
                     <div className="space-y-2">
                         <label className="text-sm font-semibold text-gray-900">Role</label>
-                        <select
-                            value={data.role}
-                            onChange={e => setData('role', e.target.value)}
-                            className="w-full px-4 py-3 bg-neutral-50 border border-neutral-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-[#C34A15]/20 focus:border-[#C34A15] transition-all text-sm cursor-pointer">
-                            <option value="user">User / Buyer</option>
-                            <option value="seller">Seller / Shop Owner</option>
-                            <option value="admin">Admin</option>
-                        </select>
+                        <Select value={data.role} onValueChange={(value) => setData('role', value)}>
+                            <SelectTrigger className="w-full px-4 py-6 bg-neutral-50 border border-neutral-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-[#C34A15]/20 focus:border-[#C34A15] transition-all text-sm cursor-pointer">
+                                <SelectValue placeholder="Pilih Role" />
+                            </SelectTrigger>
+                            <SelectContent className="bg-white border-neutral-200 rounded-xl shadow-lg">
+                                <SelectItem value="user" className="cursor-pointer font-medium hover:bg-neutral-50">User / Buyer</SelectItem>
+                                <SelectItem value="seller" className="cursor-pointer font-medium hover:bg-neutral-50">Seller / Shop Owner</SelectItem>
+                                <SelectItem value="admin" className="cursor-pointer font-medium hover:bg-neutral-50">Admin</SelectItem>
+                            </SelectContent>
+                        </Select>
                         {errors.role && <p className="text-red-500 text-xs font-medium">{errors.role}</p>}
                     </div>
 
