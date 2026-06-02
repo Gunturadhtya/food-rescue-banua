@@ -71,6 +71,22 @@ class DatabaseSeeder extends Seeder
                 'description' => 'Snacks and pastries to accompany coffee.',
                 'address' => 'Jl. Lambung Mangkurat, Banjarmasin',
             ],
+            [
+                'owner_name' => 'Martabak Owner',
+                'email' => 'martabak@example.com',
+                'shop_name' => 'Martabak Banjar',
+                'slug' => 'martabak-banjar',
+                'description' => 'Hot and sweet martabak with imperfect cuts but amazing taste.',
+                'address' => 'Jl. Veteran No. 12, Banjarmasin',
+            ],
+            [
+                'owner_name' => 'Kadir Owner',
+                'email' => 'kadir@example.com',
+                'shop_name' => 'Soto Banjar H. Kadir',
+                'slug' => 'soto-banjar',
+                'description' => 'Fresh Soto Banjar portions from today.',
+                'address' => 'Jl. Kuin Selatan, Banjarmasin',
+            ],
         ];
 
         $lastActiveRescue = null;
