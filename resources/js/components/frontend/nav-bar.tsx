@@ -86,7 +86,7 @@ export function NavBar() {
     ];
 
     return (
-        <nav className="sticky top-0 z-40 flex w-full items-center justify-between border-b border-orange-100/40 bg-[#FDFBF7]/95 px-12 py-5 font-instrument backdrop-blur-md transition-all duration-200">
+        <nav className="sticky top-0 z-40 flex w-full items-center justify-between border-b border-orange-200 bg-[#FDFBF7]/95 px-12 py-5 font-instrument shadow-sm backdrop-blur-md transition-all duration-200">
             <Link
                 href="/home"
                 className="text-xl font-extrabold text-[#C34A15] italic transition-transform duration-200 hover:scale-[1.02]"
