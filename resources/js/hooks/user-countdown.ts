@@ -9,7 +9,8 @@ interface TimeLeft {
 
 export function useCountdown(expiresAt: string | null): TimeLeft {
     const calculateTimeLeft = (): TimeLeft => {
-        if (!expiresAt) return { hours: 0, minutes: 0, seconds: 0, isExpired: true };
+        if (!expiresAt)
+            return { hours: 0, minutes: 0, seconds: 0, isExpired: true };
 
         const difference = new Date(expiresAt).getTime() - new Date().getTime();
 

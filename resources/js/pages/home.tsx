@@ -77,11 +77,17 @@ export default function Home({ activeRescues }: Props) {
             <main className="px-12 py-6">
                 {/* Hero Carousel */}
                 <div
-                    className="relative h-[450px] w-full overflow-hidden rounded-[32px] cursor-default select-none bg-neutral-900"
+                    className="relative h-[450px] w-full cursor-default overflow-hidden rounded-[32px] bg-neutral-900 select-none"
                     onMouseDown={onMouseDown}
                     onMouseMove={onMouseMove}
                     onMouseUp={onMouseUp}
-                    onMouseLeave={() => { if (dragging) { setDragOffset(0); setDragging(false); startX.current = null; } }}
+                    onMouseLeave={() => {
+                        if (dragging) {
+                            setDragOffset(0);
+                            setDragging(false);
+                            startX.current = null;
+                        }
+                    }}
                     onTouchStart={onTouchStart}
                     onTouchMove={onTouchMove}
                     onTouchEnd={onTouchEnd}
@@ -93,7 +99,9 @@ export default function Home({ activeRescues }: Props) {
                                 style={{
                                     width: `${total * 100}%`,
                                     transform: `translateX(calc(${-(current * 100) / total}% + ${dragOffset}px))`,
-                                    transition: dragging ? 'none' : 'transform 0.45s ease',
+                                    transition: dragging
+                                        ? 'none'
+                                        : 'transform 0.45s ease',
                                 }}
                             >
                                 {activeRescues.map((item) => (
@@ -104,29 +112,40 @@ export default function Home({ activeRescues }: Props) {
                                     >
                                         <img
                                             src={item.image}
-                                            className="h-full w-full object-cover opacity-80 pointer-events-none"
+                                            className="pointer-events-none h-full w-full object-cover opacity-80"
                                             draggable={false}
                                         />
-                                        <div className="absolute inset-0 flex flex-col justify-center px-12 bg-gradient-to-r from-black/60 to-transparent">
-                                            <span className="bg-yellow-400 w-fit px-3 py-1 rounded-md text-xs font-bold uppercase tracking-widest mb-4">
+                                        <div className="absolute inset-0 flex flex-col justify-center bg-gradient-to-r from-black/60 to-transparent px-12">
+                                            <span className="mb-4 w-fit rounded-md bg-yellow-400 px-3 py-1 text-xs font-bold tracking-widest uppercase">
                                                 Limited Offer
                                             </span>
-                                            <h1 className="text-5xl font-bold text-white leading-tight">
+                                            <h1 className="text-5xl leading-tight font-bold text-white">
                                                 {item.shop_name}
                                             </h1>
-                                            <p className="text-white/80 mt-2 text-sm">{item.address}</p>
-                                            <p className="text-white mt-3 font-medium">
+                                            <p className="mt-2 text-sm text-white/80">
+                                                {item.address}
+                                            </p>
+                                            <p className="mt-3 font-medium text-white">
                                                 Save{' '}
                                                 <span className="font-bold text-yellow-300">
-                                                    Rp{Number(item.price).toLocaleString('id-ID')},00
+                                                    Rp
+                                                    {Number(
+                                                        item.price,
+                                                    ).toLocaleString('id-ID')}
+                                                    ,00
                                                 </span>{' '}
                                                 · {item.weight_kg} kg available
                                             </p>
                                             <Link
                                                 href={showRescue.url(item.id)}
-                                                className="mt-8 w-fit rounded-full bg-yellow-300 px-8 py-4 font-bold text-black hover:bg-yellow-400 transition-colors pointer-events-auto"
+                                                className="pointer-events-auto mt-8 w-fit rounded-full bg-yellow-300 px-8 py-4 font-bold text-black transition-colors hover:bg-yellow-400"
                                                 draggable={false}
-                                                onClick={(e) => { if (Math.abs(dragOffset) > 5) e.preventDefault(); }}
+                                                onClick={(e) => {
+                                                    if (
+                                                        Math.abs(dragOffset) > 5
+                                                    )
+                                                        e.preventDefault();
+                                                }}
                                             >
                                                 ORDER NOW
                                             </Link>
@@ -140,13 +159,13 @@ export default function Home({ activeRescues }: Props) {
                                 <>
                                     <button
                                         onClick={() => goTo(current - 1)}
-                                        className="absolute left-4 top-1/2 -translate-y-1/2 bg-black/40 hover:bg-black/60 text-white rounded-full p-2 transition z-10"
+                                        className="absolute top-1/2 left-4 z-10 -translate-y-1/2 rounded-full bg-black/40 p-2 text-white transition hover:bg-black/60"
                                     >
                                         <ChevronLeft size={24} />
                                     </button>
                                     <button
                                         onClick={() => goTo(current + 1)}
-                                        className="absolute right-4 top-1/2 -translate-y-1/2 bg-black/40 hover:bg-black/60 text-white rounded-full p-2 transition z-10"
+                                        className="absolute top-1/2 right-4 z-10 -translate-y-1/2 rounded-full bg-black/40 p-2 text-white transition hover:bg-black/60"
                                     >
                                         <ChevronRight size={24} />
                                     </button>
@@ -155,7 +174,7 @@ export default function Home({ activeRescues }: Props) {
 
                             {/* Dots */}
                             {total > 1 && (
-                                <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 z-10">
+                                <div className="absolute bottom-4 left-1/2 z-10 flex -translate-x-1/2 gap-2">
                                     {activeRescues.map((_, i) => (
                                         <button
                                             key={i}
@@ -168,20 +187,28 @@ export default function Home({ activeRescues }: Props) {
                         </>
                     ) : (
                         <div className="relative h-full bg-neutral-800">
-                            <img src="/images/hero-bg.jpg" className="h-full w-full object-cover opacity-30 pointer-events-none grayscale" draggable={false} />
-                            <div className="absolute inset-0 flex flex-col justify-center items-center text-center px-12 bg-gradient-to-t from-black/80 via-black/40 to-transparent">
-                                <span className="bg-neutral-600/80 backdrop-blur-sm text-white w-fit px-3 py-1 rounded-md text-xs font-bold uppercase tracking-widest mb-4">
+                            <img
+                                src="/images/hero-bg.jpg"
+                                className="pointer-events-none h-full w-full object-cover opacity-30 grayscale"
+                                draggable={false}
+                            />
+                            <div className="absolute inset-0 flex flex-col items-center justify-center bg-gradient-to-t from-black/80 via-black/40 to-transparent px-12 text-center">
+                                <span className="mb-4 w-fit rounded-md bg-neutral-600/80 px-3 py-1 text-xs font-bold tracking-widest text-white uppercase backdrop-blur-sm">
                                     Out of Stock
                                 </span>
-                                <h1 className="text-5xl md:text-6xl font-bold text-white leading-tight">
-                                    All Food<br />Has Been Rescued.
+                                <h1 className="text-5xl leading-tight font-bold text-white md:text-6xl">
+                                    All Food
+                                    <br />
+                                    Has Been Rescued.
                                 </h1>
-                                <p className="text-neutral-300 mt-4 max-w-lg text-sm md:text-base">
-                                    There are currently no surprise bags available. Our partners are preparing new portions. Please check back in a moment.
+                                <p className="mt-4 max-w-lg text-sm text-neutral-300 md:text-base">
+                                    There are currently no surprise bags
+                                    available. Our partners are preparing new
+                                    portions. Please check back in a moment.
                                 </p>
                                 <button
                                     onClick={() => window.location.reload()}
-                                    className="mt-8 flex items-center gap-2 rounded-full bg-white px-8 py-4 font-bold text-black hover:bg-neutral-200 transition-colors pointer-events-auto"
+                                    className="pointer-events-auto mt-8 flex items-center gap-2 rounded-full bg-white px-8 py-4 font-bold text-black transition-colors hover:bg-neutral-200"
                                 >
                                     <RefreshCw size={18} />
                                     REFRESH PAGE
@@ -193,13 +220,17 @@ export default function Home({ activeRescues }: Props) {
 
                 {/* Active Rescues */}
                 <section className="py-12">
-                    <div className="flex justify-between items-center mb-8">
+                    <div className="mb-8 flex items-center justify-between">
                         <h2 className="text-3xl font-bold">Active Rescues</h2>
                     </div>
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
                         {total > 0 ? (
                             activeRescues.map((item) => (
-                                <Link key={item.id} href={showRescue.url(item.id)} className="block transition-transform duration-300 hover:-translate-y-2">
+                                <Link
+                                    key={item.id}
+                                    href={showRescue.url(item.id)}
+                                    className="block transition-transform duration-300 hover:-translate-y-2"
+                                >
                                     <RestaurantCard
                                         name={item.shop_name}
                                         distance={item.address}
@@ -210,9 +241,14 @@ export default function Home({ activeRescues }: Props) {
                                 </Link>
                             ))
                         ) : (
-                            <div className="col-span-full py-16 flex flex-col items-center justify-center text-center bg-white rounded-3xl border border-dashed border-neutral-300">
-                                <p className="text-neutral-500 font-medium text-lg">No active rescues at the moment.</p>
-                                <p className="text-neutral-400 text-sm mt-1">We will display the list of restaurants as soon as stock becomes available!</p>
+                            <div className="col-span-full flex flex-col items-center justify-center rounded-3xl border border-dashed border-neutral-300 bg-white py-16 text-center">
+                                <p className="text-lg font-medium text-neutral-500">
+                                    No active rescues at the moment.
+                                </p>
+                                <p className="mt-1 text-sm text-neutral-400">
+                                    We will display the list of restaurants as
+                                    soon as stock becomes available!
+                                </p>
                             </div>
                         )}
                     </div>

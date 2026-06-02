@@ -28,7 +28,6 @@ export default function SettingsLayout({ children }: PropsWithChildren) {
     return (
         <ProfileLayout>
             <div className="flex w-full flex-col gap-6 py-6">
-
                 <Heading
                     title="Settings"
                     description="Manage your profile and account settings"
@@ -36,7 +35,7 @@ export default function SettingsLayout({ children }: PropsWithChildren) {
 
                 {/* Navbar Horizontal (Menggantikan Sidebar Bawaan) */}
                 <nav
-                    className="flex flex-row space-x-4 border-b border-gray-200 overflow-x-auto"
+                    className="flex flex-row space-x-4 overflow-x-auto border-b border-gray-200"
                     aria-label="Settings"
                 >
                     {sidebarNavItems.map((item, index) => (
@@ -45,11 +44,13 @@ export default function SettingsLayout({ children }: PropsWithChildren) {
                             variant="ghost"
                             asChild
                             className={cn(
-                                'justify-center whitespace-nowrap rounded-none border-b-2 px-1 pb-3 pt-2 transition-colors hover:bg-transparent',
+                                'justify-center rounded-none border-b-2 px-1 pt-2 pb-3 whitespace-nowrap transition-colors hover:bg-transparent',
                                 {
-                                    'border-[#C34A15] text-[#C34A15] hover:text-[#C34A15] hover:border-[#C34A15] font-bold': isCurrentOrParentUrl(item.href),
-                                    'border-transparent text-neutral-500 hover:border-neutral-300 hover:text-neutral-700 font-medium': !isCurrentOrParentUrl(item.href),
-                                }
+                                    'border-[#C34A15] font-bold text-[#C34A15] hover:border-[#C34A15] hover:text-[#C34A15]':
+                                        isCurrentOrParentUrl(item.href),
+                                    'border-transparent font-medium text-neutral-500 hover:border-neutral-300 hover:text-neutral-700':
+                                        !isCurrentOrParentUrl(item.href),
+                                },
                             )}
                         >
                             <Link href={item.href}>
@@ -63,12 +64,9 @@ export default function SettingsLayout({ children }: PropsWithChildren) {
                 </nav>
 
                 {/* Area Konten Form */}
-                <div className="flex-1 w-full py-4">
-                    <section className="w-full space-y-12">
-                        {children}
-                    </section>
+                <div className="w-full flex-1 py-4">
+                    <section className="w-full space-y-12">{children}</section>
                 </div>
-
             </div>
         </ProfileLayout>
     );
