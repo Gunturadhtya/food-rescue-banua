@@ -222,8 +222,12 @@ export default function Checkout({ rescue }: CheckoutProps) {
                                         </span>
                                     </div>
                                     <div
-                                        className={`flex h-5 w-5 items-center justify-center rounded-full border-4 ${data.payment_method === 'qris' ? 'border-[#A93100] bg-white' : 'border-[#E6BEB2] bg-white'}`}
-                                    ></div>
+                                        className={`flex h-5 w-5 items-center justify-center rounded-full border-2 ${data.payment_method === 'qris' ? 'border-[#A93100] bg-white' : 'border-[#E6BEB2] bg-white'}`}
+                                    >
+                                        {data.payment_method === 'qris' && (
+                                            <div className="h-2.5 w-2.5 rounded-full bg-[#A93100]" />
+                                        )}
+                                    </div>
                                 </button>
 
                                 <button
@@ -248,8 +252,12 @@ export default function Checkout({ rescue }: CheckoutProps) {
                                         </span>
                                     </div>
                                     <div
-                                        className={`flex h-5 w-5 items-center justify-center rounded-full border-4 ${data.payment_method === 'transfer' ? 'border-[#A93100] bg-white' : 'border-[#E6BEB2] bg-white'}`}
-                                    ></div>
+                                        className={`flex h-5 w-5 items-center justify-center rounded-full border-2 ${data.payment_method === 'transfer' ? 'border-[#A93100] bg-white' : 'border-[#E6BEB2] bg-white'}`}
+                                    >
+                                        {data.payment_method === 'transfer' && (
+                                            <div className="h-2.5 w-2.5 rounded-full bg-[#A93100]" />
+                                        )}
+                                    </div>
                                 </button>
                             </div>
 
