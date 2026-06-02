@@ -86,15 +86,15 @@ export function NavBar() {
     ];
 
     return (
-        <nav className="flex w-full items-center justify-between px-12 py-6 font-instrument">
+        <nav className="sticky top-0 z-40 flex w-full items-center justify-between border-b border-orange-100/40 bg-[#FDFBF7]/95 px-12 py-5 font-instrument backdrop-blur-md transition-all duration-200">
             <Link
                 href="/home"
-                className="text-xl font-extrabold text-[#C34A15] italic"
+                className="text-xl font-extrabold text-[#C34A15] italic transition-transform duration-200 hover:scale-[1.02]"
             >
                 Food Rescue Banua
             </Link>
 
-            <div className="flex gap-8 text-sm font-medium">
+            <div className="flex gap-8 text-sm font-semibold">
                 <Link
                     href="/home"
                     className={`group relative pb-1 transition-colors duration-200 ${
@@ -137,9 +137,9 @@ export function NavBar() {
             <div className="relative w-80">
                 <form
                     onSubmit={handleSearchSubmit}
-                    className="flex w-full items-center gap-4 rounded-full bg-[#F2EDE5] px-4 py-2"
+                    className="flex w-full items-center gap-3 rounded-full border border-orange-100/60 bg-[#FAF7F2]/80 px-4 py-2 shadow-xs transition-all duration-300 focus-within:border-[#C34A15] focus-within:bg-white focus-within:ring-2 focus-within:ring-[#C34A15]/10"
                 >
-                    <Search size={18} className="text-gray-400" />
+                    <Search size={16} className="shrink-0 text-neutral-500" />
                     <input
                         type="text"
                         value={search}
@@ -147,7 +147,7 @@ export function NavBar() {
                         onFocus={() => setIsFocused(true)}
                         onBlur={() => setIsFocused(false)}
                         placeholder="Search for merchant or dish"
-                        className="w-full border-none bg-transparent font-sans text-sm outline-none"
+                        className="w-full border-none bg-transparent font-sans text-sm text-neutral-800 outline-none placeholder:text-neutral-400"
                     />
                 </form>
 
@@ -210,29 +210,33 @@ export function NavBar() {
             <div className="flex items-center gap-4">
                 {auth?.user ? (
                     <>
-                        <Bell
-                            size={20}
-                            className="cursor-pointer text-neutral-600 hover:text-[#C34A15]"
-                        />
+                        <div className="flex cursor-pointer items-center justify-center rounded-full border border-orange-100/60 bg-[#FAF7F2]/60 p-2.5 text-neutral-600 shadow-xs transition-all duration-200 hover:scale-105 hover:border-[#C34A15]/40 hover:bg-orange-50 hover:text-[#C34A15]">
+                            <Bell size={18} />
+                        </div>
 
                         {!isAdmin && (
                             <Link href={ordersLink}>
-                                <ShoppingBag
-                                    size={20}
-                                    className={`cursor-pointer ${isActive(ordersLink) ? 'text-[#C34A15]' : 'text-neutral-600 hover:text-[#C34A15]'}`}
-                                />
+                                <div
+                                    className={`flex cursor-pointer items-center justify-center rounded-full border p-2.5 shadow-xs transition-all duration-200 hover:scale-105 hover:border-[#C34A15]/40 hover:bg-orange-50 hover:text-[#C34A15] ${
+                                        isActive(ordersLink)
+                                            ? 'border-[#C34A15]/40 bg-orange-50/50 text-[#C34A15]'
+                                            : 'border-orange-100/60 bg-[#FAF7F2]/60 text-neutral-600'
+                                    }`}
+                                >
+                                    <ShoppingBag size={18} />
+                                </div>
                             </Link>
                         )}
 
                         <DropdownMenu>
-                            <DropdownMenuTrigger className="rounded-full outline-none focus-visible:ring-2 focus-visible:ring-[#C34A15]">
-                                <div className="flex items-center justify-center rounded-full bg-neutral-100 p-2 text-neutral-600 transition-colors hover:bg-neutral-200">
-                                    <User size={20} />
+                            <DropdownMenuTrigger className="cursor-pointer rounded-full outline-none focus-visible:ring-2 focus-visible:ring-[#C34A15]">
+                                <div className="flex items-center justify-center rounded-full border border-orange-100/60 bg-[#FAF7F2]/60 p-2.5 text-neutral-600 shadow-xs transition-all duration-200 hover:scale-105 hover:border-[#C34A15]/40 hover:bg-orange-50 hover:text-[#C34A15]">
+                                    <User size={18} />
                                 </div>
                             </DropdownMenuTrigger>
                             <DropdownMenuContent
                                 align="end"
-                                className="mt-2 w-56 rounded-2xl border-neutral-100 p-2 font-instrument shadow-[0_10px_30px_rgba(0,0,0,0.08)]"
+                                className="mt-2 w-56 rounded-2xl border border-neutral-100 p-2 font-instrument shadow-[0_10px_30px_rgba(0,0,0,0.08)]"
                             >
                                 <div className="mb-1 px-3 py-2">
                                     <p className="text-sm font-bold text-gray-900">
@@ -290,13 +294,13 @@ export function NavBar() {
                     <>
                         <Link
                             href={login()}
-                            className="text-sm font-bold hover:text-[#C34A15]"
+                            className="text-sm font-bold text-neutral-700 transition-colors hover:text-[#C34A15]"
                         >
                             Log In
                         </Link>
                         <Link
                             href={register()}
-                            className="rounded-full bg-[#C34A15] px-5 py-2 text-sm font-bold text-white transition-colors hover:bg-[#A33D10]"
+                            className="rounded-full bg-[#C34A15] px-5 py-2.5 text-sm font-bold text-white transition-all duration-200 hover:scale-[1.02] hover:bg-orange-700 active:scale-[0.98]"
                         >
                             Sign Up
                         </Link>
