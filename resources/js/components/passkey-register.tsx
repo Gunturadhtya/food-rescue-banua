@@ -58,7 +58,11 @@ export default function PasskeyRegistration({ onSuccess }: Props) {
 
     if (!showForm) {
         return (
-            <Button variant="outline" onClick={() => setShowForm(true)}>
+            <Button
+                variant="outline"
+                onClick={() => setShowForm(true)}
+                className="cursor-pointer border-neutral-300 text-neutral-700 transition-colors hover:bg-neutral-50 hover:text-neutral-900"
+            >
                 Add passkey
             </Button>
         );
@@ -67,20 +71,25 @@ export default function PasskeyRegistration({ onSuccess }: Props) {
     return (
         <form
             onSubmit={handleSubmit}
-            className="space-y-4 rounded-lg border border-border bg-muted/50 p-4"
+            className="space-y-4 rounded-xl border border-orange-100 bg-orange-50/10 p-4"
         >
             <div className="grid gap-2">
-                <Label htmlFor="passkey-name">Passkey name</Label>
+                <Label
+                    htmlFor="passkey-name"
+                    className="text-sm font-semibold text-neutral-700"
+                >
+                    Passkey name
+                </Label>
                 <Input
                     id="passkey-name"
                     type="text"
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                     placeholder="e.g., MacBook Pro, iPhone"
-                    className="mt-1 block w-full border-foreground/20"
+                    className="mt-1 block w-full border-neutral-200 focus-visible:border-[#C34A15] focus-visible:ring-[#C34A15]/20"
                     autoFocus
                 />
-                <p className="text-xs text-muted-foreground">
+                <p className="text-xs text-neutral-500">
                     A name helps you identify this passkey later.
                 </p>
             </div>
@@ -88,10 +97,19 @@ export default function PasskeyRegistration({ onSuccess }: Props) {
             {error && <InputError message={error} />}
 
             <div className="flex gap-2">
-                <Button type="submit" disabled={isLoading || !name.trim()}>
+                <Button
+                    type="submit"
+                    disabled={isLoading || !name.trim()}
+                    className="cursor-pointer bg-[#C34A15] font-semibold text-white transition-all duration-200 hover:scale-[1.02] hover:bg-orange-700 active:scale-[0.98]"
+                >
                     {isLoading ? 'Registering...' : 'Register passkey'}
                 </Button>
-                <Button type="button" variant="ghost" onClick={handleCancel}>
+                <Button
+                    type="button"
+                    variant="ghost"
+                    onClick={handleCancel}
+                    className="cursor-pointer text-neutral-600 transition-colors hover:text-neutral-900"
+                >
                     Cancel
                 </Button>
             </div>

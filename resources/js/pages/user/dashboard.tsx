@@ -26,7 +26,11 @@ interface DashboardProps {
     };
 }
 
-export default function Dashboard({ stats, activeTicket, tierProgress }: DashboardProps) {
+export default function Dashboard({
+    stats,
+    activeTicket,
+    tierProgress,
+}: DashboardProps) {
     const { auth } = usePage().props as any;
 
     // EKSTRAKSI AMAN: Mencegah undefined.toLocaleString() crash
@@ -45,40 +49,39 @@ export default function Dashboard({ stats, activeTicket, tierProgress }: Dashboa
             <Head title="Profile Dashboard" />
 
             {/* Header Section */}
-            <section className="flex flex-col md:flex-row justify-between items-start md:items-end gap-4">
+            <section className="flex flex-col items-start justify-between gap-4 md:flex-row md:items-end">
                 <div className="flex flex-col gap-2">
-                    <h1 className="text-4xl font-bold font-jakarta text-gray-900">
+                    <h1 className="font-jakarta text-4xl font-bold text-gray-900">
                         Welcome, {auth?.user?.name || 'User'}
                     </h1>
-                    <p className="text-neutral-500 text-lg">
-                        Your efforts have saved {mealsSaved} portions of food this month.
+                    <p className="text-lg text-neutral-500">
+                        Your efforts have saved {mealsSaved} portions of food
+                        this month.
                     </p>
                 </div>
             </section>
 
-            <section className="flex flex-wrap gap-6 mt-6">
+            <section className="mt-6 flex flex-wrap gap-6">
                 <StatCard
                     title="Total Savings"
                     value={`Rp${Number(totalSavings).toLocaleString('id-ID')},00`}
                 />
-                <StatCard
-                    title="Food Rescued"
-                    value={`${totalKg} kg`}
-                />
-                <StatCard
-                    title="Total Orders"
-                    value={totalOrders}
-                />
+                <StatCard title="Food Rescued" value={`${totalKg} kg`} />
+                <StatCard title="Total Orders" value={totalOrders} />
             </section>
 
             <section className="mt-10">
-                <h2 className="text-2xl font-bold font-jakarta mb-6 text-gray-900">Active Rescue Ticket</h2>
+                <h2 className="mb-6 font-jakarta text-2xl font-bold text-gray-900">
+                    Active Rescue Ticket
+                </h2>
                 <ActiveTicket ticket={activeTicket ?? null} />
             </section>
 
             <section className="mt-10">
-                <h2 className="text-2xl font-bold font-jakarta mb-6 text-gray-900">Membership Tier</h2>
-                <TierProgress 
+                <h2 className="mb-6 font-jakarta text-2xl font-bold text-gray-900">
+                    Membership Tier
+                </h2>
+                <TierProgress
                     currentTier={currentTier}
                     nextTier={nextTier}
                     rescuesNeeded={rescuesNeeded}
@@ -89,4 +92,6 @@ export default function Dashboard({ stats, activeTicket, tierProgress }: Dashboa
     );
 }
 
-Dashboard.layout = (page: React.ReactNode) => <ProfileLayout>{page}</ProfileLayout>;
+Dashboard.layout = (page: React.ReactNode) => (
+    <ProfileLayout>{page}</ProfileLayout>
+);

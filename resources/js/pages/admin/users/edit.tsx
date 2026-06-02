@@ -8,7 +8,7 @@ import {
     SelectItem,
     SelectTrigger,
     SelectValue,
-} from "@/components/ui/select";
+} from '@/components/ui/select';
 
 interface User {
     id: number;
@@ -33,90 +33,157 @@ export default function AdminUserEdit({ user }: Props) {
     const { data, setData, put, processing, errors } = useForm({
         name: user.name,
         email: user.email,
-        password: '', 
-        role: user.role, 
+        password: '',
+        role: user.role,
     });
 
     const submit = (e: React.FormEvent) => {
         e.preventDefault();
-        put(`/admin/users/${user.id}`); 
+        put(`/admin/users/${user.id}`);
     };
 
     return (
         <div className="space-y-6">
             <Head title="Edit User" />
 
-            <div className="flex flex-col gap-1 mb-8">
-                <Link href="/admin/users" className="text-sm text-[#C34A15] hover:underline mb-2 w-fit font-medium transition-all">
+            <div className="mb-8 flex flex-col gap-1">
+                <Link
+                    href="/admin/users"
+                    className="mb-2 w-fit text-sm font-medium text-[#C34A15] transition-all hover:underline"
+                >
                     &larr; Back to Users
                 </Link>
-                <h1 className="text-3xl font-bold font-jakarta text-gray-900">Edit User</h1>
-                <p className="text-sm text-neutral-500">Update user information. Leave password empty if you do not want to change it.</p>
+                <h1 className="font-jakarta text-3xl font-bold text-gray-900">
+                    Edit User
+                </h1>
+                <p className="text-sm text-neutral-500">
+                    Update user information. Leave password empty if you do not
+                    want to change it.
+                </p>
             </div>
 
-            <div className="bg-white rounded-[24px] border border-neutral-100 shadow-sm p-6 md:p-8">
-                <form onSubmit={submit} className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6" autoComplete="off">
-                    
+            <div className="rounded-[24px] border border-neutral-100 bg-white p-6 shadow-sm md:p-8">
+                <form
+                    onSubmit={submit}
+                    className="grid grid-cols-1 gap-x-8 gap-y-6 md:grid-cols-2"
+                    autoComplete="off"
+                >
                     <div className="space-y-2">
-                        <label className="text-sm font-semibold text-gray-900">Full Name</label>
+                        <label className="text-sm font-semibold text-gray-900">
+                            Full Name
+                        </label>
                         <input
                             type="text"
                             value={data.name}
-                            onChange={e => setData('name', e.target.value)}
-                            className="w-full px-4 py-3 bg-neutral-50 border border-neutral-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-[#C34A15]/20 focus:border-[#C34A15] transition-all text-sm"/>
-                        {errors.name && <p className="text-red-500 text-xs font-medium">{errors.name}</p>}
+                            onChange={(e) => setData('name', e.target.value)}
+                            className="w-full rounded-xl border border-neutral-200 bg-neutral-50 px-4 py-3 text-sm transition-all focus:border-[#C34A15] focus:bg-white focus:ring-2 focus:ring-[#C34A15]/20"
+                        />
+                        {errors.name && (
+                            <p className="text-xs font-medium text-red-500">
+                                {errors.name}
+                            </p>
+                        )}
                     </div>
 
                     <div className="space-y-2">
-                        <label className="text-sm font-semibold text-gray-900">Email Address</label>
+                        <label className="text-sm font-semibold text-gray-900">
+                            Email Address
+                        </label>
                         <input
                             type="email"
                             value={data.email}
-                            onChange={e => setData('email', e.target.value)}
-                            className="w-full px-4 py-3 bg-neutral-50 border border-neutral-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-[#C34A15]/20 focus:border-[#C34A15] transition-all text-sm"/>
-                        {errors.email && <p className="text-red-500 text-xs font-medium">{errors.email}</p>}
+                            onChange={(e) => setData('email', e.target.value)}
+                            className="w-full rounded-xl border border-neutral-200 bg-neutral-50 px-4 py-3 text-sm transition-all focus:border-[#C34A15] focus:bg-white focus:ring-2 focus:ring-[#C34A15]/20"
+                        />
+                        {errors.email && (
+                            <p className="text-xs font-medium text-red-500">
+                                {errors.email}
+                            </p>
+                        )}
                     </div>
 
                     <div className="space-y-2">
-                        <label className="text-sm font-semibold text-gray-900">New Password <span className="text-neutral-400 font-normal">(Optional)</span></label>
+                        <label className="text-sm font-semibold text-gray-900">
+                            New Password{' '}
+                            <span className="font-normal text-neutral-400">
+                                (Optional)
+                            </span>
+                        </label>
                         <div className="relative">
                             <input
                                 type={showPassword ? 'text' : 'password'}
                                 value={data.password}
-                                onChange={e => setData('password', e.target.value)}
+                                onChange={(e) =>
+                                    setData('password', e.target.value)
+                                }
                                 autoComplete="new-password"
-                                className="w-full px-4 py-3 pr-12 bg-neutral-50 border border-neutral-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-[#C34A15]/20 focus:border-[#C34A15] transition-all text-sm"
-                                placeholder="Leave empty if unchanged"/>
+                                className="w-full rounded-xl border border-neutral-200 bg-neutral-50 px-4 py-3 pr-12 text-sm transition-all focus:border-[#C34A15] focus:bg-white focus:ring-2 focus:ring-[#C34A15]/20"
+                                placeholder="Leave empty if unchanged"
+                            />
                             <button
                                 type="button"
                                 onClick={() => setShowPassword(!showPassword)}
-                                className="absolute right-4 top-1/2 -translate-y-1/2 text-neutral-400 hover:text-neutral-600 focus:outline-none">
-                                {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                                className="absolute top-1/2 right-4 -translate-y-1/2 text-neutral-400 hover:text-neutral-600 focus:outline-none"
+                            >
+                                {showPassword ? (
+                                    <EyeOff size={18} />
+                                ) : (
+                                    <Eye size={18} />
+                                )}
                             </button>
                         </div>
-                        {errors.password && <p className="text-red-500 text-xs font-medium">{errors.password}</p>}
+                        {errors.password && (
+                            <p className="text-xs font-medium text-red-500">
+                                {errors.password}
+                            </p>
+                        )}
                     </div>
 
                     <div className="space-y-2">
-                        <label className="text-sm font-semibold text-gray-900">Role</label>
-                        <Select value={data.role} onValueChange={(value) => setData('role', value)}>
-                            <SelectTrigger className="w-full px-4 py-6 bg-neutral-50 border border-neutral-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-[#C34A15]/20 focus:border-[#C34A15] transition-all text-sm cursor-pointer">
+                        <label className="text-sm font-semibold text-gray-900">
+                            Role
+                        </label>
+                        <Select
+                            value={data.role}
+                            onValueChange={(value) => setData('role', value)}
+                        >
+                            <SelectTrigger className="w-full cursor-pointer rounded-xl border border-neutral-200 bg-neutral-50 px-4 py-6 text-sm transition-all focus:border-[#C34A15] focus:bg-white focus:ring-2 focus:ring-[#C34A15]/20">
                                 <SelectValue placeholder="Pilih Role" />
                             </SelectTrigger>
-                            <SelectContent className="bg-white border-neutral-200 rounded-xl shadow-lg">
-                                <SelectItem value="user" className="cursor-pointer font-medium hover:bg-neutral-50">User / Buyer</SelectItem>
-                                <SelectItem value="seller" className="cursor-pointer font-medium hover:bg-neutral-50">Seller / Shop Owner</SelectItem>
-                                <SelectItem value="admin" className="cursor-pointer font-medium hover:bg-neutral-50">Admin</SelectItem>
+                            <SelectContent className="rounded-xl border-neutral-200 bg-white shadow-lg">
+                                <SelectItem
+                                    value="user"
+                                    className="cursor-pointer font-medium hover:bg-neutral-50"
+                                >
+                                    User / Buyer
+                                </SelectItem>
+                                <SelectItem
+                                    value="seller"
+                                    className="cursor-pointer font-medium hover:bg-neutral-50"
+                                >
+                                    Seller / Shop Owner
+                                </SelectItem>
+                                <SelectItem
+                                    value="admin"
+                                    className="cursor-pointer font-medium hover:bg-neutral-50"
+                                >
+                                    Admin
+                                </SelectItem>
                             </SelectContent>
                         </Select>
-                        {errors.role && <p className="text-red-500 text-xs font-medium">{errors.role}</p>}
+                        {errors.role && (
+                            <p className="text-xs font-medium text-red-500">
+                                {errors.role}
+                            </p>
+                        )}
                     </div>
 
-                    <div className="md:col-span-2 pt-4 flex items-center justify-end border-t border-neutral-100 mt-2">
+                    <div className="mt-2 flex items-center justify-end border-t border-neutral-100 pt-4 md:col-span-2">
                         <button
                             type="submit"
                             disabled={processing}
-                            className="bg-[#C34A15] text-white px-8 py-3 rounded-xl text-sm font-bold hover:bg-[#A33D10] transition-colors disabled:opacity-50 disabled:cursor-not-allowed w-full md:w-auto mt-4">
+                            className="mt-4 w-full rounded-xl bg-[#C34A15] px-8 py-3 text-sm font-bold text-white transition-colors hover:bg-[#A33D10] disabled:cursor-not-allowed disabled:opacity-50 md:w-auto"
+                        >
                             {processing ? 'Updating...' : 'Update User'}
                         </button>
                     </div>
@@ -126,4 +193,6 @@ export default function AdminUserEdit({ user }: Props) {
     );
 }
 
-AdminUserEdit.layout = (page: React.ReactNode) => <ProfileLayout>{page}</ProfileLayout>;
+AdminUserEdit.layout = (page: React.ReactNode) => (
+    <ProfileLayout>{page}</ProfileLayout>
+);

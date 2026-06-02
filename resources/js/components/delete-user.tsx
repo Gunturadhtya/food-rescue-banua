@@ -14,7 +14,13 @@ import {
     DialogTrigger,
 } from '@/components/ui/dialog';
 import { Label } from '@/components/ui/label';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import {
+    Card,
+    CardContent,
+    CardDescription,
+    CardHeader,
+    CardTitle,
+} from '@/components/ui/card';
 import { AlertTriangle, Trash2 } from 'lucide-react';
 import React from 'react';
 
@@ -22,10 +28,9 @@ export default function DeleteUser() {
     const passwordInput = useRef<HTMLInputElement>(null);
 
     return (
-        <Card className="border border-red-200 border-t-4 border-t-red-500 bg-gradient-to-br from-white via-rose-50/5 to-white shadow-xs overflow-hidden">
-            
+        <Card className="overflow-hidden border border-t-4 border-red-200 border-t-red-500 bg-gradient-to-br from-white via-rose-50/5 to-white shadow-xs">
             <CardHeader className="border-b border-neutral-50 pb-4">
-                <CardTitle className="text-lg font-bold text-red-700 font-jakarta flex items-center gap-2">
+                <CardTitle className="flex items-center gap-2 font-jakarta text-lg font-bold text-red-700">
                     <AlertTriangle className="h-5 w-5 text-red-600" />
                     Danger Zone
                 </CardTitle>
@@ -35,11 +40,16 @@ export default function DeleteUser() {
             </CardHeader>
 
             <CardContent className="pt-6">
-                <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 p-4 rounded-xl border border-red-100 bg-red-50/50">
+                <div className="flex flex-col justify-between gap-6 rounded-xl border border-red-100 bg-red-50/50 p-4 md:flex-row md:items-center">
                     <div className="space-y-1">
-                        <p className="font-semibold text-red-800 text-sm">Once you delete your account, there is no going back.</p>
+                        <p className="text-sm font-semibold text-red-800">
+                            Once you delete your account, there is no going
+                            back.
+                        </p>
                         <p className="text-xs text-red-600">
-                            All your claimed food rescues, tickets, and history will be permanently wiped from the database. Please proceed with caution.
+                            All your claimed food rescues, tickets, and history
+                            will be permanently wiped from the database. Please
+                            proceed with caution.
                         </p>
                     </div>
 
@@ -48,19 +58,22 @@ export default function DeleteUser() {
                             <Button
                                 variant="destructive"
                                 data-test="delete-user-button"
-                                className="shrink-0 transition-transform duration-200 hover:scale-[1.02] active:scale-[0.98] cursor-pointer"
+                                className="shrink-0 cursor-pointer transition-transform duration-200 hover:scale-[1.02] active:scale-[0.98]"
                             >
-                                <Trash2 className="h-4 w-4 mr-2" />
+                                <Trash2 className="mr-2 h-4 w-4" />
                                 Delete Account
                             </Button>
                         </DialogTrigger>
                         <DialogContent>
-                            <DialogTitle className="flex items-center gap-2 text-red-700 font-bold font-jakarta">
+                            <DialogTitle className="flex items-center gap-2 font-jakarta font-bold text-red-700">
                                 <AlertTriangle className="h-5 w-5 text-red-600" />
                                 Are you absolutely sure?
                             </DialogTitle>
                             <DialogDescription className="text-neutral-500">
-                                This action cannot be undone. This will permanently delete your account and remove your data from our servers. Please enter your password to confirm.
+                                This action cannot be undone. This will
+                                permanently delete your account and remove your
+                                data from our servers. Please enter your
+                                password to confirm.
                             </DialogDescription>
 
                             <Form
@@ -72,7 +85,11 @@ export default function DeleteUser() {
                                 resetOnSuccess
                                 className="space-y-6"
                             >
-                                {({ resetAndClearErrors, processing, errors }) => (
+                                {({
+                                    resetAndClearErrors,
+                                    processing,
+                                    errors,
+                                }) => (
                                     <>
                                         <div className="grid gap-2 pt-2">
                                             <Label
@@ -88,13 +105,15 @@ export default function DeleteUser() {
                                                 ref={passwordInput}
                                                 placeholder="Enter password to confirm account deletion"
                                                 autoComplete="current-password"
-                                                className="border-neutral-200 focus-visible:ring-red-500/20 focus-visible:border-red-500"
+                                                className="border-neutral-200 focus-visible:border-red-500 focus-visible:ring-red-500/20"
                                             />
 
-                                            <InputError message={errors.password} />
+                                            <InputError
+                                                message={errors.password}
+                                            />
                                         </div>
 
-                                        <DialogFooter className="gap-2 pt-2 border-t border-neutral-100">
+                                        <DialogFooter className="gap-2 border-t border-neutral-100 pt-2">
                                             <DialogClose asChild>
                                                 <Button
                                                     variant="secondary"
@@ -114,7 +133,7 @@ export default function DeleteUser() {
                                                 <button
                                                     type="submit"
                                                     data-test="confirm-delete-user-button"
-                                                    className="font-bold flex items-center justify-center cursor-pointer text-white"
+                                                    className="flex cursor-pointer items-center justify-center font-bold text-white"
                                                 >
                                                     Yes, Delete My Account
                                                 </button>

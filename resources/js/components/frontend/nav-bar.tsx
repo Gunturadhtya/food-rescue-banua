@@ -13,7 +13,8 @@ import {
 export function NavBar() {
     const { auth } = usePage().props as any;
     const { url } = usePage();
-    const isActive = (path: string) => url === path || url.startsWith(`${path}/`);
+    const isActive = (path: string) =>
+        url === path || url.startsWith(`${path}/`);
 
     const isSeller = auth?.user?.role === 'seller';
     const isAdmin = auth?.user?.role === 'admin';
@@ -85,41 +86,59 @@ export function NavBar() {
     ];
 
     return (
-        <nav className="flex items-center justify-between px-12 py-6 w-full font-instrument">
-            <Link href="/home" className="text-xl font-extrabold italic text-[#C34A15]">
+        <nav className="flex w-full items-center justify-between px-12 py-6 font-instrument">
+            <Link
+                href="/home"
+                className="text-xl font-extrabold text-[#C34A15] italic"
+            >
                 Food Rescue Banua
             </Link>
 
-            <div className="flex gap-8 font-medium text-sm">
+            <div className="flex gap-8 text-sm font-medium">
                 <Link
                     href="/home"
-                    className={`group relative pb-1 transition-colors duration-200 ${isActive('/home') ? 'text-[#C34A15] font-bold' : 'text-neutral-600 hover:text-[#C34A15]'
-                        }`}
+                    className={`group relative pb-1 transition-colors duration-200 ${
+                        isActive('/home')
+                            ? 'font-bold text-[#C34A15]'
+                            : 'text-neutral-600 hover:text-[#C34A15]'
+                    }`}
                 >
                     Home
                     <span
-                        className={`absolute bottom-0 left-0 h-[2.5px] bg-[#C34A15] rounded-full transition-all duration-300 ${isActive('/home') ? 'w-full' : 'w-0 group-hover:w-full'
-                            }`}
+                        className={`absolute bottom-0 left-0 h-[2.5px] rounded-full bg-[#C34A15] transition-all duration-300 ${
+                            isActive('/home')
+                                ? 'w-full'
+                                : 'w-0 group-hover:w-full'
+                        }`}
                     />
                 </Link>
 
                 {!isAdmin && (
                     <Link
                         href={ordersLink}
-                        className={`group relative pb-1 transition-colors duration-200 ${isActive(ordersLink) ? 'text-[#C34A15] font-bold' : 'text-neutral-600 hover:text-[#C34A15]'
-                            }`}
+                        className={`group relative pb-1 transition-colors duration-200 ${
+                            isActive(ordersLink)
+                                ? 'font-bold text-[#C34A15]'
+                                : 'text-neutral-600 hover:text-[#C34A15]'
+                        }`}
                     >
                         Orders
                         <span
-                            className={`absolute bottom-0 left-0 h-[2.5px] bg-[#C34A15] rounded-full transition-all duration-300 ${isActive(ordersLink) ? 'w-full' : 'w-0 group-hover:w-full'
-                                }`}
+                            className={`absolute bottom-0 left-0 h-[2.5px] rounded-full bg-[#C34A15] transition-all duration-300 ${
+                                isActive(ordersLink)
+                                    ? 'w-full'
+                                    : 'w-0 group-hover:w-full'
+                            }`}
                         />
                     </Link>
                 )}
             </div>
 
             <div className="relative w-80">
-                <form onSubmit={handleSearchSubmit} className="flex items-center gap-4 bg-[#F2EDE5] px-4 py-2 rounded-full w-full">
+                <form
+                    onSubmit={handleSearchSubmit}
+                    className="flex w-full items-center gap-4 rounded-full bg-[#F2EDE5] px-4 py-2"
+                >
                     <Search size={18} className="text-gray-400" />
                     <input
                         type="text"
@@ -128,25 +147,32 @@ export function NavBar() {
                         onFocus={() => setIsFocused(true)}
                         onBlur={() => setIsFocused(false)}
                         placeholder="Search for merchant or dish"
-                        className="bg-transparent border-none text-sm w-full outline-none font-sans"
+                        className="w-full border-none bg-transparent font-sans text-sm outline-none"
                     />
                 </form>
 
                 {isFocused && (
-                    <div className="absolute top-12 left-0 w-full bg-white border border-neutral-100 shadow-[0_10px_30px_rgba(0,0,0,0.08)] rounded-2xl p-4 z-50 flex flex-col gap-4 font-sans">
+                    <div className="absolute top-12 left-0 z-50 flex w-full flex-col gap-4 rounded-2xl border border-neutral-100 bg-white p-4 font-sans shadow-[0_10px_30px_rgba(0,0,0,0.08)]">
                         <div>
-                            <h4 className="text-[10px] font-bold uppercase tracking-wider text-neutral-400 mb-2">Merchant Recommendations</h4>
+                            <h4 className="mb-2 text-[10px] font-bold tracking-wider text-neutral-400 uppercase">
+                                Merchant Recommendations
+                            </h4>
                             <div className="flex flex-col gap-1">
                                 {recommendations.map((item) => (
                                     <div
                                         key={item.name}
                                         onMouseDown={(e) => {
                                             e.preventDefault();
-                                            handleSelectRecommendation(item.name);
+                                            handleSelectRecommendation(
+                                                item.name,
+                                            );
                                         }}
-                                        className="flex items-center gap-2 p-2 rounded-xl text-xs font-semibold text-neutral-700 hover:bg-[#FDF5F1] hover:text-[#C34A15] transition-colors cursor-pointer"
+                                        className="flex cursor-pointer items-center gap-2 rounded-xl p-2 text-xs font-semibold text-neutral-700 transition-colors hover:bg-[#FDF5F1] hover:text-[#C34A15]"
                                     >
-                                        <Search size={14} className="text-neutral-400" />
+                                        <Search
+                                            size={14}
+                                            className="text-neutral-400"
+                                        />
                                         <span>{item.name}</span>
                                     </div>
                                 ))}
@@ -156,7 +182,9 @@ export function NavBar() {
                         <hr className="border-neutral-100" />
 
                         <div>
-                            <h4 className="text-[10px] font-bold uppercase tracking-wider text-neutral-400 mb-2">Popular Categories</h4>
+                            <h4 className="mb-2 text-[10px] font-bold tracking-wider text-neutral-400 uppercase">
+                                Popular Categories
+                            </h4>
                             <div className="flex flex-wrap gap-2">
                                 {categories.map((cat) => (
                                     <button
@@ -164,9 +192,11 @@ export function NavBar() {
                                         type="button"
                                         onMouseDown={(e) => {
                                             e.preventDefault();
-                                            handleSelectRecommendation(cat.query);
+                                            handleSelectRecommendation(
+                                                cat.query,
+                                            );
                                         }}
-                                        className="px-3 py-1.5 rounded-full bg-neutral-100 text-xs font-medium text-neutral-600 hover:bg-[#FDF5F1] hover:text-[#C34A15] transition-colors cursor-pointer border-none outline-none"
+                                        className="cursor-pointer rounded-full border-none bg-neutral-100 px-3 py-1.5 text-xs font-medium text-neutral-600 transition-colors outline-none hover:bg-[#FDF5F1] hover:text-[#C34A15]"
                                     >
                                         {cat.label}
                                     </button>
@@ -177,40 +207,58 @@ export function NavBar() {
                 )}
             </div>
 
-            <div className="flex gap-4 items-center">
+            <div className="flex items-center gap-4">
                 {auth?.user ? (
                     <>
-                        <Bell size={20} className="cursor-pointer text-neutral-600 hover:text-[#C34A15]" />
+                        <Bell
+                            size={20}
+                            className="cursor-pointer text-neutral-600 hover:text-[#C34A15]"
+                        />
 
                         {!isAdmin && (
                             <Link href={ordersLink}>
-                                <ShoppingBag size={20} className={`cursor-pointer ${isActive(ordersLink) ? 'text-[#C34A15]' : 'text-neutral-600 hover:text-[#C34A15]'}`} />
+                                <ShoppingBag
+                                    size={20}
+                                    className={`cursor-pointer ${isActive(ordersLink) ? 'text-[#C34A15]' : 'text-neutral-600 hover:text-[#C34A15]'}`}
+                                />
                             </Link>
                         )}
 
                         <DropdownMenu>
-                            <DropdownMenuTrigger className="outline-none focus-visible:ring-2 focus-visible:ring-[#C34A15] rounded-full">
-                                <div className="p-2 flex items-center justify-center rounded-full bg-neutral-100 text-neutral-600 hover:bg-neutral-200 transition-colors">
+                            <DropdownMenuTrigger className="rounded-full outline-none focus-visible:ring-2 focus-visible:ring-[#C34A15]">
+                                <div className="flex items-center justify-center rounded-full bg-neutral-100 p-2 text-neutral-600 transition-colors hover:bg-neutral-200">
                                     <User size={20} />
                                 </div>
                             </DropdownMenuTrigger>
-                            <DropdownMenuContent align="end" className="w-56 mt-2 rounded-2xl border-neutral-100 p-2 shadow-[0_10px_30px_rgba(0,0,0,0.08)] font-instrument">
-                                <div className="px-3 py-2 mb-1">
-                                    <p className="text-sm font-bold text-gray-900">{auth.user.name}</p>
-                                    <p className="text-xs text-neutral-500 truncate">{auth.user.email}</p>
+                            <DropdownMenuContent
+                                align="end"
+                                className="mt-2 w-56 rounded-2xl border-neutral-100 p-2 font-instrument shadow-[0_10px_30px_rgba(0,0,0,0.08)]"
+                            >
+                                <div className="mb-1 px-3 py-2">
+                                    <p className="text-sm font-bold text-gray-900">
+                                        {auth.user.name}
+                                    </p>
+                                    <p className="truncate text-xs text-neutral-500">
+                                        {auth.user.email}
+                                    </p>
                                 </div>
-                                <DropdownMenuSeparator className="bg-neutral-100 mb-1" />
+                                <DropdownMenuSeparator className="mb-1 bg-neutral-100" />
                                 <div className="flex flex-col gap-1">
                                     {getNavItems().map((item) => {
                                         const active = isActive(item.href);
                                         return (
-                                            <DropdownMenuItem key={item.name} asChild className="p-0 outline-none">
+                                            <DropdownMenuItem
+                                                key={item.name}
+                                                asChild
+                                                className="p-0 outline-none"
+                                            >
                                                 <Link
                                                     href={item.href}
-                                                    className={`flex w-full items-center px-3 py-2 rounded-xl text-sm transition-colors cursor-pointer ${active
-                                                            ? 'bg-[#FFF8F5] text-[#C34A15] font-bold'
+                                                    className={`flex w-full cursor-pointer items-center rounded-xl px-3 py-2 text-sm transition-colors ${
+                                                        active
+                                                            ? 'bg-[#FFF8F5] font-bold text-[#C34A15]'
                                                             : 'text-neutral-600 hover:bg-neutral-50 hover:text-gray-900'
-                                                        }`}
+                                                    }`}
                                                 >
                                                     {item.name}
                                                 </Link>
@@ -218,16 +266,21 @@ export function NavBar() {
                                         );
                                     })}
                                 </div>
-                                <DropdownMenuSeparator className="bg-neutral-100 my-1" />
-                                <DropdownMenuItem asChild className="p-0 outline-none">
+                                <DropdownMenuSeparator className="my-1 bg-neutral-100" />
+                                <DropdownMenuItem
+                                    asChild
+                                    className="p-0 outline-none"
+                                >
                                     <Link
                                         href={logout()}
                                         method="post"
                                         as="button"
-                                        className="flex w-full items-center gap-3 px-3 py-2 rounded-xl text-sm text-red-600 hover:bg-red-50 transition-colors cursor-pointer"
+                                        className="flex w-full cursor-pointer items-center gap-3 rounded-xl px-3 py-2 text-sm text-red-600 transition-colors hover:bg-red-50"
                                     >
-                                        <LogOut className="w-4 h-4" />
-                                        <span className="font-semibold">Log Out</span>
+                                        <LogOut className="h-4 w-4" />
+                                        <span className="font-semibold">
+                                            Log Out
+                                        </span>
                                     </Link>
                                 </DropdownMenuItem>
                             </DropdownMenuContent>
@@ -235,8 +288,16 @@ export function NavBar() {
                     </>
                 ) : (
                     <>
-                        <Link href={login()} className="text-sm font-bold hover:text-[#C34A15]">Log In</Link>
-                        <Link href={register()} className="text-sm font-bold bg-[#C34A15] text-white px-5 py-2 rounded-full hover:bg-[#A33D10] transition-colors">
+                        <Link
+                            href={login()}
+                            className="text-sm font-bold hover:text-[#C34A15]"
+                        >
+                            Log In
+                        </Link>
+                        <Link
+                            href={register()}
+                            className="rounded-full bg-[#C34A15] px-5 py-2 text-sm font-bold text-white transition-colors hover:bg-[#A33D10]"
+                        >
                             Sign Up
                         </Link>
                     </>

@@ -8,12 +8,20 @@ interface StatCardProps {
 
 export default function StatCard({ title, value, icon }: StatCardProps) {
     return (
-        <div className="flex flex-col gap-4 p-6 border rounded-2xl border-border-warning bg-white flex-1 min-w-[200px]">
+        <div className="flex min-w-[200px] flex-1 flex-col gap-4 rounded-2xl border border-border-warning bg-white p-6">
             <div className="flex items-center gap-4">
-                {icon && <div className="w-12 h-12 bg-brand-surface rounded-full flex items-center justify-center">{icon}</div>}
+                {icon && (
+                    <div className="flex h-12 w-12 items-center justify-center rounded-full bg-brand-surface">
+                        {icon}
+                    </div>
+                )}
                 <div className="flex flex-col">
-                    <span className="text-sm font-medium text-text-secondary font-instrument">{title}</span>
-                    <span className="text-2xl font-semibold text-text-primary font-jakarta">{value}</span>
+                    <span className="font-instrument text-sm font-medium text-text-secondary">
+                        {title}
+                    </span>
+                    <span className="font-jakarta text-2xl font-semibold text-text-primary">
+                        {value}
+                    </span>
                 </div>
             </div>
         </div>
