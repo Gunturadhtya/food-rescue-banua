@@ -87,6 +87,46 @@ class DatabaseSeeder extends Seeder
                 'description' => 'Fresh Soto Banjar portions from today.',
                 'address' => 'Jl. Kuin Selatan, Banjarmasin',
             ],
+            [
+                'owner_name' => 'Wong Solo Owner',
+                'email' => 'wongsolo@example.com',
+                'shop_name' => 'RM Wong Solo',
+                'slug' => 'wong-solo',
+                'description' => 'Delicious grilled and fried chicken packages, prepared fresh daily.',
+                'address' => 'Jl. A. Yani Km 4.5, Banjarmasin',
+            ],
+            [
+                'owner_name' => 'Lintau Owner',
+                'email' => 'lintau@example.com',
+                'shop_name' => 'RM Sederhana Lintau',
+                'slug' => 'rm-sederhana-lintau',
+                'description' => 'Freshly cooked authentic Padang dishes like rendang and curry.',
+                'address' => 'Jl. Letkol Mantamin, Banjarmasin',
+            ],
+            [
+                'owner_name' => 'Melayu Juice Owner',
+                'email' => 'melayujuice@example.com',
+                'shop_name' => 'Kampung Melayu Juice',
+                'slug' => 'kampung-melayu-juice',
+                'description' => 'Freshly blended fruit juices made from seasonal fresh fruits.',
+                'address' => 'Jl. Kampung Melayu Darat, Banjarmasin',
+            ],
+            [
+                'owner_name' => 'Bakso Owner',
+                'email' => 'bakso@example.com',
+                'shop_name' => 'Bakso Lapangan Tembak',
+                'slug' => 'bakso-lapangan-tembak',
+                'description' => 'Warm and comforting bowls of beef meatballs (bakso) with noodles and tofu.',
+                'address' => 'Jl. Hasan Basri, Banjarmasin',
+            ],
+            [
+                'owner_name' => 'Rahmah Owner',
+                'email' => 'rahmah@example.com',
+                'shop_name' => 'Nasi Kuning Ibu Rahmah',
+                'slug' => 'nasi-kuning-rahmah',
+                'description' => 'Authentic Banjar yellow rice (Nasi Kuning Banjar) with haruan fish or egg cooked in delicious red chili paste (masak habang).',
+                'address' => 'Jl. Pasar Lama, Banjarmasin',
+            ],
         ];
 
         $lastActiveRescue = null;
