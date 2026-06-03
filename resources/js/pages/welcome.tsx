@@ -3,7 +3,7 @@ import { Store, Bell, User, Leaf, ArrowRight, MapPin, ShieldCheck } from 'lucide
 
 export default function Welcome() {
     return (
-        <div className="min-h-screen bg-[#FDF8F0] font-sans antialiased overflow-x-hidden flex flex-col">
+        <div className="min-h-screen bg-[#FDF8F0] font-sans antialiased flex flex-col">
             <Head title="Food Rescue Banua - Save Food, Save Money" />
 
             {/* --- GUEST / LANDING PAGE NAVBAR --- */}
@@ -29,13 +29,13 @@ export default function Welcome() {
                 {/* 1. HERO SECTION */}
                 <section className="relative w-full h-[500px] md:h-[600px] flex items-center justify-center text-center px-4 overflow-hidden">
                     {/* Menggunakan tag img agar gambar hero muncul */}
-                    <img 
-                        src="/images/welcome-hero.png" 
-                        alt="Food Rescue Hero" 
+                    <img
+                        src="/images/welcome-hero.png"
+                        alt="Food Rescue Hero"
                         className="absolute inset-0 w-full h-full object-cover"
                     />
                     <div className="absolute inset-0 bg-black/60"></div>
-                    
+
                     <div className="relative z-10 max-w-4xl text-white mt-10">
                         <h1 className="text-sm md:text-base font-semibold tracking-widest uppercase mb-4 text-neutral-300">
                             Food rescue organization landing page
@@ -75,7 +75,7 @@ export default function Welcome() {
                         <h2 className="text-3xl md:text-4xl font-bold text-[#8C3411] text-center mb-16 font-jakarta">
                             How It Works Daily
                         </h2>
-                        
+
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                             <div className="bg-white p-8 rounded-3xl shadow-sm border border-neutral-100 text-center hover:shadow-md transition-shadow">
                                 <div className="w-14 h-14 bg-[#C34A15] text-white rounded-full flex items-center justify-center mx-auto mb-6 shadow-md">
