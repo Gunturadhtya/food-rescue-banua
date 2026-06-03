@@ -239,10 +239,25 @@ export function NavBar() {
                                 className="mt-2 w-56 rounded-2xl border border-neutral-100 p-2 font-instrument shadow-[0_10px_30px_rgba(0,0,0,0.08)]"
                             >
                                 <div className="mb-1 px-3 py-2">
-                                    <p className="text-sm font-bold text-gray-900">
-                                        {auth.user.name}
-                                    </p>
-                                    <p className="truncate text-xs text-neutral-500">
+                                    <div className="flex items-center justify-between gap-2">
+                                        <p className="text-sm font-bold text-gray-900 truncate">
+                                            {auth.user.name}
+                                        </p>
+                                        <span className={`inline-flex shrink-0 items-center rounded-full border px-2 py-0.5 text-[9px] font-bold tracking-wider uppercase ${
+                                            auth.user.role === 'admin'
+                                                ? 'bg-purple-50 text-purple-700 border-purple-100'
+                                                : auth.user.role === 'seller'
+                                                  ? 'bg-blue-50 text-blue-700 border-blue-100'
+                                                  : 'bg-emerald-50 text-emerald-700 border-emerald-100'
+                                        }`}>
+                                            {auth.user.role === 'admin'
+                                                ? 'Admin'
+                                                : auth.user.role === 'seller'
+                                                  ? 'Merchant'
+                                                  : 'Volunteer'}
+                                        </span>
+                                    </div>
+                                    <p className="truncate text-xs text-neutral-500 mt-0.5">
                                         {auth.user.email}
                                     </p>
                                 </div>
