@@ -131,7 +131,7 @@ export default function Welcome() {
                     </div>
                 </section>
 
-                {/* 5. ACTIVE RESCUES SECTION */}
+                {/* 5. ACTIVE RESCUES SECTION (Sesuai dengan Seeder) */}
                 <section id="merchants" className="py-24 px-4 md:px-12 bg-white">
                     <div className="max-w-6xl mx-auto">
                         <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-10 gap-4">
@@ -145,60 +145,62 @@ export default function Welcome() {
                         </div>
 
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                            {/* Merchant 1: Harlina Bakery */}
                             <div className="bg-white rounded-[24px] border border-neutral-100 overflow-hidden shadow-sm hover:shadow-lg transition-shadow">
                                 <div className="h-48 relative bg-neutral-100">
-                                    {/* Menggunakan tag img agar gambar tampil */}
-                                    <img src="/images/kue-kering-tembak.png" alt="Bakery" className="w-full h-full object-cover" />
+                                    <img src="/images/harlina-bakery.png" alt="Harlina Bakery" className="w-full h-full object-cover" />
                                     <div className="absolute top-4 right-4 bg-[#8C3411] text-white text-xs font-bold px-3 py-1.5 rounded-full shadow-sm">
                                         Available Now
                                     </div>
                                 </div>
                                 <div className="p-6">
-                                    <h3 className="text-xl font-bold text-gray-900 mb-2">Banua Bakery Assortment</h3>
-                                    <p className="text-sm text-gray-500 flex items-center gap-1.5 mb-4">
-                                        <MapPin size={16} /> 1.2 km away
+                                    <h3 className="text-xl font-bold text-gray-900 mb-2 truncate">Harlina Bakery</h3>
+                                    <p className="text-sm text-gray-500 flex items-center gap-1.5 mb-4 truncate">
+                                        <MapPin size={16} className="shrink-0" /> Jl. Hasan Basri, Kayutangi
                                     </p>
                                     <div className="flex justify-between items-center text-sm font-semibold">
                                         <span className="bg-neutral-100 text-gray-600 px-3 py-1 rounded-md">Bakery</span>
-                                        <span className="text-[#8C3411]">Est. 2kg</span>
+                                        <span className="text-[#8C3411]">Est. 1.2kg</span>
                                     </div>
                                 </div>
                             </div>
 
+                            {/* Merchant 2: RM Wong Solo */}
                             <div className="bg-white rounded-[24px] border border-neutral-100 overflow-hidden shadow-sm hover:shadow-lg transition-shadow">
                                 <div className="h-48 relative bg-neutral-100">
-                                    <img src="/images/soto-banjar.png" alt="Soto" className="w-full h-full object-cover" />
+                                    <img src="/images/wong-solo.png" alt="RM Wong Solo" className="w-full h-full object-cover" />
                                     <div className="absolute top-4 right-4 bg-[#8C3411] text-white text-xs font-bold px-3 py-1.5 rounded-full shadow-sm">
                                         Available Now
                                     </div>
                                 </div>
                                 <div className="p-6">
-                                    <h3 className="text-xl font-bold text-gray-900 mb-2">Soto Banjar Surplus</h3>
-                                    <p className="text-sm text-gray-500 flex items-center gap-1.5 mb-4">
-                                        <MapPin size={16} /> 3.5 km away
+                                    <h3 className="text-xl font-bold text-gray-900 mb-2 truncate">RM Wong Solo</h3>
+                                    <p className="text-sm text-gray-500 flex items-center gap-1.5 mb-4 truncate">
+                                        <MapPin size={16} className="shrink-0" /> Jl. A. Yani Km 4.5
                                     </p>
                                     <div className="flex justify-between items-center text-sm font-semibold">
                                         <span className="bg-neutral-100 text-gray-600 px-3 py-1 rounded-md">Meals</span>
-                                        <span className="text-[#8C3411]">Est. 5kg</span>
+                                        <span className="text-[#8C3411]">Est. 2.5kg</span>
                                     </div>
                                 </div>
                             </div>
 
+                            {/* Merchant 3: Kopi Janji Banua */}
                             <div className="bg-white rounded-[24px] border border-neutral-100 overflow-hidden shadow-sm hover:shadow-lg transition-shadow">
                                 <div className="h-48 relative bg-neutral-100">
-                                    <img src="/images/nasi-kuning-rahmah.png" alt="Nasi Kuning" className="w-full h-full object-cover" />
+                                    <img src="/images/kopi-janji.png" alt="Kopi Janji Banua" className="w-full h-full object-cover" />
                                     <div className="absolute top-4 right-4 bg-[#8C3411] text-white text-xs font-bold px-3 py-1.5 rounded-full shadow-sm">
                                         Available Now
                                     </div>
                                 </div>
                                 <div className="p-6">
-                                    <h3 className="text-xl font-bold text-gray-900 mb-2">Nasi Kuning Box</h3>
-                                    <p className="text-sm text-gray-500 flex items-center gap-1.5 mb-4">
-                                        <MapPin size={16} /> 0.8 km away
+                                    <h3 className="text-xl font-bold text-gray-900 mb-2 truncate">Kopi Janji Banua</h3>
+                                    <p className="text-sm text-gray-500 flex items-center gap-1.5 mb-4 truncate">
+                                        <MapPin size={16} className="shrink-0" /> Jl. Lambung Mangkurat
                                     </p>
                                     <div className="flex justify-between items-center text-sm font-semibold">
-                                        <span className="bg-neutral-100 text-gray-600 px-3 py-1 rounded-md">Meals</span>
-                                        <span className="text-[#8C3411]">Est. 1.5kg</span>
+                                        <span className="bg-neutral-100 text-gray-600 px-3 py-1 rounded-md">Snacks</span>
+                                        <span className="text-[#8C3411]">Est. 0.8kg</span>
                                     </div>
                                 </div>
                             </div>
