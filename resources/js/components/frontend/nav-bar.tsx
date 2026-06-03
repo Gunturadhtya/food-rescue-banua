@@ -87,48 +87,50 @@ export function NavBar() {
 
     return (
         <nav className="sticky top-0 z-40 flex w-full items-center justify-between border-b border-orange-200 bg-[#FDFBF7]/95 px-12 py-5 font-instrument shadow-sm backdrop-blur-md transition-all duration-200">
-            <Link
-                href="/home"
-                className="text-xl font-extrabold text-[#C34A15] italic transition-transform duration-200 hover:scale-[1.02]"
-            >
-                Food Rescue Banua
-            </Link>
+            <div className="flex flex-col justify-center">
+                <Link
+                    href="/home"
+                    className="text-xl font-extrabold text-[#C34A15] italic transition-transform duration-200 hover:scale-[1.02] leading-none"
+                >
+                    Food Rescue Banua
+                </Link>
+                {/* Replace 'seller' with your actual state/prop determining the role */}
+                <span className="text-[10px] font-bold text-neutral-500 uppercase tracking-widest mt-1.5 ml-0.5">
+                    {isAdmin ? 'Admin Operation' : isSeller ? 'Seller Operation' : ''}
+                </span>
+            </div>
 
             <div className="flex gap-8 text-sm font-semibold">
                 <Link
                     href="/home"
-                    className={`group relative pb-1 transition-colors duration-200 ${
-                        isActive('/home')
-                            ? 'font-bold text-[#C34A15]'
-                            : 'text-neutral-600 hover:text-[#C34A15]'
-                    }`}
+                    className={`group relative pb-1 transition-colors duration-200 ${isActive('/home')
+                        ? 'font-bold text-[#C34A15]'
+                        : 'text-neutral-600 hover:text-[#C34A15]'
+                        }`}
                 >
                     Home
                     <span
-                        className={`absolute bottom-0 left-0 h-[2.5px] rounded-full bg-[#C34A15] transition-all duration-300 ${
-                            isActive('/home')
-                                ? 'w-full'
-                                : 'w-0 group-hover:w-full'
-                        }`}
+                        className={`absolute bottom-0 left-0 h-[2.5px] rounded-full bg-[#C34A15] transition-all duration-300 ${isActive('/home')
+                            ? 'w-full'
+                            : 'w-0 group-hover:w-full'
+                            }`}
                     />
                 </Link>
 
                 {!isAdmin && (
                     <Link
                         href={ordersLink}
-                        className={`group relative pb-1 transition-colors duration-200 ${
-                            isActive(ordersLink)
-                                ? 'font-bold text-[#C34A15]'
-                                : 'text-neutral-600 hover:text-[#C34A15]'
-                        }`}
+                        className={`group relative pb-1 transition-colors duration-200 ${isActive(ordersLink)
+                            ? 'font-bold text-[#C34A15]'
+                            : 'text-neutral-600 hover:text-[#C34A15]'
+                            }`}
                     >
                         Orders
                         <span
-                            className={`absolute bottom-0 left-0 h-[2.5px] rounded-full bg-[#C34A15] transition-all duration-300 ${
-                                isActive(ordersLink)
-                                    ? 'w-full'
-                                    : 'w-0 group-hover:w-full'
-                            }`}
+                            className={`absolute bottom-0 left-0 h-[2.5px] rounded-full bg-[#C34A15] transition-all duration-300 ${isActive(ordersLink)
+                                ? 'w-full'
+                                : 'w-0 group-hover:w-full'
+                                }`}
                         />
                     </Link>
                 )}
@@ -217,11 +219,10 @@ export function NavBar() {
                         {!isAdmin && (
                             <Link href={ordersLink}>
                                 <div
-                                    className={`flex cursor-pointer items-center justify-center rounded-full border p-2.5 shadow-xs transition-all duration-200 hover:scale-105 hover:border-[#C34A15]/40 hover:bg-orange-50 hover:text-[#C34A15] ${
-                                        isActive(ordersLink)
-                                            ? 'border-[#C34A15]/40 bg-orange-50/50 text-[#C34A15]'
-                                            : 'border-orange-100/60 bg-[#FAF7F2]/60 text-neutral-600'
-                                    }`}
+                                    className={`flex cursor-pointer items-center justify-center rounded-full border p-2.5 shadow-xs transition-all duration-200 hover:scale-105 hover:border-[#C34A15]/40 hover:bg-orange-50 hover:text-[#C34A15] ${isActive(ordersLink)
+                                        ? 'border-[#C34A15]/40 bg-orange-50/50 text-[#C34A15]'
+                                        : 'border-orange-100/60 bg-[#FAF7F2]/60 text-neutral-600'
+                                        }`}
                                 >
                                     <ShoppingBag size={18} />
                                 </div>
@@ -243,18 +244,17 @@ export function NavBar() {
                                         <p className="text-sm font-bold text-gray-900 truncate">
                                             {auth.user.name}
                                         </p>
-                                        <span className={`inline-flex shrink-0 items-center rounded-full border px-2 py-0.5 text-[9px] font-bold tracking-wider uppercase ${
-                                            auth.user.role === 'admin'
-                                                ? 'bg-purple-50 text-purple-700 border-purple-100'
-                                                : auth.user.role === 'seller'
-                                                  ? 'bg-blue-50 text-blue-700 border-blue-100'
-                                                  : 'bg-emerald-50 text-emerald-700 border-emerald-100'
-                                        }`}>
+                                        <span className={`inline-flex shrink-0 items-center rounded-full border px-2 py-0.5 text-[9px] font-bold tracking-wider uppercase ${auth.user.role === 'admin'
+                                            ? 'bg-purple-50 text-purple-700 border-purple-100'
+                                            : auth.user.role === 'seller'
+                                                ? 'bg-blue-50 text-blue-700 border-blue-100'
+                                                : 'bg-emerald-50 text-emerald-700 border-emerald-100'
+                                            }`}>
                                             {auth.user.role === 'admin'
                                                 ? 'Admin'
                                                 : auth.user.role === 'seller'
-                                                  ? 'Merchant'
-                                                  : 'Volunteer'}
+                                                    ? 'Merchant'
+                                                    : 'Volunteer'}
                                         </span>
                                     </div>
                                     <p className="truncate text-xs text-neutral-500 mt-0.5">
@@ -273,11 +273,10 @@ export function NavBar() {
                                             >
                                                 <Link
                                                     href={item.href}
-                                                    className={`flex w-full cursor-pointer items-center rounded-xl px-3 py-2 text-sm transition-colors ${
-                                                        active
-                                                            ? 'bg-[#FFF8F5] font-bold text-[#C34A15]'
-                                                            : 'text-neutral-600 hover:bg-neutral-50 hover:text-gray-900'
-                                                    }`}
+                                                    className={`flex w-full cursor-pointer items-center rounded-xl px-3 py-2 text-sm transition-colors ${active
+                                                        ? 'bg-[#FFF8F5] font-bold text-[#C34A15]'
+                                                        : 'text-neutral-600 hover:bg-neutral-50 hover:text-gray-900'
+                                                        }`}
                                                 >
                                                     {item.name}
                                                 </Link>
