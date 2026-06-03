@@ -65,7 +65,7 @@ export default function AdminTicketIndex({ tickets }: Props) {
                         Pickup Tickets
                     </h1>
                     <p className="text-sm text-neutral-500">
-                        Monitor all order pickup tickets owned by buyers.
+                        Monitor all order pickup tickets owned by volunteers.
                     </p>
                 </div>
             </div>
@@ -79,7 +79,7 @@ export default function AdminTicketIndex({ tickets }: Props) {
                                     Ticket ID / Code
                                 </th>
                                 <th className="px-6 py-4 font-semibold">
-                                    Buyer (User)
+                                    Volunteer (User)
                                 </th>
                                 <th className="px-6 py-4 font-semibold">
                                     Rescue Info
@@ -119,7 +119,7 @@ export default function AdminTicketIndex({ tickets }: Props) {
                                         <td className="px-6 py-4">
                                             <div className="font-medium text-gray-900">
                                                 {ticket.user?.name ??
-                                                    'Unknown Buyer'}
+                                                    'Unknown Volunteer'}
                                             </div>
                                         </td>
                                         <td className="px-6 py-4">

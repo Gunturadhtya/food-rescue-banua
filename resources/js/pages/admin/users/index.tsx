@@ -37,7 +37,7 @@ export default function AdminUserIndex({ users }: Props) {
                         Manage Users
                     </h1>
                     <p className="text-sm text-neutral-500">
-                        Manage all buyer, seller, and admin accounts.
+                        Manage all volunteer, merchant, and admin accounts.
                     </p>
                 </div>
                 <Link
@@ -92,7 +92,11 @@ export default function AdminUserIndex({ users }: Props) {
                                                       : 'bg-blue-100 text-blue-800'
                                             }`}
                                         >
-                                            {user.role}
+                                            {user.role === 'seller'
+                                                ? 'merchant'
+                                                : user.role === 'user'
+                                                  ? 'volunteer'
+                                                  : user.role}
                                         </span>
                                     </td>
                                     <td className="px-6 py-4 text-neutral-500">

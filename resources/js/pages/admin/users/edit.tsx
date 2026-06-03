@@ -155,13 +155,13 @@ export default function AdminUserEdit({ user }: Props) {
                                     value="user"
                                     className="cursor-pointer font-medium hover:bg-neutral-50"
                                 >
-                                    User / Buyer
+                                    User / Volunteer
                                 </SelectItem>
                                 <SelectItem
                                     value="seller"
                                     className="cursor-pointer font-medium hover:bg-neutral-50"
                                 >
-                                    Seller / Shop Owner
+                                    Merchant / Shop Owner
                                 </SelectItem>
                                 <SelectItem
                                     value="admin"
