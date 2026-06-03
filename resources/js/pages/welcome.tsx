@@ -1,5 +1,5 @@
 import { Head, Link } from '@inertiajs/react';
-import { Leaf, Heart, ShieldCheck, ArrowRight, Store, TrendingDown } from 'lucide-react';
+import { Leaf, ShieldCheck, ArrowRight, Store, TrendingDown } from 'lucide-react';
 
 export default function Welcome() {
     return (
@@ -105,12 +105,7 @@ export default function Welcome() {
                 <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/30 to-transparent"></div>
 
                 {/* Floating Content / Widgets */}
-                <div className="absolute inset-0 flex flex-col justify-between p-12 text-white">
-                    <div className="self-end rounded-full bg-white/10 backdrop-blur-md border border-white/20 px-4 py-2 text-xs font-semibold tracking-wide uppercase text-white shadow-lg flex items-center gap-2">
-                        <Heart className="h-4 w-4 fill-red-500 text-red-500" />
-                        <span>Sustainable Banua</span>
-                    </div>
-
+                <div className="absolute inset-0 flex flex-col justify-end p-12 text-white">
                     <div className="mb-8 max-w-md space-y-6">
                         <div className="space-y-2">
                             <h2 className="text-4xl font-extrabold leading-tight tracking-tight">
