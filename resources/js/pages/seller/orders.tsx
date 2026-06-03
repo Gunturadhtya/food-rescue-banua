@@ -63,7 +63,7 @@ export default function SellerOrders({ activeTickets }: Props) {
                     Manage Orders
                 </h1>
                 <p className="text-sm text-neutral-500">
-                    Verify and redeem buyer pickup tickets.
+                    Verify and redeem volunteer pickup tickets.
                 </p>
             </div>
 
@@ -77,7 +77,7 @@ export default function SellerOrders({ activeTickets }: Props) {
                         </CardTitle>
                         <CardDescription>
                             Enter the 9-character code (e.g., FRB-XXXXXX)
-                            provided by the buyer upon arrival.
+                            provided by the volunteer upon arrival.
                         </CardDescription>
                     </CardHeader>
                     <CardContent>
@@ -129,7 +129,7 @@ export default function SellerOrders({ activeTickets }: Props) {
                         </CardTitle>
                         <CardDescription>
                             Active tickets currently waiting to be collected by
-                            buyers.
+                            volunteers.
                         </CardDescription>
                     </CardHeader>
                     <CardContent>
@@ -141,7 +141,7 @@ export default function SellerOrders({ activeTickets }: Props) {
                                             Expected Code
                                         </th>
                                         <th className="px-6 py-3 font-semibold">
-                                            Buyer
+                                            Volunteer
                                         </th>
                                         <th className="px-6 py-3 text-center font-semibold">
                                             Qty

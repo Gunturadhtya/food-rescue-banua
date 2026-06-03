@@ -91,8 +91,8 @@ export default function Profile({
 
     const roleLabels: Record<string, string> = {
         admin: 'Administrator',
-        seller: 'Seller',
-        user: 'Buyer',
+        seller: 'Merchant',
+        user: 'Volunteer',
     };
 
     const userRole = (auth.user.role as string) || 'user';
@@ -128,7 +128,7 @@ export default function Profile({
                                                 roleColors.user,
                                         )}
                                     >
-                                        {roleLabels[userRole] || 'Buyer'}
+                                        {roleLabels[userRole] || 'Volunteer'}
                                     </span>
                                 </div>
                                 <p className="flex items-center justify-center gap-1.5 text-sm font-medium text-neutral-600 sm:justify-start">

@@ -27,8 +27,23 @@ export function UserMenuContent({ user }: Props) {
     return (
         <>
             <DropdownMenuLabel className="p-0 font-normal">
-                <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
-                    <UserInfo user={user} showEmail={true} />
+                <div className="flex items-center justify-between gap-2 px-2 py-1.5 text-left text-sm">
+                    <div className="flex items-center gap-2">
+                        <UserInfo user={user} showEmail={true} />
+                    </div>
+                    <span className={`inline-flex shrink-0 items-center rounded-full border px-2 py-0.5 text-[9px] font-bold tracking-wider uppercase ${
+                        user.role === 'admin'
+                            ? 'bg-purple-50 text-purple-700 border-purple-100'
+                            : user.role === 'seller'
+                              ? 'bg-blue-50 text-blue-700 border-blue-100'
+                              : 'bg-emerald-50 text-emerald-700 border-emerald-100'
+                    }`}>
+                        {user.role === 'admin'
+                            ? 'Admin'
+                            : user.role === 'seller'
+                              ? 'Merchant'
+                              : 'Volunteer'}
+                    </span>
                 </div>
             </DropdownMenuLabel>
             <DropdownMenuSeparator />
