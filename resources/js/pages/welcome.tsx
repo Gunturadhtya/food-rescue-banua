@@ -13,14 +13,6 @@ export default function Welcome() {
                     Food Rescue Banua
                 </Link>
 
-                {/* Center Menu (Desktop) */}
-                <div className="hidden md:flex items-center gap-8">
-                    <Link href="/" className="text-sm font-bold text-[#C34A15] border-b-2 border-[#C34A15] pb-1">Home</Link>
-                    <Link href="#about" className="text-sm font-semibold text-neutral-600 hover:text-[#C34A15] transition-colors">About</Link>
-                    <Link href="#merchants" className="text-sm font-semibold text-neutral-600 hover:text-[#C34A15] transition-colors">Merchants</Link>
-                    <Link href="#volunteers" className="text-sm font-semibold text-neutral-600 hover:text-[#C34A15] transition-colors">Volunteers</Link>
-                </div>
-
                 {/* Right Actions (Tanpa Donate) */}
                 <div className="flex items-center gap-5">
                     <Link href="/login" className="text-sm font-bold text-neutral-700 hover:text-[#C34A15] transition-colors hidden md:block">
