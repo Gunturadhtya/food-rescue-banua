@@ -21,6 +21,7 @@ class Shop extends Model
         'address',
         'image_path',
         'is_active',
+        'status',
     ];
 
     protected function casts(): array
