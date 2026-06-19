@@ -28,15 +28,26 @@ class SellerDashboardController extends Controller
             ->with('user:id,name')
             ->latest()
             ->paginate(10)
-            ->through(fn ($rescue) => [
-                'id' => $rescue->id,
-                'status' => $rescue->status,
-                'buyer_name' => $rescue->user ? $rescue->user->name : 'Unassigned',
-                'pcs' => $rescue->pcs,
-                'price' => $rescue->price,
-                'weight_kg' => $rescue->weight_kg,
-                'created_at' => $rescue->created_at->toIso8601String(),
-            ]);
+            ->through(function ($rescue) {
+                $status = $rescue->status instanceof \App\Enums\RescueStatus 
+                    ? $rescue->status->value 
+                    : $rescue->status;
+
+                // Dynamically mark as expired if the time has passed but the cron hasn't swept it
+                if ($status === 'active' && $rescue->expires_at && now()->greaterThan($rescue->expires_at)) {
+                    $status = 'expired';
+                }
+
+                return [
+                    'id' => $rescue->id,
+                    'status' => $status,
+                    'buyer_name' => $rescue->user ? $rescue->user->name : 'Unassigned',
+                    'pcs' => $rescue->pcs,
+                    'price' => $rescue->price,
+                    'weight_kg' => $rescue->weight_kg,
+                    'created_at' => $rescue->created_at->toIso8601String(),
+                ];
+            });
 
         return Inertia::render('seller/dashboard', [
             'shop' => [
@@ -57,14 +68,14 @@ class SellerDashboardController extends Controller
         $validated = $request->validate([
             'price' => ['required', 'numeric', 'min:0'],
             'weight_kg' => ['required', 'numeric', 'min:0.01'],
-            'pcs' => ['required', 'integer', 'min:1'], // Validate the pieces
+            'pcs' => ['required', 'integer', 'min:1'],
         ]);
 
         Rescue::create([
-            'user_id' => null, // Left null intentionally until sold out
+            'user_id' => null,
             'shop_id' => $shop->id,
             'status' => \App\Enums\RescueStatus::ACTIVE,
-            'pcs' => $validated['pcs'], // Store the quantity
+            'pcs' => $validated['pcs'],
             'price' => $validated['price'],
             'weight_kg' => $validated['weight_kg'],
             'expires_at' => now()->endOfDay(), 
